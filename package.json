@@ -1,7 +1,7 @@
 {
   "name": "causeway",
   "version": "0.0.1",
-  "description": "It's everywhere you have agreed to be. ",
+  "description": "It's everywhere you said you'd be.",
   "main": "server.js",
   "scripts": {
     "start": "webpack --watch"

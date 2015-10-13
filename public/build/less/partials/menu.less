@@ -1,0 +1,24 @@
+.menu {
+  position: fixed;
+  bottom: 0;
+  .margin-x(auto);
+  .padding-y(15px);
+  border-top: 1px solid @tx-primary;
+  text-align: center;
+  .menu-item {
+    display: inline-block;
+    width: 160px;
+    color: @tx-grey;
+    &.active {
+      color: @tx-primary;
+    }
+  }
+
+  .fa {
+    font-size: 7rem;
+  }
+
+  .header-text {
+    font-size: 2rem;
+  }
+}
