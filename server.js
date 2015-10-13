@@ -14,7 +14,7 @@ app.set('views', 'views');
 app.engine('hbs', config.hbs.engine);
 app.use('/', express.static(__dirname + '/public/dist'));
 app.use(logger);
-app.use('/', routes.app);
+app.use('/', routes);
 
 let port = app.get('port');
 app.listen(port, function() {

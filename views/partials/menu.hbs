@@ -1,0 +1,10 @@
+<div class="menu">
+  {{#each site.menu}}
+  <div class="menu-item {{#eq path ../activePage}}active{{/eq}}">
+    <a href="/{{path}}">
+      <i class="{{icon}}"></i>
+      <h2 class="header-text">{{name}}</h2>
+    </a>
+  </div>
+  {{/each}}
+</div>

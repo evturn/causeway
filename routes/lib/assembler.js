@@ -3,12 +3,12 @@
 let site = {};
 
 let menu = [
-    {name: 'Now',      icon: 'fa fa-flash'},
-    {name: 'Expenses', icon: 'fa fa-krw'},
-    {name: 'Travel',   icon: 'fa fa-plane'},
-    {name: 'Planner',  icon: 'fa fa-map'},
-    {name: 'Note',     icon: 'fa fa-sticky-note'},
-    {name: 'Me',       icon: 'fa fa-user'}
+    {name: 'Now',      icon: 'fa fa-flash',       path: 'now'},
+    {name: 'Expenses', icon: 'fa fa-krw',         path: 'expenses'},
+    {name: 'Travel',   icon: 'fa fa-plane',       path: 'travel'},
+    {name: 'Planner',  icon: 'fa fa-map',         path: 'planner'},
+    {name: 'Note',     icon: 'fa fa-sticky-note', path: 'notes'},
+    {name: 'Me',       icon: 'fa fa-user',        path: 'profile'}
 ];
 
 site.menu = menu;
