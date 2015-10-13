@@ -17,6 +17,7 @@ module.exports = {
   hbs: handlebars.create({
     defaultLayout: 'layout',
     extname: '.hbs',
+    helpers: new require('./hbs-helpers')(),
     partialsDir: 'views/partials',
     layoutsDir: 'views/layouts'
   })

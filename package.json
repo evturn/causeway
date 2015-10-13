@@ -12,9 +12,11 @@
     "body-parser": "^1.12.3",
     "express": "^4.12.3",
     "jquery": "^2.1.4",
+    "moment": "^2.10.6",
     "mongoose": "^4.1.10",
     "morgan": "^1.5.2",
-    "nodemon": "^1.7.1"
+    "nodemon": "^1.7.1",
+    "underscore": "^1.8.3"
   },
   "devDependencies": {
     "autoprefixer-loader": "^3.1.0",

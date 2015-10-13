@@ -1,7 +1,7 @@
 'use strict';
 
-let menu = require('./lib/assembler');
+let site = require('./lib/assembler');
 
 exports.index = function(req, res, next) {
-  res.render('index', {menu: menu, activePage: 'Now'});
+  res.render('index', {site, activePage: 'Now'});
 };

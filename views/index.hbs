@@ -1,6 +1,6 @@
 <div class="menu">
-  {{#each menu.items}}
-  <div class="menu-item">
+  {{#each site.menu}}
+  <div class="menu-item {{#eq name ../activePage}}active{{/eq}}">
     <i class="{{icon}}"></i>
     <h2 class="header-text">{{name}}</h2>
   </div>
