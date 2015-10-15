@@ -1,5 +1,7 @@
 let $geoContainer = $('.geoposition');
-let url = '../../views/partials/geoposition.hbs';
+let Handlebars = require('handlebars.min');
+let url = 'geoposition.hbs';
+let data = null;
 
 let geoposition = {
   cachedTemplates: [],
@@ -20,8 +22,9 @@ let geoposition = {
       url: '/geoposition',
       data: position,
       dataType: 'json',
-      success(data) {
-        console.log(data);
+      success(response) {
+        data = response;
+        geoposition.loadTemplate(url);
       },
       error(err) {
         console.log(err);

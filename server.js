@@ -12,6 +12,7 @@ app.set('view engine', 'hbs');
 app.set('views', 'views');
 app.engine('hbs', config.hbs.engine);
 app.use('/', config.static.dist);
+app.use('/', config.static.hbs);
 app.use(config.urlencoded);
 app.use(config.cookieParser);
 app.use(config.bodyParser);

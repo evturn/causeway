@@ -57,7 +57,7 @@
 	var livestamp = __webpack_require__(95);
 	var geoposition = __webpack_require__(3);
 	var Handlebars = __webpack_require__(4);
-	var helpers = __webpack_require__(5)();
+	var helpers = __webpack_require__(5);
 	
 	geoposition.init();
 
@@ -1527,7 +1527,9 @@
 	/* WEBPACK VAR INJECTION */(function($) {'use strict';
 	
 	var $geoContainer = $('.geoposition');
-	var url = '../../views/partials/geoposition.hbs';
+	var Handlebars = __webpack_require__(4);
+	var url = 'geoposition.hbs';
+	var data = null;
 	
 	var geoposition = {
 	  cachedTemplates: [],
@@ -1550,8 +1552,9 @@
 	      url: '/geoposition',
 	      data: position,
 	      dataType: 'json',
-	      success: function success(data) {
-	        console.log(data);
+	      success: function success(response) {
+	        data = response;
+	        geoposition.loadTemplate(url);
 	      },
 	      error: function error(err) {
 	        console.log(err);

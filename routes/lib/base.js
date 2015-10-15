@@ -25,7 +25,8 @@ module.exports = {
     layoutsDir: 'views/layouts'
   }),
   static: {
-    dist: express.static('public/dist')
+    dist: express.static('public/dist'),
+    hbs: express.static('views/partials')
   },
   session: session({
     secret: 'crankshaft',
