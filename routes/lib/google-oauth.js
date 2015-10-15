@@ -2,6 +2,7 @@
 let passport = require('passport');
 let GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 let User = require('./user');
+
 let google = {
   params: {
     scope: [
@@ -40,8 +41,26 @@ let google = {
         return done(null, user);
       }
     });
+  },
+  getAuth(req, res, next) {
+    if (!req.user) {
+      res.redirect('/auth/google');
+    }
+    else {
+      next();
+    }
   }
 };
+
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+  User.findById(id, function(err, user) {
+    done(err, user);
+  });
+});
 
 passport.use(new GoogleStrategy(google.credentials,
   function(accessToken, refreshToken, profile, done) {
@@ -64,3 +83,4 @@ passport.use(new GoogleStrategy(google.credentials,
 
 module.exports.init = passport.authenticate('google', google.params);
 module.exports.authenticate = passport.authenticate('google', google.redirects);
+module.exports.getAuth = google.getAuth;

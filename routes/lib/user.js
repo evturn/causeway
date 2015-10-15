@@ -1,6 +1,7 @@
 'use strict';
 let mongoose = require('mongoose');
 let passportLocalMongoose = require('passport-local-mongoose');
+
 let userSchema = new mongoose.Schema({
   gid        : {type: String},
   avatar     : {type: String},
