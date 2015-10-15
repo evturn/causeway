@@ -28,6 +28,9 @@ exports.paths = {
   },
   bundle: {
     src: 'public/dist/js/**/*.js'
+  },
+  img: {
+    src: 'public/build/img/*'
   }
 };
 

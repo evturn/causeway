@@ -1,2 +1,10 @@
-<div class="container profile-header" style="background-image: url('{{user.coverPhoto}}')">
+<div class="container header-container" {{#if user.coverPhoto}}style="background-image: url('{{user.coverPhoto}}')"{{/if}}></div>
+<div class="container profile-container">
+  <div class="inner">
+    <div class="profile">
+      <div class="profile__image">
+        <img class="img-scale" src="{{user.avatar}}">
+      </div>
+    </div>
+  </div>
 </div>
