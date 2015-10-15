@@ -1,14 +1,14 @@
 'use strict';
-
 let site = require('./lib/assembler');
-let googleApi = require('./lib/google-api');
+let oauth = require('./lib/google-oauth');
+let passport = require('passport');
 
 exports.index = function(req, res, next) {
-  var url = googleApi.generateAuthUrl();
-  res.redirect(url);
+
 };
 
-exports.now = function(req, res, next) {
+exports.now = oauth.login, function(req, res, next) {
+  console.log(req);
   res.render('now', {site, activePage: 'now'});
 };
 
@@ -32,13 +32,7 @@ exports.profile = function(req, res, next) {
   res.render('profile', {site, activePage: 'profile'});
 };
 
-exports.google = function(req, res, next) {
-  let code = req.query.code;
-  let oauth2Client = googleApi.getOAuth2Client();
-  let user;
-  oauth2Client.getToken(code, function(err, tokens) {
-    oauth2Client.setCredentials(tokens);
-    user = googleApi.callback();
-    res.redirect('/now');
-  });
+exports.google = oauth.callback, function(req, res, next) {
+  console.log(req);
+  res.redirect('/expenses');
 };
