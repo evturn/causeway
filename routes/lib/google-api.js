@@ -1,38 +1,34 @@
 'use strict';
+let request = require('request');
+let CLIENT_ID = process.env.CAUSEWAY_CLIENT_ID;
+let CLIENT_SECRET = process.env.CAUSEWAY_CLIENT_SECRET;
+let API_KEY = process.env.CAUSEWAY_API_KEY;
 
-var google = require('googleapis');
-var OAuth2Client = google.auth.OAuth2;
-var plus = google.plus('v1');
-var CLIENT_ID = process.env.CAUSEWAY_CLIENT_ID;
-var CLIENT_SECRET = process.env.CAUSEWAY_CLIENT_SECRET;
-var API_KEY = process.env.CAUSEWAY_API_KEY;
-var REDIRECT_URL = 'http://localhost:3000/auth/google';
-var oauth2Client = new OAuth2Client(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL);
+module.exports.vicinity = (lat, long, user, res) => {
 
-exports.generateAuthUrl = function() {
-
-  var url = oauth2Client.generateAuthUrl({
-    access_type: 'offline', // will return a refresh token
-    scope: [
-      'https://www.googleapis.com/auth/plus.me',
-      'https://www.googleapis.com/auth/calendar',
-      'https://www.googleapis.com/auth/drive'
-    ]
+  let url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${long}&radius=500&key=${API_KEY}`;
+  let req = new Promise(function(resolve, reject) {
+    request(url, function(error, response, body) {
+      if (!error && response.statusCode === 200) {
+        let data = JSON.parse(body);
+        let results = data.results;
+        if (results) {
+          resolve(results[0].vicinity);
+        }
+      }
+    });
   });
-
-  return url;
-};
-
-exports.getOAuth2Client = function() {
-  return oauth2Client;
-};
-
-exports.callback = function() {
-  plus.people.get({ userId: 'me', auth: oauth2Client }, function(err, profile) {
-    if (err) {
-      console.log('An error occured', err);
-      return;
-    }
-    console.log(profile);
+  req.then(function(vicinity) {
+    user.geo.vicinity = vicinity;
+    user.save((err, user) => {
+      if (err) {
+        console.log(err);
+        return err;
+      }
+      else {
+        console.log(user);
+        res.json(user);
+      }
+    });
   });
 };

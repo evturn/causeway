@@ -17,7 +17,8 @@ let userSchema = new mongoose.Schema({
   geo: {
     lat      : {type: String},
     long     : {type: String},
-    lastSeen : {type: String}
+    lastSeen : {type: String},
+    vicinity : {type: String}
   }
 });
 
