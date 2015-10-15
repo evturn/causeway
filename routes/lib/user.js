@@ -13,6 +13,11 @@ let userSchema = new mongoose.Schema({
   name: {
     first    : {type: String},
     last     : {type: String}
+  },
+  geo: {
+    lat      : {type: String},
+    long     : {type: String},
+    lastSeen : {type: String}
   }
 });
 

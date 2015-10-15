@@ -18,7 +18,7 @@ let google = {
     callbackURL: 'http://localhost:3000/auth/google/callback'
   },
   redirects: {
-    successRedirect: '/now',
+    successRedirect: '/profile',
     failureRedirect: '/travel'
   },
   createUser(data, done) {

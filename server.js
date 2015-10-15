@@ -21,6 +21,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use('/', routes.app);
 app.use('/auth', routes.auth);
+app.use('/geoposition', routes.geo);
 app.listen(config.port, () => {
   console.log('Express listening on 3000');
 });

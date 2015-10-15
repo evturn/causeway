@@ -54,6 +54,7 @@
 	'use strict';
 	
 	var $ = __webpack_require__(2);
+	var geoposition = __webpack_require__(3);
 
 /***/ },
 /* 2 */
@@ -1513,6 +1514,39 @@
 	// (#7102#comment:10, https://github.com/jquery/jquery/pull/557)
 	// and CommonJS for browser emulators (#13566)
 	if(typeof noGlobal === strundefined){window.jQuery = window.$ = jQuery;}return jQuery;}); // Otherwise append directly
+
+/***/ },
+/* 3 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function($) {'use strict';
+	
+	var sendCoordinates = function sendCoordinates(geoposition) {
+	  console.log(geoposition);
+	  $.ajax({
+	    type: 'POST',
+	    url: '/geoposition',
+	    data: geoposition,
+	    dataType: 'json',
+	    success: function success(data) {
+	      console.log(data);
+	    },
+	    error: function error(err) {
+	      console.log(err);
+	    }
+	  });
+	};
+	
+	var getCoordinates = function getCoordinates() {
+	  if (navigator.geolocation) {
+	    navigator.geolocation.getCurrentPosition(function (position) {
+	      sendCoordinates(position);
+	    });
+	  }
+	};
+	
+	module.exports = getCoordinates();
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }
 /******/ ]);
