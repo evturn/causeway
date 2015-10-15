@@ -1,6 +1,6 @@
 'use strict';
 
-let moment = require('moment'),
+let moment = require('./moment.isoduration'),
     _ = require('underscore');
 
 module.exports = function() {
@@ -8,8 +8,8 @@ module.exports = function() {
   let _helpers = {};
 
   _helpers.ts =  function(milliseconds) {
-    let humanReadable = moment(milliseconds).unix();
-
+    let ms = parseInt(milliseconds);
+    let humanReadable = moment(ms).unix();
     return humanReadable;
   };
 

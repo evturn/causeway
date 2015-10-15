@@ -1,28 +1,45 @@
+let $geoContainer = $('.geoposition');
+let url = '../../views/partials/geoposition.hbs';
 
-
-
-let sendCoordinates = (geoposition) => {
-  console.log(geoposition);
-  $.ajax({
-    type: 'POST',
-    url: '/geoposition',
-    data: geoposition,
-    dataType: 'json',
-    success(data) {
-      console.log(data);
-    },
-    error(err) {
-      console.log(err);
+let geoposition = {
+  cachedTemplates: [],
+  init() {
+    this.getCoordinates();
+  },
+  getCoordinates() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        console.log(position);
+        this.saveCoordinates(position);
+      });
     }
-  });
-};
-
-let getCoordinates = () => {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition((position) => {
-      sendCoordinates(position);
+  },
+  saveCoordinates(position) {
+    $.ajax({
+      type: 'POST',
+      url: '/geoposition',
+      data: position,
+      dataType: 'json',
+      success(data) {
+        console.log(data);
+      },
+      error(err) {
+        console.log(err);
+      }
     });
+  },
+  loadTemplate(url) {
+    if (this.cachedTemplates[url]) {
+      return updateBrowser(this.cachedTemplates[url]);
+    }
+    $.get(url, (contents) => {
+      this.cachedTemplates[url] = Handlebars.compile(contents);
+      this.updateBrowser(this.cachedTemplates[url]);
+    });
+  },
+  updateBrowser(template) {
+    $geoContainer.html(template);
   }
 };
 
-module.exports = getCoordinates();
+module.exports = geoposition;

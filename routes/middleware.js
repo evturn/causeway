@@ -40,15 +40,14 @@ exports.geoposition = function(req, res, next) {
   user.geo.lat = latitude;
   user.geo.long = longitude;
   user.geo.lastSeen = timestamp;
-  let updatedUserGeo = req.user.save(function(err, user) {
+  req.user.save((err, user) => {
     if (err) {
       console.log(err);
       return err;
     }
     else {
       console.log(user);
-      return user;
+      res.json(user);
     }
   });
-  res.json(updatedUserGeo);
 };

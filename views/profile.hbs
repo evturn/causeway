@@ -8,7 +8,7 @@
       <div class="profile__details">
         <div class="profile__details-name">{{user.fullname}}</div>
         <div class="geoposition">
-          <div class="profile__details-last-seen">Last seen {{user.geo.lastSeen}}</div>
+          <div class="profile__details-last-seen">Last seen <span data-livestamp="{{ts user.geo.lastSeen}}"></span></div>
           <div class="profile__details-geoposition">{{user.geo.lat}} {{user.geo.long}}</div>
         </div>
       </div>

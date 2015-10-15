@@ -20,7 +20,7 @@ module.exports = {
   hbs: handlebars.create({
     defaultLayout: 'layout',
     extname: '.hbs',
-    helpers: new require('./hbs-helpers')(),
+    helpers: new require('../../shared/hbs-helpers')(),
     partialsDir: 'views/partials',
     layoutsDir: 'views/layouts'
   }),
