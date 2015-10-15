@@ -7,7 +7,10 @@
       </div>
       <div class="profile__details">
         <div class="profile__details-name">{{user.fullname}}</div>
-        <div class="profile__details-location">{{user.location}}</div>
+        <div class="geoposition">
+          <div class="profile__details-last-seen">Last seen {{user.geo.lastSeen}}</div>
+          <div class="profile__details-geoposition">{{user.geo.lat}} {{user.geo.long}}</div>
+        </div>
       </div>
     </div>
   </div>
