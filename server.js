@@ -6,6 +6,7 @@ let mongoose = require('mongoose');
 let passport = require('passport');
 let bodyParser = require('body-parser');
 let urlencoded = bodyParser.urlencoded({extended: false});
+let User = require('./routes/lib/user');
 let session = require('express-session');
 let cookieParser = require('cookie-parser');
 let config = require('./routes/lib/base');
@@ -19,19 +20,25 @@ app.set('view engine', 'hbs');
 app.set('views', 'views');
 app.engine('hbs', config.hbs.engine);
 app.use('/', express.static(__dirname + '/public/dist'));
-app.use(logger);
-passport.serializeUser(function(user, done) {
-  done(null, user);
-});
-
-passport.deserializeUser(function(obj, done) {
-  done(null, obj);
-});
+app.use(urlencoded);
 app.use(cookieParser());
 app.use(bodyParser.json());
-app.use(urlencoded);
+app.use(logger);
+app.use(session({
+  secret: 'crankshaft',
+  saveUninitialized: false,
+  resave: false
+}));
 app.use(passport.initialize());
 app.use(passport.session());
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
+});
+passport.deserializeUser(function(id, done) {
+  User.findById(id, function(err, user) {
+    done(err, user);
+  });
+});
 app.use('/', routes.app);
 app.use('/auth', routes.auth);
 

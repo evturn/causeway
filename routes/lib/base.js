@@ -1,11 +1,9 @@
 'use strict';
-
 let handlebars = require('express-handlebars');
 
 module.exports = {
-
   database: function(mongoose) {
-    mongoose.connect('mongodb://localhost/marshallz');
+    mongoose.connect('mongodb://localhost/causeway');
     mongoose.connection.on('error',
       console.error.bind(console,
         'connection error:'));
@@ -21,5 +19,4 @@ module.exports = {
     partialsDir: 'views/partials',
     layoutsDir: 'views/layouts'
   })
-
 };

@@ -1,15 +1,9 @@
 'use strict';
 let site = require('./lib/assembler');
-let oauth = require('./lib/google-oauth');
-let passport = require('passport');
 
-exports.index = function(req, res, next) {
-
-};
-
-exports.now = oauth.login, function(req, res, next) {
-  console.log(req);
-  res.render('now', {site, activePage: 'now'});
+exports.now = function(req, res, next) {
+  console.log(req.user);
+  res.render('now', {site, activePage: 'now', user: req.user});
 };
 
 exports.expenses = function(req, res, next) {
@@ -17,6 +11,7 @@ exports.expenses = function(req, res, next) {
 };
 
 exports.travel = function(req, res, next) {
+  console.log(req.user);
   res.render('travel', {site, activePage: 'travel'});
 };
 
@@ -32,7 +27,6 @@ exports.profile = function(req, res, next) {
   res.render('profile', {site, activePage: 'profile'});
 };
 
-exports.google = oauth.callback, function(req, res, next) {
-  console.log(req);
-  res.redirect('/expenses');
+exports.google = function(req, res, next) {
+  res.redirect('/now');
 };
