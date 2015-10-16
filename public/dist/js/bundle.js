@@ -7693,8 +7693,8 @@
 	
 	  var _helpers = {};
 	
-	  _helpers.localtime = function () {
-	    return cloq.time();
+	  _helpers.digitalClock = function () {
+	    return cloq.digital();
 	  };
 	
 	  _helpers.tz = function () {
@@ -16335,6 +16335,7 @@
 	/* WEBPACK VAR INJECTION */(function($) {'use strict';
 	
 	var $geoContainer = $('.geoposition');
+	var $vicinity = $('#vicinity');
 	var Handlebars = __webpack_require__(4);
 	var url = 'geoposition.hbs';
 	var data = null;
@@ -16380,7 +16381,15 @@
 	    });
 	  },
 	  updateBrowser: function updateBrowser(template) {
-	    $geoContainer.html(template(data));
+	    var page = document.querySelector('body').className;
+	    switch (page) {
+	      case 'page-now':
+	        $vicinity.html(data.user.geo.vicinity);
+	        break;
+	      case 'page-profile':
+	        $geoContainer.html(template(data));
+	        break;
+	    }
 	  }
 	};
 	
@@ -16793,7 +16802,7 @@
 	    var timezone = tz.name();
 	    return timezone;
 	  },
-	  time: function time() {
+	  digital: function digital() {
 	    var clock = hours + ':' + minutes + ' ' + meridian;
 	    return clock;
 	  }

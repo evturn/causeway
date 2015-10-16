@@ -1,6 +1,24 @@
 .clocks {
-
+  .margin-y(30px);
   .clocks__item {
-    font-size: 5rem;
+    .clearfix();
+    color: @tx-white;
+    .clocks__item-title {
+      font-size: 5rem;
+    }
+    .clocks__item-timezone {
+      font-size: 3rem;
+    }
+    .clocks__item-details {
+      float: left;
+      width: 50%;
+    }
+    .clocks__item-time {
+      float: right;
+      width: 50%;
+      font-size: 8rem;
+      font-weight: 300;
+      text-align: center;
+    }
   }
 }

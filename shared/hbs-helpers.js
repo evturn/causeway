@@ -10,8 +10,8 @@ module.exports = function() {
 
   let _helpers = {};
 
-  _helpers.localtime = () => {
-    return cloq.time();
+  _helpers.digitalClock = () => {
+    return cloq.digital();
   };
 
   _helpers.tz = () => {

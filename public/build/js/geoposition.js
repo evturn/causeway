@@ -1,4 +1,5 @@
 let $geoContainer = $('.geoposition');
+let $vicinity = $('#vicinity');
 let Handlebars = require('handlebars');
 let url = 'geoposition.hbs';
 let data = null;
@@ -40,7 +41,15 @@ let geoposition = {
     });
   },
   updateBrowser(template) {
-    $geoContainer.html(template(data));
+    let page = document.querySelector('body').className;
+    switch (page) {
+      case 'page-now':
+        $vicinity.html(data.user.geo.vicinity);
+        break;
+      case 'page-profile':
+        $geoContainer.html(template(data));
+        break;
+    }
   }
 };
 

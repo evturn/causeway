@@ -37,7 +37,7 @@ module.exports = {
     let timezone = tz.name();
     return timezone;
   },
-  time: () => {
+  digital: () => {
     let clock = `${hours}:${minutes} ${meridian}`;
     return clock;
   }
