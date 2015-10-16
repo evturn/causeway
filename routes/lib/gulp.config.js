@@ -21,6 +21,7 @@ exports.paths = {
       'public/build/js/**/*.js',
       '!public/build/js/web_modules/**/*.js',
       'routes/**/*.js',
+      'shared/**/*.js',
       'gulpfile.js',
       'server.js',
       'webpack.config.js'

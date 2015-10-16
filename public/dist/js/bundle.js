@@ -60,10 +60,17 @@
 	var utils = __webpack_require__(123);
 	var livestamp = __webpack_require__(124);
 	var geoposition = __webpack_require__(125);
+	var cloq = __webpack_require__(129);
 	
 	geoposition.init();
 	
-	console.log(new Date().getTimezoneOffset() / 60);
+	console.log(cloq.timezone);
+	console.log(cloq.time);
+	console.log(cloq.minutes);
+	console.log(cloq.hours);
+	console.log(cloq.isPM);
+	console.log(cloq.meridian);
+	console.log(cloq);
 
 /***/ },
 /* 2 */
@@ -7689,74 +7696,83 @@
 	
 	module.exports = function () {
 	
-	    var _helpers = {};
+	  var _helpers = {};
 	
-	    _helpers.tz = function () {
-	        var tz = jstz.jstz;
-	        return tz.determine().name();
-	    };
+	  _helpers.localtime = function () {
+	    var date = Date.now();
+	    var offset = new Date().getTimezoneOffset();
+	    var tz = jstz.jstz;
+	    var timezone = tz.determine().name();
+	    var time = moment(timezone).format('YYYY-MM-DD HH:mm');
+	    return time;
+	  };
 	
-	    _helpers.ts = function (milliseconds) {
-	        var ms = parseInt(milliseconds);
-	        var humanReadable = moment(ms).unix();
-	        return humanReadable;
-	    };
+	  _helpers.tz = function () {
+	    var tz = jstz.jstz;
+	    return tz.determine().name();
+	  };
 	
-	    _helpers.eq = function (first, second, options) {
-	        if (options.hash.firstKey) {
-	            first = first[options.hash.firstKey];
-	        }
-	        if (options.hash.secondKey) {
-	            second = second[options.hash.secondKey];
-	        }
-	        if (options.hash.firstAppend) {
-	            first += '' + options.hash.firstAppend;
-	        }
-	        if (options.hash.secondAppend) {
-	            second += '' + options.hash.secondAppend;
-	        }
-	        if (first === second) {
-	            return options.fn(this);
-	        } else {
-	            return options.inverse(this);
-	        }
-	    };
+	  _helpers.ts = function (milliseconds) {
+	    var ms = parseInt(milliseconds);
+	    var humanReadable = moment(ms).unix();
+	    return humanReadable;
+	  };
 	
-	    _helpers.gt = function (first, second, options) {
-	        if (first > second) {
-	            return options.fn(this);
-	        } else {
-	            return options.inverse(this);
-	        }
-	    };
+	  _helpers.eq = function (first, second, options) {
+	    if (options.hash.firstKey) {
+	      first = first[options.hash.firstKey];
+	    }
+	    if (options.hash.secondKey) {
+	      second = second[options.hash.secondKey];
+	    }
+	    if (options.hash.firstAppend) {
+	      first += '' + options.hash.firstAppend;
+	    }
+	    if (options.hash.secondAppend) {
+	      second += '' + options.hash.secondAppend;
+	    }
+	    if (first === second) {
+	      return options.fn(this);
+	    } else {
+	      return options.inverse(this);
+	    }
+	  };
 	
-	    _helpers.lt = function (first, second, options) {
-	        if (first < second) {
-	            return options.fn(this);
-	        } else {
-	            return options.inverse(this);
-	        }
-	    };
+	  _helpers.gt = function (first, second, options) {
+	    if (first > second) {
+	      return options.fn(this);
+	    } else {
+	      return options.inverse(this);
+	    }
+	  };
 	
-	    _helpers.set = function () {
-	        var args = Array.prototype.slice.call(arguments, 0);
-	        args.pop();
-	        var key = args.shift();
-	        while (!this[key] && args.length) {
-	            this[key] = args.shift();
-	        }
-	        return '';
-	    };
+	  _helpers.lt = function (first, second, options) {
+	    if (first < second) {
+	      return options.fn(this);
+	    } else {
+	      return options.inverse(this);
+	    }
+	  };
 	
-	    _helpers.log = function () {
-	        var args = Array.prototype.slice.call(arguments, 0);
-	        args.pop();
-	        args.unshift('handlebars log:');
-	        console.log.apply(console, args);
-	        return '';
-	    };
+	  _helpers.set = function () {
+	    var args = Array.prototype.slice.call(arguments, 0);
+	    args.pop();
+	    var key = args.shift();
+	    while (!this[key] && args.length) {
+	      this[key] = args.shift();
+	    }
+	    return '';
+	  };
 	
-	    return _helpers;
+	  _helpers.log = function () {
+	    var args = Array.prototype.slice.call(arguments, 0);
+	    args.pop();
+	    args.unshift('handlebars log:');
+	    console.log.apply(console, args);
+	    return '';
+	  };
+	
+	  return _helpers;
 	};
 
 /***/ },
@@ -16741,6 +16757,59 @@
 	    }
 	})(undefined);
 	/*global console, exports*/
+
+/***/ },
+/* 128 */,
+/* 129 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var moment = __webpack_require__(34);
+	var jstz = __webpack_require__(127);
+	
+	var _T = moment();
+	
+	var timezone = (function () {
+	  var tz = jstz.jstz.determine();
+	  var timezone = tz.name();
+	  return timezone;
+	})();
+	
+	var isPM = (function () {
+	  var h = _T.hour();
+	  var isPM = h > 12;
+	  return isPM;
+	})();
+	
+	var meridian = (function () {
+	  var h = _T.hour();
+	  var isPM = h > 12;
+	  var meridian = isPM ? 'PM' : 'AM';
+	  return meridian;
+	})();
+	
+	var minutes = (function () {
+	  return _T.minutes();
+	})();
+	
+	var hours = (function () {
+	  var h = _T.hour();
+	  var hours = isPM ? h - 12 : h;
+	  return hours;
+	})();
+	
+	var time = (function () {
+	  var clock = hours + ':' + minutes + ' ' + meridian;
+	  return clock;
+	})();
+	
+	module.exports.timezone = timezone;
+	module.exports.time = time;
+	module.exports.isPM = isPM;
+	module.exports.meridian = meridian;
+	module.exports.hours = hours;
+	module.exports.minutes = minutes;
 
 /***/ }
 /******/ ]);

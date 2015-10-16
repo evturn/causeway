@@ -9,10 +9,19 @@ module.exports = function() {
 
   let _helpers = {};
 
+  _helpers.localtime = () => {
+    let date = Date.now();
+    let offset = new Date().getTimezoneOffset();
+    let tz = jstz.jstz;
+    let timezone = tz.determine().name();
+    let time = moment(timezone).format('YYYY-MM-DD HH:mm');
+    return time;
+  };
+
   _helpers.tz = () => {
     let tz = jstz.jstz;
     return tz.determine().name();
-  }
+  };
 
   _helpers.ts =  function(milliseconds) {
     let ms = parseInt(milliseconds);
