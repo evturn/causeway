@@ -26,8 +26,7 @@ module.exports.vicinity = (lat, long, user, res) => {
         return err;
       }
       else {
-        console.log('===========', user);
-        res.json(user);
+        res.json({user:user});
       }
     });
   });

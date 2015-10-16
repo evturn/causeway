@@ -16366,7 +16366,7 @@
 	    });
 	  },
 	  updateBrowser: function updateBrowser(template) {
-	    $geoContainer.html(template({ user: data }));
+	    $geoContainer.html(template(data));
 	  }
 	};
 	

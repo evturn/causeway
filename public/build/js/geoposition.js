@@ -40,7 +40,7 @@ let geoposition = {
     });
   },
   updateBrowser(template) {
-    $geoContainer.html(template({user: data}));
+    $geoContainer.html(template(data));
   }
 };
 
