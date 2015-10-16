@@ -3,10 +3,16 @@
 let moment = require('./moment.isoduration');
 let _ = require('underscore');
 let utils = require('./utils');
+let jstz = require('jstimezonedetect');
 
 module.exports = function() {
 
   let _helpers = {};
+
+  _helpers.tz = () => {
+    let tz = jstz.jstz;
+    return tz.determine().name();
+  }
 
   _helpers.ts =  function(milliseconds) {
     let ms = parseInt(milliseconds);

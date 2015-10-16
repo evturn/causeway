@@ -7,3 +7,5 @@ let livestamp = require('livestamp');
 let geoposition = require('./geoposition');
 
 geoposition.init();
+
+console.log(new Date().getTimezoneOffset() / 60);

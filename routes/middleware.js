@@ -3,7 +3,6 @@ let site = require('./lib/assembler');
 let googleapi = require('./lib/google-api');
 
 exports.now = function(req, res, next) {
-  console.log(req.user);
   res.render('now', {site, activePage: 'now', user: req.user});
 };
 
@@ -12,7 +11,6 @@ exports.expenses = function(req, res, next) {
 };
 
 exports.travel = function(req, res, next) {
-  console.log(req.user);
   res.render('travel', {site, activePage: 'travel', user: req.user});
 };
 
