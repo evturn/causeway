@@ -15,12 +15,6 @@ module.exports = {
   },
   module: {
     loaders: [
-      { test: /\.css$/,
-        loader: "style!css"
-      },
-      { test: /\.less$/,
-        loader: 'style!css!less'
-      },
       {
         test: /\.js$/,
         loader: 'babel-loader'
@@ -54,8 +48,5 @@ module.exports = {
       $: 'jquery'
     })
   ],
-  devtool: 'source-map',
-  devServer: {
-    contentBase: './'
-  }
+  devtool: 'source-map'
 };

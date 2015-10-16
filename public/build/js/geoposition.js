@@ -1,5 +1,5 @@
 let $geoContainer = $('.geoposition');
-let Handlebars = require('handlebars.min');
+let Handlebars = require('handlebars');
 let url = 'geoposition.hbs';
 let data = null;
 

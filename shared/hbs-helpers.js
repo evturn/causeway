@@ -1,7 +1,8 @@
 'use strict';
 
-let moment = require('./moment.isoduration'),
-    _ = require('underscore');
+let moment = require('./moment.isoduration');
+let _ = require('underscore');
+let utils = require('./utils');
 
 module.exports = function() {
 
