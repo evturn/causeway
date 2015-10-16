@@ -11,7 +11,6 @@ let geoposition = {
   getCoordinates() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
-        console.log(position);
         this.saveCoordinates(position);
       });
     }
@@ -41,7 +40,7 @@ let geoposition = {
     });
   },
   updateBrowser(template) {
-    $geoContainer.html(template);
+    $geoContainer.html(template({user: data}));
   }
 };
 

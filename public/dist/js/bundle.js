@@ -16335,7 +16335,6 @@
 	
 	    if (navigator.geolocation) {
 	      navigator.geolocation.getCurrentPosition(function (position) {
-	        console.log(position);
 	        _this.saveCoordinates(position);
 	      });
 	    }
@@ -16367,7 +16366,7 @@
 	    });
 	  },
 	  updateBrowser: function updateBrowser(template) {
-	    $geoContainer.html(template);
+	    $geoContainer.html(template({ user: data }));
 	  }
 	};
 	
