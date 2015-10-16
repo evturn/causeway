@@ -60,16 +60,10 @@
 	var utils = __webpack_require__(123);
 	var livestamp = __webpack_require__(124);
 	var geoposition = __webpack_require__(125);
-	var cloq = __webpack_require__(129);
+	var cloq = __webpack_require__(130);
 	
 	geoposition.init();
 	
-	console.log(cloq.timezone);
-	console.log(cloq.time);
-	console.log(cloq.minutes);
-	console.log(cloq.hours);
-	console.log(cloq.isPM);
-	console.log(cloq.meridian);
 	console.log(cloq);
 
 /***/ },
@@ -7693,18 +7687,14 @@
 	var _ = __webpack_require__(3);
 	var utils = __webpack_require__(123);
 	var jstz = __webpack_require__(127);
+	var cloq = __webpack_require__(130);
 	
 	module.exports = function () {
 	
 	  var _helpers = {};
 	
 	  _helpers.localtime = function () {
-	    var date = Date.now();
-	    var offset = new Date().getTimezoneOffset();
-	    var tz = jstz.jstz;
-	    var timezone = tz.determine().name();
-	    var time = moment(timezone).format('YYYY-MM-DD HH:mm');
-	    return time;
+	    return cloq.time();
 	  };
 	
 	  _helpers.tz = function () {
@@ -16760,21 +16750,15 @@
 
 /***/ },
 /* 128 */,
-/* 129 */
+/* 129 */,
+/* 130 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
 	var moment = __webpack_require__(34);
 	var jstz = __webpack_require__(127);
 	
 	var _T = moment();
-	
-	var timezone = (function () {
-	  var tz = jstz.jstz.determine();
-	  var timezone = tz.name();
-	  return timezone;
-	})();
 	
 	var isPM = (function () {
 	  var h = _T.hour();
@@ -16799,17 +16783,21 @@
 	  return hours;
 	})();
 	
-	var time = (function () {
-	  var clock = hours + ':' + minutes + ' ' + meridian;
-	  return clock;
-	})();
-	
-	module.exports.timezone = timezone;
-	module.exports.time = time;
-	module.exports.isPM = isPM;
-	module.exports.meridian = meridian;
-	module.exports.hours = hours;
-	module.exports.minutes = minutes;
+	module.exports = {
+	  isPM: isPM,
+	  meridian: meridian,
+	  minutes: minutes,
+	  hours: hours,
+	  timezone: function timezone() {
+	    var tz = jstz.jstz.determine();
+	    var timezone = tz.name();
+	    return timezone;
+	  },
+	  time: function time() {
+	    var clock = hours + ':' + minutes + ' ' + meridian;
+	    return clock;
+	  }
+	};
 
 /***/ }
 /******/ ]);

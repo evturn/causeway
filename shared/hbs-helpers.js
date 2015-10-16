@@ -4,18 +4,14 @@ let moment = require('./moment.isoduration');
 let _ = require('underscore');
 let utils = require('./utils');
 let jstz = require('jstimezonedetect');
+let cloq = require('./cloq');
 
 module.exports = function() {
 
   let _helpers = {};
 
   _helpers.localtime = () => {
-    let date = Date.now();
-    let offset = new Date().getTimezoneOffset();
-    let tz = jstz.jstz;
-    let timezone = tz.determine().name();
-    let time = moment(timezone).format('YYYY-MM-DD HH:mm');
-    return time;
+    return cloq.time();
   };
 
   _helpers.tz = () => {
