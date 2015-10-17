@@ -16854,16 +16854,34 @@
 	/* WEBPACK VAR INJECTION */(function($) {'use strict';
 	
 	module.exports = {
-	  $amount: $('.transaction__field-amount'),
+	  $amountField: $('.transaction__field-amount'),
 	  $checkboxs: $('.transaction__user-checkbox'),
+	  $debtContainer: $('.transaction__user-debt'),
 	  $info: $('.transaction__info'),
 	  checked: 0,
 	  init: function init() {
 	    var _this = this;
 	
+	    this.$amountField.on('keyup', function (e) {
+	      _this.updateUserDebt();
+	    });
+	
 	    this.$checkboxs.on('click', function (e) {
 	      _this.counter();
 	    });
+	  },
+	  updateUserDebt: function updateUserDebt() {
+	    var input = this.$amountField.val();
+	    var amount = parseInt(input);
+	
+	    console.log(amount);
+	    if (amount > 9) {
+	      this.$debtContainer.html('$' + amount);
+	    } else if (amount <= 9) {
+	      this.$debtContainer.html('$' + amount / 2);
+	    } else {
+	      this.$debtContainer.empty();
+	    }
 	  },
 	  counter: function counter() {
 	    var checked = 0;
@@ -16888,6 +16906,7 @@
 	  updateBrowserCounter: function updateBrowserCounter() {
 	    this.$info.html('Split ' + this.checked + ' ways');
 	  }
+	
 	};
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
