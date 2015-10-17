@@ -1,6 +1,7 @@
 'use strict';
 let site = require('./lib/assembler');
 let googleapi = require('./lib/google-api');
+let weatherapi = require('./lib/weather');
 
 exports.now = function(req, res, next) {
   res.render('now', {site, activePage: 'now', user: req.user});
@@ -39,6 +40,8 @@ exports.geoposition = function(req, res, next) {
   user.geo.lat = latitude;
   user.geo.long = longitude;
   user.geo.lastSeen = timestamp;
+  let weather = weatherapi.byCoords(latitude, longitude);
+  console.log(weather);
   let p = new Promise(function(resolve, reject) {
     let vicinity = googleapi.vicinity(latitude, longitude, user, res);
     resolve(vicinity);
