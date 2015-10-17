@@ -6,10 +6,68 @@ let key = `&id=524901&APPID=${API_KEY}&mode=json`;
 module.exports.byCoords = (latitude, longitude) => {
 
   let url = `http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}${key}`;
-  request(url, (error, response, body) => {
-    if (!error && response.statusCode === 200) {
-      let data = JSON.parse(body);
-      console.log(data);
-    }
+  let req = new Promise(function(resolve, reject) {
+    request(url, (error, response, body) => {
+      if (!error && response.statusCode === 200) {
+        let data = JSON.parse(body);
+        let climate = {};
+        climate.vicinity = data.name;
+        climate.temp = data.main.temp;
+        climate.humidity = data.main.humidity;
+        climate.high = data.main.temp_max;
+        climate.low = data.main.temp_min;
+        climate.description = data.weather[0].description;
+        climate.sunrise = data.sys.sunrise;
+        climate.sunset = data.sys.sunset;
+        climate.country = data.sys.country;
+        climate.wind = data.wind.speed;
+        resolve(climate);
+      }
+    });
   });
+  req.then((climate) => {
+    console.log(climate);
+  });
+};
+
+let dude = {
+  id: 5110302,
+  name: 'Brooklyn',
+  main: {
+    temp: 283.86,
+    pressure: 1017,
+    humidity: 44,
+    temp_min: 279.15,
+    temp_max: 288.15
+  },
+  cod: 200,
+  clouds: {
+    all: 20
+  },
+  base: 'cmc stations',
+  coord: {
+    lon: -73.95, lat: 40.65
+  },
+  weather: [
+    {
+      id: 801,
+      main: 'Clouds',
+      description: 'few clouds',
+      icon: '02n'
+    }
+  ],
+  wind: {
+    speed: 10.8,
+    deg: 310,
+    gust: 12.3
+  },
+  dt: 1445047895,
+  sys: {
+    type: 1,
+    id: 2120,
+    message: 0.0071,
+    country: 'US',
+    sunrise: 1445080132,
+    sunset: 1445119968
+  },
 };
