@@ -16853,23 +16853,23 @@
 
 	/* WEBPACK VAR INJECTION */(function($) {'use strict';
 	
-	var $amountField = $('.transaction__field-amount');
-	var $user = $('.transaction__user');
 	var splitBill = null;
 	
 	module.exports = {
 	  init: function init() {
-	    var callback = this.callback;
+	    var $user = $('.transaction__user');
+	    var $inputField = $('.transaction__field-amount');
+	    var render = this.render;
 	    var reconcileSelected = this.reconcileSelected;
 	    splitBill = false;
 	
-	    $amountField.on('keyup', function (e) {
-	      callback();
+	    $inputField.on('keyup', function (e) {
+	      render();
 	    });
 	
 	    $user.on('click', function (e) {
 	      reconcileSelected($(this));
-	      callback();
+	      render();
 	    });
 	  },
 	  reconcileSelected: function reconcileSelected($this) {
@@ -16884,11 +16884,12 @@
 	      $userDebt.empty();
 	    }
 	  },
-	  callback: function callback() {
+	  render: function render() {
 	    var $notification = $('.transaction__info');
-	    var input = $amountField.val();
-	    var amount = parseInt(input);
-	    var payees = $('.selected').length;
+	    var value = $('.transaction__field-amount').val();
+	    var amount = parseInt(value);
+	    var $selected = $('.selected');
+	    var payees = $selected.length;
 	    var debt = amount / payees;
 	
 	    if (payees > 1) {
@@ -16900,11 +16901,11 @@
 	    }
 	
 	    if (amount > 9) {
-	      $('.selected').html('$' + debt);
+	      $selected.html('$' + debt);
 	    } else if (amount <= 9) {
-	      $('.selected').html('$' + debt / 2);
+	      $selected.html('$' + debt / 2);
 	    } else {
-	      $('.selected').empty();
+	      $selected.empty();
 	    }
 	  }
 	};

@@ -1,20 +1,20 @@
-let $amountField = $('.transaction__field-amount');
-let $user = $('.transaction__user');
 let splitBill = null;
 
 module.exports = {
   init() {
-    let callback = this.callback;
+    let $user = $('.transaction__user');
+    let $inputField = $('.transaction__field-amount');
+    let render = this.render;
     let reconcileSelected = this.reconcileSelected;
     splitBill = false;
 
-    $amountField.on('keyup', (e) => {
-      callback();
+    $inputField.on('keyup', (e) => {
+      render();
     });
 
     $user.on('click', function(e) {
       reconcileSelected($(this));
-      callback();
+      render();
     });
   },
   reconcileSelected($this) {
@@ -30,11 +30,12 @@ module.exports = {
       $userDebt.empty();
     }
   },
-  callback() {
+  render() {
     let $notification = $('.transaction__info');
-    let input = $amountField.val();
-    let amount = parseInt(input);
-    let payees = $('.selected').length;
+    let value = $('.transaction__field-amount').val();
+    let amount = parseInt(value);
+    let $selected = $('.selected');
+    let payees = $selected.length;
     let debt = (amount / payees);
 
     if (payees > 1) {
@@ -47,13 +48,13 @@ module.exports = {
     }
 
     if (amount > 9) {
-      $('.selected').html(`$${debt}`);
+      $selected.html(`$${debt}`);
     }
     else if (amount <= 9) {
-      $('.selected').html(`$${debt / 2}`);
+      $selected.html(`$${debt / 2}`);
     }
     else {
-      $('.selected').empty();
+      $selected.empty();
     }
   },
 };
