@@ -11,12 +11,8 @@ module.exports = function() {
 
   let _helpers = {};
 
-  _helpers.digitalClock = () => {
-    return cloq.digital();
-  };
-
-  _helpers.toDigital = (time) => {
-    return cloq.toDigital(time);
+  _helpers.digitalClock = (time) => {
+    return cloq.digital(time);
   };
 
   _helpers.kelvinToFarenheit = (kelvin) => {

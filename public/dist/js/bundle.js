@@ -7694,12 +7694,8 @@
 	
 	  var _helpers = {};
 	
-	  _helpers.digitalClock = function () {
-	    return cloq.digital();
-	  };
-	
-	  _helpers.toDigital = function (time) {
-	    return cloq.toDigital(time);
+	  _helpers.digitalClock = function (time) {
+	    return cloq.digital(time);
 	  };
 	
 	  _helpers.kelvinToFarenheit = function (kelvin) {
@@ -16582,54 +16578,47 @@
 	var moment = __webpack_require__(34);
 	var jstz = __webpack_require__(124);
 	
-	var _T = moment();
-	
-	var isPM = (function () {
-	  var h = _T.hour();
-	  var isPM = h >= 12;
-	  return isPM;
-	})();
-	
-	var meridian = (function () {
-	  var h = _T.hour();
-	  var meridian = isPM ? 'PM' : 'AM';
-	  return meridian;
-	})();
-	
-	var minutes = (function () {
-	  return _T.minutes();
-	})();
-	
-	var hours = (function () {
-	  var h = _T.hour();
-	
-	  if (h === 0) {
-	    return 12;
-	  } else if (isPM) {
-	    return h - 12;
-	  } else {
-	    return h;
-	  }
-	})();
-	
-	module.exports = {
-	  isPM: isPM,
-	  meridian: meridian,
-	  minutes: minutes,
-	  hours: hours,
+	var Cloq = {
+	  meridian: function meridian(time) {
+	    var h = time.hour();
+	    var isPM = !!(h >= 12);
+	    var meridian = isPM ? 'PM' : 'AM';
+	    return meridian;
+	  },
+	  minutes: function minutes(time) {
+	    var m = time.minutes();
+	    var minutes = m < 10 ? '0' + m : m;
+	    return minutes;
+	  },
+	  hours: function hours(time) {
+	    var h = time.hour();
+	    var isPM = !!(h >= 12);
+	    if (h === 0) {
+	      return 12;
+	    } else if (isPM) {
+	      return h - 12;
+	    } else {
+	      return h;
+	    }
+	  },
 	  timezone: function timezone() {
 	    var tz = jstz.jstz.determine();
 	    var timezone = tz.name();
 	    return timezone;
 	  },
-	  digital: function digital() {
-	    var clock = hours + ':' + minutes + ' ' + meridian;
+	  digital: function digital(time) {
+	    var date = undefined;
+	    if (typeof time !== 'string') {
+	      date = moment();
+	    } else {
+	      date = time ? moment(time * 1000) : moment();
+	    }
+	    var clock = Cloq.hours(date) + ':' + Cloq.minutes(date) + ' ' + Cloq.meridian(date);
 	    return clock;
-	  },
-	  toDigital: function toDigital(time) {
-	    return moment(time);
 	  }
 	};
+	
+	module.exports = Cloq;
 
 /***/ },
 /* 126 */

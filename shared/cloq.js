@@ -2,53 +2,48 @@
 let moment = require('./moment.isoduration');
 let jstz = require('jstimezonedetect');
 
-let _T = moment();
-
-let isPM = () => {
-    let h = _T.hour();
-    let isPM = h >= 12;
-    return isPM;
-  }();
-
-let meridian = () => {
-    let h = _T.hour();
+const Cloq = {
+  meridian: (time) => {
+    let h = time.hour();
+    let isPM = !!(h >= 12);
     let meridian = isPM ? 'PM' : 'AM';
     return meridian;
-  }();
-
-let minutes = () => {
-    return _T.minutes();
-  }();
-
-let hours = () => {
-  let h = _T.hour();
-
-  if (h === 0) {
-    return 12;
-  }
-  else if (isPM) {
-    return h - 12;
-  }
-  else {
-    return h;
-  }
-}();
-
-module.exports = {
-  isPM: isPM,
-  meridian: meridian,
-  minutes: minutes,
-  hours: hours,
+  },
+  minutes: (time) => {
+    let m = time.minutes();
+    let minutes = m < 10 ? `0${m}` : m;
+    return minutes;
+  },
+  hours: (time) => {
+    let h = time.hour();
+    let isPM = !!(h >= 12);
+    if (h === 0) {
+      return 12;
+    }
+    else if (isPM) {
+      return h - 12;
+    }
+    else {
+      return h;
+    }
+  },
   timezone: () => {
     let tz = jstz.jstz.determine();
     let timezone = tz.name();
     return timezone;
   },
-  digital: () => {
-    let clock = `${hours}:${minutes} ${meridian}`;
+  digital: (time) => {
+    let date;
+    if (typeof time !== 'string') {
+      date = moment();
+    }
+    else {
+      date = time ? moment(time * 1000) : moment();
+
+    }
+    let clock = `${Cloq.hours(date)}:${Cloq.minutes(date)} ${Cloq.meridian(date)}`;
     return clock;
-  },
-  toDigital: (time) => {
-    return moment(time);
   }
 };
+
+module.exports = Cloq;
