@@ -5,6 +5,7 @@ let _ = require('underscore');
 let utils = require('./utils');
 let jstz = require('jstimezonedetect');
 let cloq = require('./cloq');
+let thermo = require('./thermo');
 
 module.exports = function() {
 
@@ -12,6 +13,10 @@ module.exports = function() {
 
   _helpers.digitalClock = () => {
     return cloq.digital();
+  };
+
+  _helpers.kelvinToFarenheit = (kelvin) => {
+    return thermo.farenheit(kelvin);
   };
 
   _helpers.tz = () => {

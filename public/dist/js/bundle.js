@@ -7688,6 +7688,7 @@
 	var utils = __webpack_require__(123);
 	var jstz = __webpack_require__(124);
 	var cloq = __webpack_require__(125);
+	var thermo = __webpack_require__(128);
 	
 	module.exports = function () {
 	
@@ -7695,6 +7696,10 @@
 	
 	  _helpers.digitalClock = function () {
 	    return cloq.digital();
+	  };
+	
+	  _helpers.kelvinToFarenheit = function (kelvin) {
+	    return thermo.farenheit(kelvin);
 	  };
 	
 	  _helpers.tz = function () {
@@ -16824,6 +16829,22 @@
 	
 	module.exports = geoposition;
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
+
+/***/ },
+/* 128 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	module.exports = {
+	
+	  farenheit: function farenheit(kelvin) {
+	    var degrees = (kelvin - 273.15) * 1.8000 + 32.00;
+	    var number = degrees.toFixed();
+	    var temp = number + '&#8457;';
+	    return temp;
+	  }
+	};
 
 /***/ }
 /******/ ]);

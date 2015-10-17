@@ -5,7 +5,7 @@
         <div class="weather__item-vicinity">{{user.climate.vicinity}}</div>
         <div class="weather__item-country">{{user.climate.country}}</div>
       </div>
-      <div class="weather__item-temp">{{user.climate.temp}}</div>
+      <div class="weather__item-temp">{{{kelvinToFarenheit user.climate.temp}}}</div>
       <div class="weather__item-description">{{user.climate.description}}</div>
       <div class="weather__item-details">
         <div class="weather__item-high">{{user.climate.high}}</div>
