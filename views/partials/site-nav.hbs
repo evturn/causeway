@@ -1,10 +1,12 @@
 <div class="site-nav">
-  {{#each nav}}
-  <div class="site-nav__item {{#eq path ../activePage}}site-nav__item--active{{/eq}}">
-    <a href="/{{path}}">
-      <i class="{{icon}}"></i>
-      <h2 class="site-nav__item-title">{{name}}</h2>
-    </a>
-  </div>
-  {{/each}}
+  <ul class="site-nav__items">
+    {{#each nav}}
+      <li class="site-nav__item {{#eq path ../activePage}}site-nav__item--active{{/eq}}">
+        <a href="/{{path}}">
+          <i class="{{icon}}"></i>
+          <h2 class="site-nav__item-title">{{name}}</h2>
+        </a>
+      </li>
+    {{/each}}
+  </ul>
 </div>

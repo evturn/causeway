@@ -1,17 +1,20 @@
 .site-nav {
   position: fixed;
   bottom: 0;
-  background-color: @bg-white;
-  width: 100%;
   .margin-x(auto);
-  .padding-y(15px);
+  width: 100%;
+  background-color: @bg-white;
   border-top: 1px solid @tx-primary;
   text-align: center;
+  .site-nav__items {
+    .inline-flex();
+  }
   .site-nav__item {
-    display: inline-block;
-    width: 50px;
+    .padding-y(15px);
+    width: 16.6666666666%;
     color: @tx-grey;
     a {
+      display: block;
       color: inherit;
       text-decoration: none;
     }

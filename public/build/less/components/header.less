@@ -1,11 +1,13 @@
 .site-header {
-  position: fixed;
   display: block;
+  position: fixed;
   top: 0;
+  z-index: 1;
   width: 100%;
-  font-color: @tx-primary;
-  background-color: @bg-white;
   height: 45px;
+  color: @tx-primary;
+  background-color: @bg-white;
+  .clearfix();
   .margin-x(auto);
   overflow: hidden;
   .site-header__image {
