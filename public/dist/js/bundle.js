@@ -16878,7 +16878,7 @@
 	    if (this.checked > 1) {
 	      this.updateBrowserCounter();
 	    }
-	    if (this.checked < 1) {
+	    if (this.checked <= 1) {
 	      this.removeBrowserCounter();
 	    }
 	  },
