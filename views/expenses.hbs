@@ -9,13 +9,13 @@
           </div>
           <div class="transaction__user-select">
             <span class="fa fa-check"></span>
-            <input class="transaction__user-checkbox" type="checkbox">
+            <input class="transaction__user-checkbox" data-user="{{this.name.first}}" type="checkbox">
             <div class="transaction__user--checked"></div>
           </div>
         </div>
       {{/each}}
-      <input class="transaction__field-amount" name="search" type="text" placeholder="Amount">
-      <input class="transaction__field-description" name="search" type="text" placeholder="Description">
+      <input class="transaction__field-amount" name="transaction-amount" type="text" placeholder="Amount">
+      <input class="transaction__field-description" name="transaction-description" type="text" placeholder="Description">
     <div class="records">
       <div class="records__item">
         <div class="records__item-date"></div>

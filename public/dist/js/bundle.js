@@ -61,7 +61,9 @@
 	var livestamp = __webpack_require__(126);
 	var geoposition = __webpack_require__(127);
 	var cloq = __webpack_require__(125);
+	var transaction = __webpack_require__(129);
 	
+	transaction.init();
 	geoposition.init();
 
 /***/ },
@@ -16844,6 +16846,37 @@
 	    return temp;
 	  }
 	};
+
+/***/ },
+/* 129 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function($) {'use strict';
+	
+	module.exports = {
+	  $amount: $('.transaction__field-amount'),
+	  $checkboxs: $('.transaction__user-checkbox'),
+	  checked: 0,
+	  init: function init() {
+	    var _this = this;
+	
+	    this.$checkboxs.on('click', function (e) {
+	      _this.counter();
+	    });
+	  },
+	  counter: function counter() {
+	    var checked = 0;
+	    var total = this.$checkboxs.length;
+	    $.each(this.$checkboxs, function () {
+	      var isChecked = $(this).is(':checked');
+	      if (isChecked) {
+	        ++checked;
+	      }
+	    });
+	    this.checked = checked;
+	  }
+	};
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }
 /******/ ]);
