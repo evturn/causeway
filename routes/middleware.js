@@ -21,8 +21,8 @@ exports.expenses = function(req, res, next) {
 };
 
 exports.transaction = function(req, res, next) {
-  console.log(req);
-  res.json('Saved');
+  console.log(req.body);
+  res.json(req.body);
 };
 
 exports.travel = function(req, res, next) {

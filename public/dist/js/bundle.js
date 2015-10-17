@@ -16882,26 +16882,31 @@
 	    });
 	  },
 	  saveTransaction: function saveTransaction() {
+	    var payees = [];
+	    var description = $('.transaction__field-description').val();
+	    var total = $('.transaction__field-amount').val();
+	
 	    $.each($('.selected'), function () {
-	      var transaction = {};
-	      var payee = {};
-	      var user = $(this).parent();
-	      payee.user = user.data('user');
-	      payee.debt = $(this).text();
-	      transaction.description = $('.transaction__field-description').val();
-	      transaction.payee = payee;
-	      $.ajax({
-	        url: '/expenses/new',
-	        type: 'POST',
-	        data: transaction,
-	        dataType: 'json',
-	        success: function success(data) {
-	          console.log(data);
-	        },
-	        error: function error(err) {
-	          console.log(err);
-	        }
-	      });
+	      var user = $(this).parent().data('user');
+	      var debt = $(this).text();
+	      var payee = { user: user, debt: debt };
+	      payees.push(payee);
+	    });
+	
+	    var transaction = JSON.stringify({
+	      transaction: { total: total, description: description, payees: payees }
+	    });
+	    $.ajax({
+	      url: '/expenses/new',
+	      type: 'POST',
+	      data: transaction,
+	      dataType: 'json',
+	      success: function success(data) {
+	        console.log(data);
+	      },
+	      error: function error(err) {
+	        console.log(err);
+	      }
 	    });
 	  },
 	  submitTransaction: function submitTransaction() {

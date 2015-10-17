@@ -28,26 +28,31 @@ const exp = {
     });
   },
   saveTransaction() {
+    let payees = [];
+    let description = $('.transaction__field-description').val();
+    let total = $('.transaction__field-amount').val();
+
     $.each($('.selected'), function() {
-      let transaction = {};
-      let payee = {};
-      let user = $(this).parent();
-      payee.user = user.data('user');
-      payee.debt = $(this).text();
-      transaction.description = $('.transaction__field-description').val();
-      transaction.payee = payee;
-      $.ajax({
-        url: '/expenses/new',
-        type: 'POST',
-        data: transaction,
-        dataType: 'json',
-        success(data) {
-          console.log(data);
-        },
-        error(err) {
-          console.log(err);
-        }
-      });
+      let user = $(this).parent().data('user');
+      let debt = $(this).text();
+      let payee = {user, debt};
+      payees.push(payee);
+    });
+
+    let transaction = JSON.stringify({
+      transaction: {total, description, payees}
+    });
+    $.ajax({
+      url: '/expenses/new',
+      type: 'POST',
+      data: transaction,
+      dataType: 'json',
+      success(data) {
+        console.log(data);
+      },
+      error(err) {
+        console.log(err);
+      }
     });
   },
   submitTransaction() {
