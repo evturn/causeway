@@ -16893,14 +16893,17 @@
 	      payees.push(payee);
 	    });
 	
-	    var transaction = JSON.stringify({
-	      transaction: { total: total, description: description, payees: payees }
-	    });
+	    var transaction = {
+	      total: total,
+	      description: description,
+	      payees: payees
+	    };
+	    console.log(transaction);
 	    $.ajax({
 	      url: '/expenses/new',
 	      type: 'POST',
-	      data: transaction,
-	      dataType: 'json',
+	      data: JSON.stringify(transaction),
+	      contentType: 'application/json; charset=utf-8',
 	      success: function success(data) {
 	        console.log(data);
 	      },

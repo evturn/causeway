@@ -21,7 +21,10 @@ exports.expenses = function(req, res, next) {
 };
 
 exports.transaction = function(req, res, next) {
-  console.log(req.body);
+  let body = req.body;
+  console.log(body);
+  // let payer = req.user.name.first;
+  // transaction.payer = payer;
   res.json(req.body);
 };
 

@@ -39,14 +39,17 @@ const exp = {
       payees.push(payee);
     });
 
-    let transaction = JSON.stringify({
-      transaction: {total, description, payees}
-    });
+    let transaction = {
+      total: total,
+      description: description,
+      payees: payees
+    };
+    console.log(transaction);
     $.ajax({
       url: '/expenses/new',
       type: 'POST',
-      data: transaction,
-      dataType: 'json',
+      data: JSON.stringify(transaction),
+      contentType: 'application/json; charset=utf-8',
       success(data) {
         console.log(data);
       },
