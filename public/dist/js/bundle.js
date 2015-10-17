@@ -16856,6 +16856,7 @@
 	module.exports = {
 	  $amount: $('.transaction__field-amount'),
 	  $checkboxs: $('.transaction__user-checkbox'),
+	  $info: $('.transaction__info'),
 	  checked: 0,
 	  init: function init() {
 	    var _this = this;
@@ -16874,6 +16875,18 @@
 	      }
 	    });
 	    this.checked = checked;
+	    if (this.checked > 1) {
+	      this.updateBrowserCounter();
+	    }
+	    if (this.checked < 1) {
+	      this.removeBrowserCounter();
+	    }
+	  },
+	  removeBrowserCounter: function removeBrowserCounter() {
+	    this.$info.empty();
+	  },
+	  updateBrowserCounter: function updateBrowserCounter() {
+	    this.$info.html('Split ' + this.checked + ' ways');
 	  }
 	};
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
