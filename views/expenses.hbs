@@ -2,7 +2,7 @@
   <div class="inner">
     <div class="transaction">
       {{#each users}}
-        <div class="transaction__user">
+        <div class="transaction__user" data-user="{{this.name.first}}">
           <div class="transaction__user-details">
             <img class="transaction__user-avatar" src="{{this.avatar}}">
             <div class="transaction__user-name">{{this.name.first}}</div>

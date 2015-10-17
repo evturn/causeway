@@ -16854,14 +16854,18 @@
 	/* WEBPACK VAR INJECTION */(function($) {'use strict';
 	
 	var splitBill = null;
+	var hasValidAmount = null;
 	
-	module.exports = {
+	var exp = {
 	  init: function init() {
 	    var $user = $('.transaction__user');
 	    var $inputField = $('.transaction__field-amount');
+	    var $submitButton = $('.transaction__submit');
 	    var render = this.render;
 	    var reconcileSelected = this.reconcileSelected;
+	    var submitTransaction = this.submitTransaction;
 	    splitBill = false;
+	    hasValidAmount = false;
 	
 	    $inputField.on('keyup', function (e) {
 	      render();
@@ -16871,6 +16875,45 @@
 	      reconcileSelected($(this));
 	      render();
 	    });
+	
+	    $submitButton.on('click', function (e) {
+	      e.preventDefault();
+	      submitTransaction();
+	    });
+	  },
+	  saveTransaction: function saveTransaction() {
+	    $.each($('.selected'), function () {
+	      var transaction = {};
+	      var payee = {};
+	      var user = $(this).parent();
+	      payee.user = user.data('user');
+	      payee.debt = $(this).text();
+	      transaction.description = $('.transaction__field-description').val();
+	      transaction.payee = payee;
+	      $.ajax({
+	        url: '/expenses/new',
+	        type: 'POST',
+	        data: transaction,
+	        dataType: 'json',
+	        success: function success(data) {
+	          console.log(data);
+	        },
+	        error: function error(err) {
+	          console.log(err);
+	        }
+	      });
+	    });
+	  },
+	  submitTransaction: function submitTransaction() {
+	    var hasPayees = $('.selected').length > 0;
+	    var description = $('.transaction__field-description').val();
+	    var hasDescription = description !== '';
+	
+	    if (hasPayees && hasValidAmount && hasDescription) {
+	      exp.saveTransaction();
+	    } else {
+	      return;
+	    }
 	  },
 	  reconcileSelected: function reconcileSelected($this) {
 	    var $userCheckbox = $this.find('.transaction__user-checkbox');
@@ -16902,13 +16945,18 @@
 	
 	    if (amount > 9) {
 	      $selected.html('$' + debt);
+	      hasValidAmount = true;
 	    } else if (amount <= 9) {
 	      $selected.html('$' + debt / 2);
+	      hasValidAmount = true;
 	    } else {
 	      $selected.empty();
+	      hasValidAmount = false;
 	    }
 	  }
 	};
+	
+	module.exports = exp;
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }

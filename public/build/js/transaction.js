@@ -1,12 +1,17 @@
 let splitBill = null;
+let hasValidAmount = null;
 
-module.exports = {
+
+const exp = {
   init() {
     let $user = $('.transaction__user');
     let $inputField = $('.transaction__field-amount');
+    let $submitButton = $('.transaction__submit');
     let render = this.render;
     let reconcileSelected = this.reconcileSelected;
+    let submitTransaction = this.submitTransaction;
     splitBill = false;
+    hasValidAmount = false;
 
     $inputField.on('keyup', (e) => {
       render();
@@ -16,6 +21,46 @@ module.exports = {
       reconcileSelected($(this));
       render();
     });
+
+    $submitButton.on('click', function(e) {
+      e.preventDefault();
+      submitTransaction();
+    });
+  },
+  saveTransaction() {
+    $.each($('.selected'), function() {
+      let transaction = {};
+      let payee = {};
+      let user = $(this).parent();
+      payee.user = user.data('user');
+      payee.debt = $(this).text();
+      transaction.description = $('.transaction__field-description').val();
+      transaction.payee = payee;
+      $.ajax({
+        url: '/expenses/new',
+        type: 'POST',
+        data: transaction,
+        dataType: 'json',
+        success(data) {
+          console.log(data);
+        },
+        error(err) {
+          console.log(err);
+        }
+      });
+    });
+  },
+  submitTransaction() {
+    let hasPayees = $('.selected').length > 0;
+    let description = $('.transaction__field-description').val();
+    let hasDescription = description !== '';
+
+    if (hasPayees && hasValidAmount && hasDescription) {
+      exp.saveTransaction();
+    }
+    else {
+      return;
+    }
   },
   reconcileSelected($this) {
     let $userCheckbox = $this.find('.transaction__user-checkbox');
@@ -49,12 +94,17 @@ module.exports = {
 
     if (amount > 9) {
       $selected.html(`$${debt}`);
+      hasValidAmount = true;
     }
     else if (amount <= 9) {
       $selected.html(`$${debt / 2}`);
+      hasValidAmount = true;
     }
     else {
       $selected.empty();
+      hasValidAmount = false;
     }
   },
 };
+
+module.exports = exp;

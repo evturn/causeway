@@ -20,6 +20,11 @@ exports.expenses = function(req, res, next) {
   res.render('expenses', data);
 };
 
+exports.transaction = function(req, res, next) {
+  console.log(req);
+  res.json('Saved');
+};
+
 exports.travel = function(req, res, next) {
   data.activePage = 'travel';
   data.user = req.user;
