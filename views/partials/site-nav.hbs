@@ -1,6 +1,6 @@
 <div class="site-nav">
   {{#each site.menu}}
-  <div class="site-nav__item {{#eq path ../activePage}}active{{/eq}}">
+  <div class="site-nav__item {{#eq path ../activePage}}site-nav__item--active{{/eq}}">
     <a href="/{{path}}">
       <i class="{{icon}}"></i>
       <h2 class="site-nav__item-title">{{name}}</h2>
