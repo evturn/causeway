@@ -1,67 +1,52 @@
-let checked = 0;
-let counter = 0;
 let $amountField = $('.transaction__field-amount');
 let $checkboxs = $('.transaction__user-checkbox');
-let $debtContainer = $('.transaction__user-debt');
+let $user = $('.transaction__user');
+let $selected = $('.selected');
 let $info = $('.transaction__info');
+let $debtContainer = $('.transaction__user-debt');
+let splitting = false;
 
 module.exports = {
-
   init() {
     $amountField.on('keyup', (e) => {
       this.updateUserDebt();
     });
+    let self = this;
+    $user.on('click', function(e) {
+      let $checkbox = $(this).find('.transaction__user-checkbox');
+      let $debt = $(this).find('.transaction__user-debt');
+      $debt.toggleClass('selected');
+      if ($debt.hasClass('selected')) {
+        $checkbox.prop('checked', true);
+      }
+      else {
+        $debt.empty();
+        $checkbox.prop('checked', false);
+      }
 
-    $checkboxs.on('click', (e) => {
-      this.runCounter();
+      self.updateUserDebt();
     });
   },
   updateUserDebt() {
     let input = $amountField.val();
     let amount = parseInt(input);
+    let payees = $('.selected').length;
+    let debt = (amount / payees);
+
+    if (payees > 1) {
+      $info.html(`Split ${payees} ways`);
+      splitting = true;
+    }
+    else if (payees <= 1) {
+      $info.empty();
+      splitting = false;
+    }
 
     if (amount > 9) {
-      $debtContainer.html(`$${amount}`);
+      $('.selected').html(`$${debt}`);
     }
     else if (amount <= 9) {
-      $debtContainer.html(`$${amount / 2}`);
-    }
-    else {
-      $debtContainer.empty();
+      $('.selected').html(`$${debt / 2}`);
     }
   },
-  incrementCounter($this) {
-    let isChecked = $this.is(':checked');
-    if (isChecked) {
-      counter += 1;
-    }
-  },
-  iterateCheckboxs(callback) {
-    $.each($checkboxs, function() {
-      callback($(this));
-    });
-  },
-  runCounter() {
-    this.iterateCheckboxs(this.incrementCounter);
-    checked = counter;
-    if (checked > 1) {
-      this.updateBrowserCounter();
-    }
-    else if (checked <= 1) {
-      this.removeBrowserCounter();
-    }
-    counter = 0;
-  },
-  setUserSelected($this) {
-    let index = $this.data('user');
-    let $container = $('.user' + index);
-    $container.addClass('selected');
-  },
-  removeBrowserCounter() {
-    $info.empty();
-  },
-  updateBrowserCounter() {
-    $info.html(`Split ${checked} ways`);
-  }
-
 };

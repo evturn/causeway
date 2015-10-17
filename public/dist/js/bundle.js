@@ -16853,71 +16853,56 @@
 
 	/* WEBPACK VAR INJECTION */(function($) {'use strict';
 	
-	var checked = 0;
-	var counter = 0;
 	var $amountField = $('.transaction__field-amount');
 	var $checkboxs = $('.transaction__user-checkbox');
-	var $debtContainer = $('.transaction__user-debt');
+	var $user = $('.transaction__user');
+	var $selected = $('.selected');
 	var $info = $('.transaction__info');
+	var $debtContainer = $('.transaction__user-debt');
+	var splitting = false;
 	
 	module.exports = {
-	
 	  init: function init() {
 	    var _this = this;
 	
 	    $amountField.on('keyup', function (e) {
 	      _this.updateUserDebt();
 	    });
+	    var self = this;
+	    $user.on('click', function (e) {
+	      var $checkbox = $(this).find('.transaction__user-checkbox');
+	      var $debt = $(this).find('.transaction__user-debt');
+	      $debt.toggleClass('selected');
+	      if ($debt.hasClass('selected')) {
+	        $checkbox.prop('checked', true);
+	      } else {
+	        $debt.empty();
+	        $checkbox.prop('checked', false);
+	      }
 	
-	    $checkboxs.on('click', function (e) {
-	      _this.runCounter();
+	      self.updateUserDebt();
 	    });
 	  },
 	  updateUserDebt: function updateUserDebt() {
 	    var input = $amountField.val();
 	    var amount = parseInt(input);
+	    var payees = $('.selected').length;
+	    var debt = amount / payees;
+	
+	    if (payees > 1) {
+	      $info.html('Split ' + payees + ' ways');
+	      splitting = true;
+	    } else if (payees <= 1) {
+	      $info.empty();
+	      splitting = false;
+	    }
 	
 	    if (amount > 9) {
-	      $debtContainer.html('$' + amount);
+	      $('.selected').html('$' + debt);
 	    } else if (amount <= 9) {
-	      $debtContainer.html('$' + amount / 2);
-	    } else {
-	      $debtContainer.empty();
+	      $('.selected').html('$' + debt / 2);
 	    }
-	  },
-	  incrementCounter: function incrementCounter($this) {
-	    var isChecked = $this.is(':checked');
-	    if (isChecked) {
-	      counter += 1;
-	    }
-	  },
-	  iterateCheckboxs: function iterateCheckboxs(callback) {
-	    $.each($checkboxs, function () {
-	      callback($(this));
-	    });
-	  },
-	  runCounter: function runCounter() {
-	    this.iterateCheckboxs(this.incrementCounter);
-	    checked = counter;
-	    if (checked > 1) {
-	      this.updateBrowserCounter();
-	    } else if (checked <= 1) {
-	      this.removeBrowserCounter();
-	    }
-	    counter = 0;
-	  },
-	  setUserSelected: function setUserSelected($this) {
-	    var index = $this.data('user');
-	    var $container = $('.user' + index);
-	    $container.addClass('selected');
-	  },
-	  removeBrowserCounter: function removeBrowserCounter() {
-	    $info.empty();
-	  },
-	  updateBrowserCounter: function updateBrowserCounter() {
-	    $info.html('Split ' + checked + ' ways');
 	  }
-	
 	};
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
