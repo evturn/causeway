@@ -1,18 +1,52 @@
 'use strict';
-let gulp = require('gulp'),
-    gutil = require('gulp-util'),
-    browserSync = require('browser-sync').create(),
-    $ = require('gulp-load-plugins')(),
-    paths = require('./routes/lib/gulp.config').paths,
-    opts = require('./routes/lib/gulp.config').opts;
+let gulp = require('gulp');
+let gutil = require('gulp-util');
+let browserSync = require('browser-sync').create();
+let $ = require('gulp-load-plugins')();
+let runSequence = require('run-sequence');
+let paths = require('./routes/lib/gulp.config').paths;
+let opts = require('./routes/lib/gulp.config').opts;
+let reload = require('./routes/lib/gulp.config').reload;
 
-gulp.task('default', ['less:watch', 'eslint:watch', 'browserSync']);
+//////////////////////////////////////////////
+// Callback
+//////////////////////////////////////////////
+let fin = () => {
+  console.log('Finished with that.');
+};
 
-gulp.task('browserSync', function() {
-    browserSync.init(opts.browserSync);
-    gulp.watch(paths.bundle.src).on('change', function() {
-      browserSync.reload();
-    });
+//////////////////////////////////////////////
+// Default
+//////////////////////////////////////////////
+gulp.task('default', ['watch:dev', 'browser:init']);
+
+//////////////////////////////////////////////
+// Watch Dev
+//////////////////////////////////////////////
+gulp.task('watch:dev', () => {
+  gulp.watch(paths.js.watch, ['browser:reload']),
+  gulp.watch(paths.less.watch, ['run:less']);
+  gulp.watch(paths.eslint.src, ['eslint']);
+});
+
+//////////////////////////////////////////////
+// Browser Sync
+//////////////////////////////////////////////
+gulp.task('browser:init', () => {
+  browserSync.init(opts.browserSync);
+});
+
+gulp.task('browser:reload', () => {
+  browserSync.reload();
+});
+
+//////////////////////////////////////////////
+// LESS
+//////////////////////////////////////////////
+gulp.task('run:less', function(fin) {
+  runSequence('less', 'browser:reload', () => {
+    fin();
+  });
 });
 
 gulp.task('less', function() {
@@ -26,14 +60,9 @@ gulp.task('less', function() {
     .pipe(gulp.dest(paths.dest.css)).on('error', gutil.log);
 });
 
-gulp.task('less:watch', function() {
-  gulp.watch(paths.less.watch, ['less:reload']);
-});
-
-gulp.task('less:reload', ['less'], function() {
-    browserSync.reload();
-});
-
+//////////////////////////////////////////////
+// ESLint
+//////////////////////////////////////////////
 gulp.task('eslint', function() {
   return gulp.src(paths.eslint.src)
     .pipe($.plumber(opts.plumber))
@@ -43,10 +72,9 @@ gulp.task('eslint', function() {
     .pipe($.notify(opts.notify.eslint));
 });
 
-gulp.task('eslint:watch', function() {
-  gulp.watch(paths.eslint.src, ['eslint']);
-});
-
+//////////////////////////////////////////////
+// Imgmin
+//////////////////////////////////////////////
 gulp.task('img', function() {
   return gulp.src(paths.img.src)
   .pipe($.imagemin(opts.imagemin))

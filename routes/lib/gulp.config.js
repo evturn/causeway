@@ -4,7 +4,7 @@ let gulp = require('gulp'),
     gutil = require('gulp-util'),
     $ = require('gulp-load-plugins')();
 
-exports.paths = {
+let paths = {
   dest: {
     css: 'public/dist/css',
     js: 'public/dist/js',
@@ -27,15 +27,24 @@ exports.paths = {
       'webpack.config.js'
     ]
   },
-  bundle: {
-    src: 'public/dist/js/**/*.js'
+  js: {
+    watch: 'public/dist/js/bundle.js'
   },
   img: {
     src: 'public/build/img/*'
+  },
+  views: {
+    watch: 'views/**/*.hbs'
   }
 };
 
-exports.opts = {
+let reload = {
+  js: paths.js.watch,
+  less: paths.less.watch,
+  views: paths.views.watch
+};
+
+let opts = {
   browserSync: {
       proxy: 'localhost:3000',
       port: 3000
@@ -81,3 +90,7 @@ exports.opts = {
     cascade: false
   },
 };
+
+module.exports.paths = paths;
+module.exports.opts = opts;
+module.exports.reload =reload;

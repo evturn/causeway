@@ -58,9 +58,9 @@
 	var Handlebars = __webpack_require__(4);
 	var helpers = __webpack_require__(32)();
 	var utils = __webpack_require__(123);
-	var livestamp = __webpack_require__(124);
-	var geoposition = __webpack_require__(125);
-	var cloq = __webpack_require__(130);
+	var livestamp = __webpack_require__(126);
+	var geoposition = __webpack_require__(127);
+	var cloq = __webpack_require__(125);
 	
 	geoposition.init();
 	
@@ -7686,8 +7686,8 @@
 	var moment = __webpack_require__(34);
 	var _ = __webpack_require__(3);
 	var utils = __webpack_require__(123);
-	var jstz = __webpack_require__(127);
-	var cloq = __webpack_require__(130);
+	var jstz = __webpack_require__(124);
+	var cloq = __webpack_require__(125);
 	
 	module.exports = function () {
 	
@@ -16209,198 +16209,6 @@
 /* 124 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-	
-	var $ = __webpack_require__(2);
-	var moment = __webpack_require__(34);
-	
-	module.exports = (function () {
-	  var updateInterval = 1e3,
-	      paused = false,
-	      $livestamps = $([]),
-	      init = function init() {
-	    livestampGlobal.resume();
-	  },
-	      prep = function prep($el, timestamp) {
-	    var oldData = $el.data('livestampdata');
-	    if (typeof timestamp == 'number') timestamp *= 1e3;
-	
-	    $el.removeAttr('data-livestamp').removeData('livestamp');
-	
-	    timestamp = moment(timestamp);
-	    if (moment.isMoment(timestamp) && !isNaN(+timestamp)) {
-	      var newData = $.extend({}, { 'original': $el.contents() }, oldData);
-	      newData.moment = moment(timestamp);
-	
-	      $el.data('livestampdata', newData).empty();
-	      $livestamps.push($el[0]);
-	    }
-	  },
-	      run = function run() {
-	    if (paused) return;
-	    livestampGlobal.update();
-	    setTimeout(run, updateInterval);
-	  },
-	      livestampGlobal = {
-	    update: function update() {
-	      $('[data-livestamp]').each(function () {
-	        var $this = $(this);
-	        prep($this, $this.data('livestamp'));
-	      });
-	
-	      var toRemove = [];
-	      $livestamps.each(function () {
-	        var $this = $(this),
-	            data = $this.data('livestampdata');
-	
-	        if (data === undefined) toRemove.push(this);else if (moment.isMoment(data.moment)) {
-	          var from = $this.html(),
-	              to = data.moment.fromNow();
-	
-	          if (from != to) {
-	            var e = $.Event('change.livestamp');
-	            $this.trigger(e, [from, to]);
-	            if (!e.isDefaultPrevented()) $this.html(to);
-	          }
-	        }
-	      });
-	
-	      $livestamps = $livestamps.not(toRemove);
-	    },
-	
-	    pause: function pause() {
-	      paused = true;
-	    },
-	
-	    resume: function resume() {
-	      paused = false;
-	      run();
-	    },
-	
-	    interval: function interval(_interval) {
-	      if (_interval === undefined) return updateInterval;
-	      updateInterval = _interval;
-	    }
-	  },
-	      livestampLocal = {
-	    add: function add($el, timestamp) {
-	      if (typeof timestamp == 'number') timestamp *= 1e3;
-	      timestamp = moment(timestamp);
-	
-	      if (moment.isMoment(timestamp) && !isNaN(+timestamp)) {
-	        $el.each(function () {
-	          prep($(this), timestamp);
-	        });
-	        livestampGlobal.update();
-	      }
-	
-	      return $el;
-	    },
-	
-	    destroy: function destroy($el) {
-	      $livestamps = $livestamps.not($el);
-	      $el.each(function () {
-	        var $this = $(this),
-	            data = $this.data('livestampdata');
-	
-	        if (data === undefined) return $el;
-	
-	        $this.html(data.original ? data.original : '').removeData('livestampdata');
-	      });
-	
-	      return $el;
-	    },
-	
-	    isLivestamp: function isLivestamp($el) {
-	      return $el.data('livestampdata') !== undefined;
-	    }
-	  };
-	
-	  $.livestamp = livestampGlobal;
-	  $(init);
-	  $.fn.livestamp = function (method, options) {
-	    if (!livestampLocal[method]) {
-	      options = method;
-	      method = 'add';
-	    }
-	
-	    return livestampLocal[method](this, options);
-	  };
-	})();
-
-/***/ },
-/* 125 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function($) {'use strict';
-	
-	var $geoContainer = $('.geoposition');
-	var $vicinity = $('#vicinity');
-	var Handlebars = __webpack_require__(4);
-	var url = 'geoposition.hbs';
-	var data = null;
-	
-	var geoposition = {
-	  cachedTemplates: [],
-	  init: function init() {
-	    this.getCoordinates();
-	  },
-	  getCoordinates: function getCoordinates() {
-	    var _this = this;
-	
-	    if (navigator.geolocation) {
-	      navigator.geolocation.getCurrentPosition(function (position) {
-	        _this.saveCoordinates(position);
-	      });
-	    }
-	  },
-	  saveCoordinates: function saveCoordinates(position) {
-	    $.ajax({
-	      type: 'POST',
-	      url: '/geoposition',
-	      data: position,
-	      dataType: 'json',
-	      success: function success(response) {
-	        data = response;
-	        geoposition.loadTemplate(url);
-	      },
-	      error: function error(err) {
-	        console.log(err);
-	      }
-	    });
-	  },
-	  loadTemplate: function loadTemplate(url) {
-	    var _this2 = this;
-	
-	    if (this.cachedTemplates[url]) {
-	      return updateBrowser(this.cachedTemplates[url]);
-	    }
-	    $.get(url, function (contents) {
-	      _this2.cachedTemplates[url] = Handlebars.compile(contents);
-	      _this2.updateBrowser(_this2.cachedTemplates[url]);
-	    });
-	  },
-	  updateBrowser: function updateBrowser(template) {
-	    var page = document.querySelector('body').className;
-	    switch (page) {
-	      case 'page-now':
-	        $vicinity.html(data.user.geo.vicinity);
-	        break;
-	      case 'page-profile':
-	        $geoContainer.html(template(data));
-	        break;
-	    }
-	  }
-	};
-	
-	module.exports = geoposition;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
-
-/***/ },
-/* 126 */,
-/* 127 */
-/***/ function(module, exports, __webpack_require__) {
-
 	/**
 	 * This script gives you the zone info key representing your device's time zone setting.
 	 *
@@ -16758,14 +16566,12 @@
 	/*global console, exports*/
 
 /***/ },
-/* 128 */,
-/* 129 */,
-/* 130 */
+/* 125 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var moment = __webpack_require__(34);
-	var jstz = __webpack_require__(127);
+	var jstz = __webpack_require__(124);
 	
 	var _T = moment();
 	
@@ -16807,6 +16613,197 @@
 	    return clock;
 	  }
 	};
+
+/***/ },
+/* 126 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var $ = __webpack_require__(2);
+	var moment = __webpack_require__(34);
+	
+	module.exports = (function () {
+	  var updateInterval = 1e3,
+	      paused = false,
+	      $livestamps = $([]),
+	      init = function init() {
+	    livestampGlobal.resume();
+	  },
+	      prep = function prep($el, timestamp) {
+	    var oldData = $el.data('livestampdata');
+	    if (typeof timestamp == 'number') timestamp *= 1e3;
+	
+	    $el.removeAttr('data-livestamp').removeData('livestamp');
+	
+	    timestamp = moment(timestamp);
+	    if (moment.isMoment(timestamp) && !isNaN(+timestamp)) {
+	      var newData = $.extend({}, { 'original': $el.contents() }, oldData);
+	      newData.moment = moment(timestamp);
+	
+	      $el.data('livestampdata', newData).empty();
+	      $livestamps.push($el[0]);
+	    }
+	  },
+	      run = function run() {
+	    if (paused) return;
+	    livestampGlobal.update();
+	    setTimeout(run, updateInterval);
+	  },
+	      livestampGlobal = {
+	    update: function update() {
+	      $('[data-livestamp]').each(function () {
+	        var $this = $(this);
+	        prep($this, $this.data('livestamp'));
+	      });
+	
+	      var toRemove = [];
+	      $livestamps.each(function () {
+	        var $this = $(this),
+	            data = $this.data('livestampdata');
+	
+	        if (data === undefined) toRemove.push(this);else if (moment.isMoment(data.moment)) {
+	          var from = $this.html(),
+	              to = data.moment.fromNow();
+	
+	          if (from != to) {
+	            var e = $.Event('change.livestamp');
+	            $this.trigger(e, [from, to]);
+	            if (!e.isDefaultPrevented()) $this.html(to);
+	          }
+	        }
+	      });
+	
+	      $livestamps = $livestamps.not(toRemove);
+	    },
+	
+	    pause: function pause() {
+	      paused = true;
+	    },
+	
+	    resume: function resume() {
+	      paused = false;
+	      run();
+	    },
+	
+	    interval: function interval(_interval) {
+	      if (_interval === undefined) return updateInterval;
+	      updateInterval = _interval;
+	    }
+	  },
+	      livestampLocal = {
+	    add: function add($el, timestamp) {
+	      if (typeof timestamp == 'number') timestamp *= 1e3;
+	      timestamp = moment(timestamp);
+	
+	      if (moment.isMoment(timestamp) && !isNaN(+timestamp)) {
+	        $el.each(function () {
+	          prep($(this), timestamp);
+	        });
+	        livestampGlobal.update();
+	      }
+	
+	      return $el;
+	    },
+	
+	    destroy: function destroy($el) {
+	      $livestamps = $livestamps.not($el);
+	      $el.each(function () {
+	        var $this = $(this),
+	            data = $this.data('livestampdata');
+	
+	        if (data === undefined) return $el;
+	
+	        $this.html(data.original ? data.original : '').removeData('livestampdata');
+	      });
+	
+	      return $el;
+	    },
+	
+	    isLivestamp: function isLivestamp($el) {
+	      return $el.data('livestampdata') !== undefined;
+	    }
+	  };
+	
+	  $.livestamp = livestampGlobal;
+	  $(init);
+	  $.fn.livestamp = function (method, options) {
+	    if (!livestampLocal[method]) {
+	      options = method;
+	      method = 'add';
+	    }
+	
+	    return livestampLocal[method](this, options);
+	  };
+	})();
+
+/***/ },
+/* 127 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function($) {'use strict';
+	
+	var $geoContainer = $('.geoposition');
+	var $vicinity = $('#vicinity');
+	var Handlebars = __webpack_require__(4);
+	var url = 'geoposition.hbs';
+	var data = null;
+	
+	var geoposition = {
+	  cachedTemplates: [],
+	  init: function init() {
+	    this.getCoordinates();
+	  },
+	  getCoordinates: function getCoordinates() {
+	    var _this = this;
+	
+	    if (navigator.geolocation) {
+	      navigator.geolocation.getCurrentPosition(function (position) {
+	        _this.saveCoordinates(position);
+	      });
+	    }
+	  },
+	  saveCoordinates: function saveCoordinates(position) {
+	    $.ajax({
+	      type: 'POST',
+	      url: '/geoposition',
+	      data: position,
+	      dataType: 'json',
+	      success: function success(response) {
+	        data = response;
+	        geoposition.loadTemplate(url);
+	      },
+	      error: function error(err) {
+	        console.log(err);
+	      }
+	    });
+	  },
+	  loadTemplate: function loadTemplate(url) {
+	    var _this2 = this;
+	
+	    if (this.cachedTemplates[url]) {
+	      return updateBrowser(this.cachedTemplates[url]);
+	    }
+	    $.get(url, function (contents) {
+	      _this2.cachedTemplates[url] = Handlebars.compile(contents);
+	      _this2.updateBrowser(_this2.cachedTemplates[url]);
+	    });
+	  },
+	  updateBrowser: function updateBrowser(template) {
+	    var page = document.querySelector('body').className;
+	    switch (page) {
+	      case 'page-now':
+	        $vicinity.html(data.user.geo.vicinity);
+	        break;
+	      case 'page-profile':
+	        $geoContainer.html(template(data));
+	        break;
+	    }
+	  }
+	};
+	
+	module.exports = geoposition;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }
 /******/ ]);
