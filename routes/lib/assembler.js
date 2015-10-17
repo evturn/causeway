@@ -1,8 +1,8 @@
 'use strict';
-
+let users = require('../../tools/resources/users.json');
 let site = {};
 
-let menu = [
+let nav = [
     {name: 'Now',      icon: 'fa fa-flash',       path: 'now'},
     {name: 'Expenses', icon: 'fa fa-money',       path: 'expenses'},
     {name: 'Travel',   icon: 'fa fa-plane',       path: 'travel'},
@@ -11,7 +11,8 @@ let menu = [
     {name: 'Me',       icon: 'fa fa-user',        path: 'profile'}
 ];
 
-site.menu = menu;
+site.users = users;
+site.nav = nav;
 site.activePage = '';
 
 module.exports = site;

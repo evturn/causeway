@@ -5,7 +5,6 @@ let User = require('../routes/lib/user');
 
 module.exports = () => {
   let user = new User(data);
-  user.isNew = false;
   user.save((err, user) => {
     if (err) {
       console.log(err);

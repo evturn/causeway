@@ -1,8 +1,6 @@
 'use strict';
 let mongoose = require('mongoose');
-let passportLocalMongoose = require('passport-local-mongoose');
-
-let userSchema = new mongoose.Schema({
+let userSchema = {
   gid        : {type: String, sparse: true},
   avatar     : {type: String, sparse: true},
   coverPhoto : {type: String, sparse: true},
@@ -32,7 +30,7 @@ let userSchema = new mongoose.Schema({
     country     : {type: String, sparse: true},
     wind        : {type: String, sparse: true}
   }
-});
+};
 
-userSchema.plugin(passportLocalMongoose);
-module.exports = mongoose.model('User', userSchema);
+let User = new mongoose.Schema(userSchema);
+module.exports = mongoose.model('User', User);
