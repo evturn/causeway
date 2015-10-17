@@ -16901,6 +16901,8 @@
 	      $('.selected').html('$' + debt);
 	    } else if (amount <= 9) {
 	      $('.selected').html('$' + debt / 2);
+	    } else {
+	      $('.selected').empty();
 	    }
 	  }
 	};
