@@ -16743,11 +16743,25 @@
 
 	/* WEBPACK VAR INJECTION */(function($) {'use strict';
 	
-	var $geoContainer = $('.geoposition');
-	var $vicinity = $('#vicinity');
+	var $profileDetails = $('.mod-profile__details-el');
+	var $clock = $('.mod-clocks-el');
+	var $weather = $('.mod-weather-el');
 	var Handlebars = __webpack_require__(4);
-	var url = 'geoposition.hbs';
 	var data = null;
+	var component = {
+	  clock: {
+	    url: 'mod-clock.hbs',
+	    el: $clock
+	  },
+	  weather: {
+	    url: 'mod-weather.hbs',
+	    el: $weather
+	  },
+	  profileDetails: {
+	    url: 'mod-profile-location.hbs',
+	    el: $profileDetails
+	  }
+	};
 	
 	var geoposition = {
 	  cachedTemplates: [],
@@ -16771,32 +16785,38 @@
 	      dataType: 'json',
 	      success: function success(response) {
 	        data = response;
-	        geoposition.loadTemplate(url);
+	        geoposition.loadTemplate(component.clock);
+	        geoposition.loadTemplate(component.weather);
+	        geoposition.loadTemplate(component.profileDetails);
 	      },
 	      error: function error(err) {
 	        console.log(err);
 	      }
 	    });
 	  },
-	  loadTemplate: function loadTemplate(url) {
+	  loadTemplate: function loadTemplate(component) {
 	    var _this2 = this;
 	
-	    if (this.cachedTemplates[url]) {
-	      return updateBrowser(this.cachedTemplates[url]);
+	    var file = component.url;
+	    if (this.cachedTemplates[file]) {
+	      return updateBrowser(this.cachedTemplates[file]);
 	    }
-	    $.get(url, function (contents) {
-	      _this2.cachedTemplates[url] = Handlebars.compile(contents);
-	      _this2.updateBrowser(_this2.cachedTemplates[url]);
+	    $.get(file, function (contents) {
+	      _this2.cachedTemplates[file] = Handlebars.compile(contents);
+	      var template = _this2.cachedTemplates[file];
+	      _this2.updateBrowser(component, template);
 	    });
 	  },
-	  updateBrowser: function updateBrowser(template) {
+	  updateBrowser: function updateBrowser(component, template) {
 	    var page = document.querySelector('body').className;
+	    var $el = component.el;
+	
 	    switch (page) {
 	      case 'page-now':
-	        $vicinity.html(data.user.geo.vicinity);
+	        $el.html(template(data));
 	        break;
 	      case 'page-profile':
-	        $geoContainer.html(template(data));
+	        $el.html(template(data));
 	        break;
 	    }
 	  }

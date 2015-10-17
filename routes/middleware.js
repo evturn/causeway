@@ -40,10 +40,8 @@ exports.geoposition = function(req, res, next) {
   user.geo.lat = latitude;
   user.geo.long = longitude;
   user.geo.lastSeen = timestamp;
-  let weather = weatherapi.byCoords(latitude, longitude);
-  console.log(weather);
-  let p = new Promise(function(resolve, reject) {
-    let vicinity = googleapi.vicinity(latitude, longitude, user, res);
-    resolve(vicinity);
+  let p1 = new Promise(function(resolve, reject) {
+    let weather = weatherapi.byCoords(latitude, longitude, user, res);
+    resolve(weather);
   });
 };

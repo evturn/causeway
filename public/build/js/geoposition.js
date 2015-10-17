@@ -1,8 +1,22 @@
-let $geoContainer = $('.geoposition');
-let $vicinity = $('#vicinity');
+let $profileDetails = $('.mod-profile__details-el');
+let $clock = $('.mod-clocks-el');
+let $weather = $('.mod-weather-el');
 let Handlebars = require('handlebars');
-let url = 'geoposition.hbs';
 let data = null;
+let component = {
+  clock: {
+    url: 'mod-clock.hbs',
+    el: $clock
+  },
+  weather: {
+    url: 'mod-weather.hbs',
+    el: $weather
+  },
+  profileDetails: {
+    url: 'mod-profile-location.hbs',
+    el: $profileDetails
+  }
+};
 
 let geoposition = {
   cachedTemplates: [],
@@ -24,30 +38,36 @@ let geoposition = {
       dataType: 'json',
       success(response) {
         data = response;
-        geoposition.loadTemplate(url);
+        geoposition.loadTemplate(component.clock);
+        geoposition.loadTemplate(component.weather);
+        geoposition.loadTemplate(component.profileDetails);
       },
       error(err) {
         console.log(err);
       }
     });
   },
-  loadTemplate(url) {
-    if (this.cachedTemplates[url]) {
-      return updateBrowser(this.cachedTemplates[url]);
+  loadTemplate(component) {
+    let file = component.url;
+    if (this.cachedTemplates[file]) {
+      return updateBrowser(this.cachedTemplates[file]);
     }
-    $.get(url, (contents) => {
-      this.cachedTemplates[url] = Handlebars.compile(contents);
-      this.updateBrowser(this.cachedTemplates[url]);
+    $.get(file, (contents) => {
+      this.cachedTemplates[file] = Handlebars.compile(contents);
+      let template = this.cachedTemplates[file];
+      this.updateBrowser(component, template);
     });
   },
-  updateBrowser(template) {
+  updateBrowser(component, template) {
     let page = document.querySelector('body').className;
+    let $el = component.el;
+
     switch (page) {
       case 'page-now':
-        $vicinity.html(data.user.geo.vicinity);
+        $el.html(template(data));
         break;
       case 'page-profile':
-        $geoContainer.html(template(data));
+        $el.html(template(data));
         break;
     }
   }

@@ -1,12 +1,7 @@
 {{>page-header}}
-<div class="container clocks">
-  <div class="inner">
-    <div class="clocks__item">
-      <div class="clocks__item-details">
-        <div class="clocks__item-title" id="vicinity">{{user.geo.vicinity}} <i class="fa fa-spinner fa-spin"></i></div>
-        <div class="clocks__item-timezone">{{tz}}</div>
-      </div>
-      <div class="clocks__item-time">{{digitalClock}}</div>
-    </div>
-  </div>
+<div class="mod-clocks-el">
+  {{>mod-clock}}
+</div>
+<div class="mod-weather-el">
+  {{>mod-weather}}
 </div>
