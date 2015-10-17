@@ -1,45 +1,49 @@
 let $amountField = $('.transaction__field-amount');
-let $checkboxs = $('.transaction__user-checkbox');
 let $user = $('.transaction__user');
-let $selected = $('.selected');
-let $info = $('.transaction__info');
-let $debtContainer = $('.transaction__user-debt');
-let splitting = false;
+let splitBill = null;
 
 module.exports = {
   init() {
-    $amountField.on('keyup', (e) => {
-      this.updateUserDebt();
-    });
-    let self = this;
-    $user.on('click', function(e) {
-      let $checkbox = $(this).find('.transaction__user-checkbox');
-      let $debt = $(this).find('.transaction__user-debt');
-      $debt.toggleClass('selected');
-      if ($debt.hasClass('selected')) {
-        $checkbox.prop('checked', true);
-      }
-      else {
-        $debt.empty();
-        $checkbox.prop('checked', false);
-      }
+    let callback = this.callback;
+    let reconcileSelected = this.reconcileSelected;
+    splitBill = false;
 
-      self.updateUserDebt();
+    $amountField.on('keyup', (e) => {
+      callback();
+    });
+
+    $user.on('click', function(e) {
+      reconcileSelected($(this));
+      callback();
     });
   },
-  updateUserDebt() {
+  reconcileSelected($this) {
+    let $userCheckbox = $this.find('.transaction__user-checkbox');
+    let $userDebt = $this.find('.transaction__user-debt');
+
+    $userDebt.toggleClass('selected');
+    if ($userDebt.hasClass('selected')) {
+      $userCheckbox.prop('checked', true);
+    }
+    else {
+      $userCheckbox.prop('checked', false);
+      $userDebt.empty();
+    }
+  },
+  callback() {
+    let $notification = $('.transaction__info');
     let input = $amountField.val();
     let amount = parseInt(input);
     let payees = $('.selected').length;
     let debt = (amount / payees);
 
     if (payees > 1) {
-      $info.html(`Split ${payees} ways`);
-      splitting = true;
+      $notification.html(`Split ${payees} ways`);
+      splitBill = true;
     }
     else if (payees <= 1) {
-      $info.empty();
-      splitting = false;
+      $notification.empty();
+      splitBill = false;
     }
 
     if (amount > 9) {
