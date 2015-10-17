@@ -63,8 +63,6 @@
 	var cloq = __webpack_require__(125);
 	
 	geoposition.init();
-	
-	console.log(cloq);
 
 /***/ },
 /* 2 */

@@ -8,5 +8,3 @@ let geoposition = require('./geoposition');
 let cloq = require('cloq');
 
 geoposition.init();
-
-console.log(cloq);

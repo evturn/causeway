@@ -7,7 +7,11 @@
             <img class="transaction__user-avatar" src="{{this.avatar}}">
             <div class="transaction__user-name">{{this.name.first}}</div>
           </div>
-          <button class="transaction__user-select"><span class="fa fa-check"></span></button>
+          <div class="transaction__user-select">
+            <span class="fa fa-check"></span>
+            <input class="transaction__user-checkbox" type="checkbox">
+            <div class="transaction__user--checked"></div>
+          </div>
         </div>
       {{/each}}
       <input class="transaction__field-amount" name="search" type="text" placeholder="Amount">

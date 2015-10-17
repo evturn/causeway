@@ -1,4 +1,5 @@
 .transaction {
+  .margin-y(20px);
   .transaction__user {
     .clearfix();
     font-size: 2.2rem;
@@ -19,6 +20,30 @@
   }
   .transaction__user-select {
     float: right;
+    position: relative;
+    text-align: center;
+    .fa {
+      position: absolute;
+      z-index: 1;
+      top: 15px;
+      left: 15px;
+    }
+  }
+  .transaction__user-checkbox {
+    position: relative;
+    z-index: 2;
+    opacity: 0;
+    &:checked ~ .transaction__user--checked {
+      background-color: @bg-primary;
+    }
+  }
+  .transaction__user--checked {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 100%;
+    background-color: transparent;
   }
   .transaction__field-amount,
   .transaction__field-description {
