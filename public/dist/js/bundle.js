@@ -16853,58 +16853,69 @@
 
 	/* WEBPACK VAR INJECTION */(function($) {'use strict';
 	
+	var checked = 0;
+	var counter = 0;
+	var $amountField = $('.transaction__field-amount');
+	var $checkboxs = $('.transaction__user-checkbox');
+	var $debtContainer = $('.transaction__user-debt');
+	var $info = $('.transaction__info');
+	
 	module.exports = {
-	  $amountField: $('.transaction__field-amount'),
-	  $checkboxs: $('.transaction__user-checkbox'),
-	  $debtContainer: $('.transaction__user-debt'),
-	  $info: $('.transaction__info'),
-	  checked: 0,
+	
 	  init: function init() {
 	    var _this = this;
 	
-	    this.$amountField.on('keyup', function (e) {
+	    $amountField.on('keyup', function (e) {
 	      _this.updateUserDebt();
 	    });
 	
-	    this.$checkboxs.on('click', function (e) {
-	      _this.counter();
+	    $checkboxs.on('click', function (e) {
+	      _this.runCounter();
 	    });
 	  },
 	  updateUserDebt: function updateUserDebt() {
-	    var input = this.$amountField.val();
+	    var input = $amountField.val();
 	    var amount = parseInt(input);
 	
-	    console.log(amount);
 	    if (amount > 9) {
-	      this.$debtContainer.html('$' + amount);
+	      $debtContainer.html('$' + amount);
 	    } else if (amount <= 9) {
-	      this.$debtContainer.html('$' + amount / 2);
+	      $debtContainer.html('$' + amount / 2);
 	    } else {
-	      this.$debtContainer.empty();
+	      $debtContainer.empty();
 	    }
 	  },
-	  counter: function counter() {
-	    var checked = 0;
-	    var total = this.$checkboxs.length;
-	    $.each(this.$checkboxs, function () {
-	      var isChecked = $(this).is(':checked');
-	      if (isChecked) {
-	        ++checked;
-	      }
-	    });
-	    this.checked = checked;
-	    if (this.checked > 1) {
-	      this.updateBrowserCounter();
+	  incrementCounter: function incrementCounter($this) {
+	    var isChecked = $this.is(':checked');
+	    if (isChecked) {
+	      counter += 1;
 	    }
-	    if (this.checked <= 1) {
+	  },
+	  iterateCheckboxs: function iterateCheckboxs(callback) {
+	    $.each($checkboxs, function () {
+	      callback($(this));
+	    });
+	  },
+	  runCounter: function runCounter() {
+	    this.iterateCheckboxs(this.incrementCounter);
+	    checked = counter;
+	    if (checked > 1) {
+	      this.updateBrowserCounter();
+	    } else if (checked <= 1) {
 	      this.removeBrowserCounter();
 	    }
+	    counter = 0;
+	  },
+	  setUserSelected: function setUserSelected($this) {
+	    var index = $this.data('user');
+	    var $container = $('.user' + index);
+	    $container.addClass('selected');
 	  },
 	  removeBrowserCounter: function removeBrowserCounter() {
-	    this.$info.empty();
+	    $info.empty();
 	  },
 	  updateBrowserCounter: function updateBrowserCounter() {
-	    this.$info.html('Split ' + this.checked + ' ways');
+	    $info.html('Split ' + checked + ' ways');
 	  }
 	
 	};
