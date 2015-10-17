@@ -8,10 +8,10 @@
       <div class="weather__item-temp">{{{kelvinToFarenheit user.climate.temp}}}</div>
       <div class="weather__item-description">{{user.climate.description}}</div>
       <div class="weather__item-details">
-        <div class="weather__item-high">{{user.climate.high}}</div>
-        <div class="weather__item-low">{{user.climate.low}}</div>
-        <div class="weather__item-sunrise">{{user.climate.sunrise}}</div>
-        <div class="weather__item-sunset">{{user.climate.sunset}}</div>
+        <div class="weather__item-high">{{{kelvinToFarenheit user.climate.high}}}</div>
+        <div class="weather__item-low">{{{kelvinToFarenheit user.climate.low}}}</div>
+        <div class="weather__item-sunrise">{{toDigital user.climate.sunrise}}</div>
+        <div class="weather__item-sunset">{{toDigital user.climate.sunset}}</div>
       </div>
     </div>
   </div>

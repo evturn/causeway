@@ -6,13 +6,12 @@ let _T = moment();
 
 let isPM = () => {
     let h = _T.hour();
-    let isPM = h > 12;
+    let isPM = h >= 12;
     return isPM;
   }();
 
 let meridian = () => {
     let h = _T.hour();
-    let isPM = h > 12;
     let meridian = isPM ? 'PM' : 'AM';
     return meridian;
   }();
@@ -23,8 +22,16 @@ let minutes = () => {
 
 let hours = () => {
   let h = _T.hour();
-  let hours = isPM ? (h - 12) : h;
-  return hours;
+
+  if (h === 0) {
+    return 12;
+  }
+  else if (isPM) {
+    return h - 12;
+  }
+  else {
+    return h;
+  }
 }();
 
 module.exports = {
@@ -40,5 +47,8 @@ module.exports = {
   digital: () => {
     let clock = `${hours}:${minutes} ${meridian}`;
     return clock;
+  },
+  toDigital: (time) => {
+    return moment(time);
   }
 };

@@ -15,6 +15,10 @@ module.exports = function() {
     return cloq.digital();
   };
 
+  _helpers.toDigital = (time) => {
+    return cloq.toDigital(time);
+  };
+
   _helpers.kelvinToFarenheit = (kelvin) => {
     return thermo.farenheit(kelvin);
   };

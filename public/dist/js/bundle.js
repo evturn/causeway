@@ -7698,6 +7698,10 @@
 	    return cloq.digital();
 	  };
 	
+	  _helpers.toDigital = function (time) {
+	    return cloq.toDigital(time);
+	  };
+	
 	  _helpers.kelvinToFarenheit = function (kelvin) {
 	    return thermo.farenheit(kelvin);
 	  };
@@ -16582,13 +16586,12 @@
 	
 	var isPM = (function () {
 	  var h = _T.hour();
-	  var isPM = h > 12;
+	  var isPM = h >= 12;
 	  return isPM;
 	})();
 	
 	var meridian = (function () {
 	  var h = _T.hour();
-	  var isPM = h > 12;
 	  var meridian = isPM ? 'PM' : 'AM';
 	  return meridian;
 	})();
@@ -16599,8 +16602,14 @@
 	
 	var hours = (function () {
 	  var h = _T.hour();
-	  var hours = isPM ? h - 12 : h;
-	  return hours;
+	
+	  if (h === 0) {
+	    return 12;
+	  } else if (isPM) {
+	    return h - 12;
+	  } else {
+	    return h;
+	  }
 	})();
 	
 	module.exports = {
@@ -16616,6 +16625,9 @@
 	  digital: function digital() {
 	    var clock = hours + ':' + minutes + ' ' + meridian;
 	    return clock;
+	  },
+	  toDigital: function toDigital(time) {
+	    return moment(time);
 	  }
 	};
 
