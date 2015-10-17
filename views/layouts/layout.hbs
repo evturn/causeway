@@ -11,12 +11,12 @@
 
   {{#eq activePage 'profile'}}
   {{else}}
-    {{>page-header}}
+    {{>header}}
   {{/eq}}
   <div class="site-content">
-    {{{body}}}
-    {{>menu}}
+  {{{body}}}
   </div>
+  {{>menu}}
   <script src="js/bundle.js"></script>
 </body>
 </html>

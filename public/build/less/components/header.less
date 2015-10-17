@@ -1,13 +1,27 @@
-.page-header {
+.site-header {
   position: fixed;
   display: block;
   top: 0;
   width: 100%;
-  font-size: 2.3rem;
   font-color: @tx-primary;
   background-color: @bg-white;
-  height: 35px;
+  height: 45px;
   .margin-x(auto);
-  text-align: center;
-  text-transform: uppercase;
+  overflow: hidden;
+  .site-header__image {
+    position: absolute;
+    float: left;
+    border-radius: 50%;
+    width: 45px;
+    background-color: #ffd700;
+    img {
+      width: 45px;
+    }
+  }
+  .site-header__title {
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 2.3rem;
+    margin-top: 10px;
+  }
 }
