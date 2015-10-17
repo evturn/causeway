@@ -1,14 +1,13 @@
 <div class="container exp">
   <div class="inner">
     <div class="transaction">
+      {{log this}}
+      {{#each users}}
       <div class="transaction__user">
-        <div class="transaction__user-name">{{users.name.first}}</div>
+        <div class="transaction__user-name">{{this.name.first}}</div>
         <button class="transaction__user-select"><span class="fa fa-check"></span></button>
       </div>
-      <div class="transaction__user">
-        <div class="transaction__user-name">Santino</div>
-        <button class="transaction__user-select"><span class="fa fa-check"></span></button>
-      </div>
+      {{/each}}
       <input class="transaction__field-amount" name="search" type="text" placeholder="Amount">
       <input class="transaction__field-description" name="search" type="text" placeholder="Description">
     <div class="records">
