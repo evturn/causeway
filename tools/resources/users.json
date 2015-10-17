@@ -1,0 +1,27 @@
+{
+  "fullname":"Eric Turner",
+  "location":"Brooklyn, NY 11238",
+  "gender":"male",
+  "avatar": "https://lh5.googleusercontent.com/-Dx6sgFPixrk/VVP9RsvyGjI/AAAAAAAAAN4/Y6Q7c7qYkVM/s547-no/2015-01-30.jpg",
+  "climate": {
+    "country":"US",
+    "description":"Massive shit storm",
+    "high":"300.15",
+    "humidity":"100",
+    "low":"200.15",
+    "sunrise":"1445080152",
+    "sunset":"1445119941",
+    "temp":"299.66",
+    "vicinity":"Brooklyn",
+    "wind":"17"
+  },
+  "geo": {
+    "lastSeen":"1445076594125",
+    "lat":"40.675378099999996",
+    "long": "-73.9636362"
+  },
+  "name": {
+    "last":"Turner",
+    "first":"Eric"
+  }
+}

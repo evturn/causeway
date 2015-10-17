@@ -5,6 +5,7 @@ let passport = require('passport');
 let config = require('./routes/lib/base');
 let routes = require('./routes/routes');
 let app = express();
+let seed = require('./tools/seed');
 
 config.mongo(mongoose);
 app.set('port', config.port);
