@@ -1,0 +1,18 @@
+<div class="records__item">
+  <div class="records__item-info">
+    <div class="records__item-info--description">{{this.description}}</div>
+    <div class="records__item-info--timestamp">{{this.timestamp}}</div>
+  </div>
+  <div class="records__item-payee">
+    <div class="records__item-payee--user">{{this.payee}}</div>
+    <div class="records__item-payee--amount">${{this.total}}</div>
+  </div>
+  <div class="records__item-debtors">
+    {{#each debtors}}
+      <div class="records__item-debtor">
+        <div class="records__item-debtor--user">{{this.user}}</div>
+        <div class="records__item-debtor--amount">-${{this.debt}}</div>
+      </div>
+    {{/each}}
+  </div>
+</div>
