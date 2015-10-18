@@ -1,3 +1,33 @@
+html {
+  font-family: @font-serif;
+  font-size: 10px;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -webkit-animation: androidbugfix infinite 1s;
+}
+
+ul {
+  padding-left: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+li {
+  list-style-type: none;
+}
+
 .container {
   @media(@mobile) {
     margin-left: auto;
@@ -18,7 +48,10 @@
   max-width: @max;
 }
 
-html {
-  font-family: @font-serif;
-  font-size: 10px;
+.site-content {
+  padding-top: 45px;
+  padding-bottom: 75px;
+}
+.page-profile .site-content {
+  padding-top: 0;
 }

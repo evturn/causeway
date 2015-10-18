@@ -1,7 +1,6 @@
 let splitBill = null;
 let hasValidAmount = null;
 
-
 const exp = {
   init() {
     let $user = $('.transaction__user');
