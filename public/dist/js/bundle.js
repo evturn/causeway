@@ -16898,7 +16898,6 @@
 	      description: description,
 	      payees: payees
 	    };
-	    console.log(transaction);
 	    $.ajax({
 	      url: '/expenses/new',
 	      type: 'POST',

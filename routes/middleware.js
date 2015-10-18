@@ -21,11 +21,12 @@ exports.expenses = function(req, res, next) {
 };
 
 exports.transaction = function(req, res, next) {
-  let body = req.body;
-  console.log(body);
-  // let payer = req.user.name.first;
-  // transaction.payer = payer;
-  res.json(req.body);
+  let transaction = req.body;
+  transaction.payer = req.user.name.first;
+  transaction.timestamp = Date.now();
+
+  console.log(transaction);
+  res.json(transaction);
 };
 
 exports.travel = function(req, res, next) {
