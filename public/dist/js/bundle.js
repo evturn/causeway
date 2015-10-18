@@ -16766,29 +16766,8 @@
 	/* WEBPACK VAR INJECTION */(function($) {'use strict';
 	
 	var Handlebars = __webpack_require__(4);
-	var data = null;
-	var components = {
-	  clock: {
-	    url: 'mod-clock.hbs',
-	    el: '.mod-clocks-el'
-	  },
-	  weather: {
-	    url: 'mod-weather.hbs',
-	    el: '.mod-weather-el'
-	  },
-	  profileDetails: {
-	    url: 'mod-profile-location.hbs',
-	    el: '.mod-profile__details-el'
-	  },
-	  expRecord: {
-	    url: 'component-exp-record.hbs',
-	    el: '.records'
-	  },
-	  expTransaction: {
-	    url: 'mod-exp-transaction.hbs',
-	    el: '.transaction'
-	  }
-	};
+	var components = __webpack_require__(130);
+	var render = __webpack_require__(131);
 	
 	var geoposition = {
 	  cachedTemplates: [],
@@ -16810,42 +16789,15 @@
 	      url: '/geoposition',
 	      data: position,
 	      dataType: 'json',
-	      success: function success(response) {
-	        data = response;
-	        geoposition.loadTemplate(components.clock);
-	        geoposition.loadTemplate(components.weather);
-	        geoposition.loadTemplate(components.profileDetails);
+	      success: function success(data) {
+	        render(components.clock, data);
+	        render(components.weather, data);
+	        render(components.profileDetails, data);
 	      },
 	      error: function error(err) {
 	        console.log(err);
 	      }
 	    });
-	  },
-	  loadTemplate: function loadTemplate(component) {
-	    var _this2 = this;
-	
-	    var file = component.url;
-	    if (this.cachedTemplates[file]) {
-	      return updateBrowser(this.cachedTemplates[file]);
-	    }
-	    $.get(file, function (contents) {
-	      _this2.cachedTemplates[file] = Handlebars.compile(contents);
-	      var template = _this2.cachedTemplates[file];
-	      _this2.updateBrowser(component, template);
-	    });
-	  },
-	  updateBrowser: function updateBrowser(component, template) {
-	    var page = document.querySelector('body').className;
-	    var $el = $(component.el);
-	
-	    switch (page) {
-	      case 'page-now':
-	        $el.html(template(data));
-	        break;
-	      case 'page-profile':
-	        $el.html(template(data));
-	        break;
-	    }
 	  }
 	};
 	
@@ -16860,6 +16812,8 @@
 	
 	var splitBill = null;
 	var hasValidAmount = null;
+	var render = __webpack_require__(131);
+	var components = __webpack_require__(130);
 	
 	var exp = {
 	  init: function init() {
@@ -16909,7 +16863,8 @@
 	      data: JSON.stringify(transaction),
 	      contentType: 'application/json; charset=utf-8',
 	      success: function success(data) {
-	        console.log(data);
+	        data.timestamp = '10/17';
+	        render(components.expRecord, data);
 	      },
 	      error: function error(err) {
 	        console.log(err);
@@ -16945,7 +16900,7 @@
 	    var amount = parseInt(value);
 	    var $selected = $('.selected');
 	    var debtors = $selected.length;
-	    var debt = amount / payees;
+	    var debt = amount / debtors;
 	
 	    if (debtors > 1) {
 	      $notification.html('Split ' + debtors + ' ways');
@@ -16969,6 +16924,79 @@
 	};
 	
 	module.exports = exp;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
+
+/***/ },
+/* 130 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	module.exports = {
+	  clock: {
+	    url: 'mod-clock.hbs',
+	    el: '.mod-clocks-el'
+	  },
+	  weather: {
+	    url: 'mod-weather.hbs',
+	    el: '.mod-weather-el'
+	  },
+	  profileDetails: {
+	    url: 'mod-profile-location.hbs',
+	    el: '.mod-profile__details-el'
+	  },
+	  expRecord: {
+	    url: 'component-exp-record.hbs',
+	    el: '.records'
+	  },
+	  expTransaction: {
+	    url: 'mod-exp-transaction.hbs',
+	    el: '.transaction'
+	  }
+	};
+
+/***/ },
+/* 131 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function($) {'use strict';
+	var Handlebars = __webpack_require__(4);
+	
+	module.exports = function (component, data) {
+	  var cachedTemplates = [];
+	
+	  var updateBrowser = function updateBrowser(component, template) {
+	    var page = document.querySelector('body').className;
+	    var $el = $(component.el);
+	
+	    switch (page) {
+	      case 'page-now':
+	        $el.html(template(data));
+	        break;
+	      case 'page-profile':
+	        $el.html(template(data));
+	        break;
+	      case 'page-expenses':
+	        $el.prepend(template(data));
+	        break;
+	    }
+	  };
+	
+	  var loadTemplate = function loadTemplate(component) {
+	    var file = component.url;
+	    if (cachedTemplates[file]) {
+	      return updateBrowser(cachedTemplates[file]);
+	    }
+	
+	    $.get(file, function (contents) {
+	      cachedTemplates[file] = Handlebars.compile(contents);
+	      var template = cachedTemplates[file];
+	      updateBrowser(component, template);
+	    });
+	  };
+	
+	  return loadTemplate(component);
+	};
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }

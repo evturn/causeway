@@ -1,5 +1,7 @@
 let splitBill = null;
 let hasValidAmount = null;
+let render = require('./render');
+let components = require('components');
 
 const exp = {
   init() {
@@ -49,7 +51,8 @@ const exp = {
       data: JSON.stringify(transaction),
       contentType: 'application/json; charset=utf-8',
       success(data) {
-        console.log(data);
+        data.timestamp = '10/17';
+        render(components.expRecord, data);
       },
       error(err) {
         console.log(err);
@@ -87,7 +90,7 @@ const exp = {
     let amount = parseInt(value);
     let $selected = $('.selected');
     let debtors = $selected.length;
-    let debt = (amount / payees);
+    let debt = (amount / debtors);
 
     if (debtors > 1) {
       $notification.html(`Split ${debtors} ways`);

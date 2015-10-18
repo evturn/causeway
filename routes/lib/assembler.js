@@ -1,6 +1,7 @@
 'use strict';
 let users = require('../../tools/resources/users.json');
 let transactions = require('../../tools/resources/transactions.json');
+let components = require('../../shared/components');
 let site = {};
 
 let nav = [
@@ -12,6 +13,7 @@ let nav = [
     {name: 'Me',       icon: 'fa fa-user',        path: 'profile'}
 ];
 
+site.components = components;
 site.users = users;
 site.transactions = transactions;
 site.nav = nav;

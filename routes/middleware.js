@@ -6,7 +6,8 @@ let User = require('./lib/user').User;
 let data = {
   nav: site.nav,
   users: site.users,
-  transactions: site.transactions
+  transactions: site.transactions,
+  components: site.components
 };
 
 exports.now = function(req, res, next) {
@@ -23,7 +24,7 @@ exports.expenses = function(req, res, next) {
 
 exports.transaction = function(req, res, next) {
   let transaction = req.body;
-  transaction.payer = req.user.name.first;
+  transaction.payee = req.user.name.first;
   transaction.timestamp = Date.now();
 
   console.log(transaction);
