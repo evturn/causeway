@@ -1,14 +1,9 @@
 'use strict';
-let site = require('./lib/assembler');
+let data = require('./lib/assembler');
 let googleapi = require('./lib/google-api');
 let weatherapi = require('./lib/weather');
 let User = require('./lib/user').User;
-let data = {
-  nav: site.nav,
-  users: site.users,
-  transactions: site.transactions,
-  components: site.components
-};
+
 
 exports.now = function(req, res, next) {
   data.activePage = 'now';
