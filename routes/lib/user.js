@@ -2,13 +2,6 @@
 let mongoose = require('mongoose');
 let passportLocalMongoose = require('passport-local-mongoose');
 
-const groupSchema = new mongoose.Schema({
-  users       : [userSchema],
-  transactions: [transactionSchema],
-  name        : {type: String},
-  userCount   : {type: Number}
-});
-
 const transactionSchema = new mongoose.Schema({
   total       : {type: String, sparse: true},
   description : {type: String, sparse: true},
@@ -51,6 +44,13 @@ const userSchema = new mongoose.Schema({
     wind        : {type: String, sparse: true}
   },
   transactions  : [transactionSchema]
+});
+
+const groupSchema = new mongoose.Schema({
+  users       : [userSchema],
+  transactions: [transactionSchema],
+  name        : {type: String},
+  userCount   : {type: Number}
 });
 
 userSchema.plugin(passportLocalMongoose);

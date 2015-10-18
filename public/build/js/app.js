@@ -9,4 +9,4 @@ let cloq = require('cloq');
 let transaction = require('./transaction');
 
 transaction.init();
-geoposition.init();
+// geoposition.init();

@@ -64,7 +64,7 @@
 	var transaction = __webpack_require__(131);
 	
 	transaction.init();
-	geoposition.init();
+	// geoposition.init();
 
 /***/ },
 /* 2 */

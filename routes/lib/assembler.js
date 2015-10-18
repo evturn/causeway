@@ -12,10 +12,16 @@ let nav = [
     {name: 'Me',       icon: 'fa fa-user',        path: 'profile'}
 ];
 
-module.exports = {
+let site = {
   nav: nav,
-  users: users,
-  transactions: transactions,
+  groups: [
+    {
+      _id: '4252ce4ce4cfcd16f55cfa3d',
+      name: 'Thug Nation',
+      users: users,
+      transactions: transactions
+    }
+  ],
   components: components,
   pages: [
     'now',
@@ -27,3 +33,5 @@ module.exports = {
   ],
   activePage: ''
 };
+
+module.exports = site;
