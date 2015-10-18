@@ -4,7 +4,13 @@
 <div class="mod-weather-el">
   {{>mod-weather}}
 </div>
-{{#each groups}}
-  {{name}}
-  {{log this}}
-{{/each}}
+<div class="container mod-groups">
+  <div class="inner">
+    {{#each groups}}
+      <div class="groups__item">
+        <div class="groups__item-name">{{name}}</div>
+        <div class="groups__item-user-count">{{userCount}} members</div>
+      </div>
+    {{/each}}
+  </div>
+</div>

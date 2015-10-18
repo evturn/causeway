@@ -19,7 +19,8 @@ let site = {
       _id: '4252ce4ce4cfcd16f55cfa3d',
       name: 'Thug Nation',
       users: users,
-      transactions: transactions
+      transactions: transactions,
+      userCount: 3
     }
   ],
   components: components,
