@@ -1,7 +1,7 @@
 <div class="container exp">
   <div class="inner">
     <div class="transaction">
-      {{#each users}}
+      {{#each group.users}}
         <div class="transaction__user" data-user="{{this.name.first}}">
           <div class="transaction__user-details">
             <img class="transaction__user-avatar" src="{{this.avatar}}">
@@ -23,7 +23,7 @@
   </div>
 </div>
 <div class="records">
-  {{#each transactions}}
+  {{#each group.transactions}}
     <div class="container records__item">
       <div class="records__item-info">
         <div class="records__item-info--description">{{this.description}}</div>

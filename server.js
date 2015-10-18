@@ -8,10 +8,10 @@ let app = express();
 let seed = require('./tools/seed');
 
 config.mongo(mongoose);
-app.set('port', config.port);
+app.engine('hbs', config.hbs.engine);
 app.set('view engine', 'hbs');
 app.set('views', 'views');
-app.engine('hbs', config.hbs.engine);
+app.set('port', config.port);
 app.use('/', config.static.dist);
 app.use('/', config.static.hbs);
 app.use(config.urlencoded);
