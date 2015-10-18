@@ -2,10 +2,11 @@
 let site = require('./lib/assembler');
 let googleapi = require('./lib/google-api');
 let weatherapi = require('./lib/weather');
-let User = require('./lib/user');
+let User = require('./lib/user').User;
 let data = {
   nav: site.nav,
-  users: site.users
+  users: site.users,
+  transactions: site.transactions
 };
 
 exports.now = function(req, res, next) {

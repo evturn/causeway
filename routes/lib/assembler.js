@@ -1,5 +1,6 @@
 'use strict';
 let users = require('../../tools/resources/users.json');
+let transactions = require('../../tools/resources/transactions.json');
 let site = {};
 
 let nav = [
@@ -12,6 +13,7 @@ let nav = [
 ];
 
 site.users = users;
+site.transactions = transactions;
 site.nav = nav;
 site.activePage = '';
 

@@ -16904,7 +16904,7 @@
 	      data: JSON.stringify(transaction),
 	      contentType: 'application/json; charset=utf-8',
 	      success: function success(data) {
-	        console.log(data);
+	        console.log(JSON.stringify(data));
 	      },
 	      error: function error(err) {
 	        console.log(err);

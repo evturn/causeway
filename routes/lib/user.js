@@ -1,6 +1,21 @@
 'use strict';
 let mongoose = require('mongoose');
-let userSchema = {
+let passportLocalMongoose = require('passport-local-mongoose');
+
+const transactionSchema = new mongoose.Schema({
+  total       : {type: String, sparse: true},
+  description : {type: String, sparse: true},
+  payer       : {type: String, sparse: true},
+  payees: [
+    {
+      user: {type: String, sparse: true},
+      debt: {type: String, sparse: true}
+    }
+  ],
+  timestamp   : {type: Date, default: Date.now()},
+});
+
+const userSchema = new mongoose.Schema({
   gid        : {type: String, sparse: true},
   avatar     : {type: String, sparse: true},
   coverPhoto : {type: String, sparse: true},
@@ -29,8 +44,11 @@ let userSchema = {
     sunset      : {type: String, sparse: true},
     country     : {type: String, sparse: true},
     wind        : {type: String, sparse: true}
-  }
-};
+  },
+  transactions  : [transactionSchema]
+});
 
-let User = new mongoose.Schema(userSchema);
-module.exports = mongoose.model('User', User);
+userSchema.plugin(passportLocalMongoose);
+
+module.exports.User = mongoose.model('User', userSchema);
+module.exports.Transaction = mongoose.model('Transaction', transactionSchema);
