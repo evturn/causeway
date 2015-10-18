@@ -34,7 +34,7 @@ const exp = {
 
     $.each($('.selected'), function() {
       let user = $(this).parent().data('user');
-      let debt = $(this).text();
+      let debt = $(this).text().replace('$', '');
       let payee = {user, debt};
       payees.push(payee);
     });

@@ -20,20 +20,23 @@
       <input class="transaction__field-description" name="transaction-description" type="text" placeholder="Description">
       <button class="transaction__submit">Ok</button>
     <div class="records">
-      <div class="records__item">
-        <div class="records__item-date"></div>
-        <div class="records__item-description"></div>
-        <div class="records__item-total"></div>
-        <div class="records__item-complete"></div>
+      {{#each transactions}}
+      <div class="records__item{{#if this.complete}}--complete{{/if}}">
+        <div class="records__item-date">{{this.timestamp}}</div>
+        <div class="records__item-description">{{this.description}}</div>
+        <div class="records__item-total">{{this.total}}</div>
         <div class="records__item-paid">
-          <div class="records__item-paid-user"></div>
-          <div class="records__item-paid-amount"></div>
+          <div class="records__item-paid-user">{{this.payer}}</div>
+          <div class="records__item-paid-amount">{{this.total}}</div>
         </div>
         <div class="records__item-debt">
-          <div class="records__item-debt-user"></div>
-          <div class="records__item-debt-amount"></div>
+          {{#each payees}}
+          <div class="records__item-debt-user">{{this.user}}</div>
+          <div class="records__item-debt-amount">{{this.debt}}</div>
+          {{/each}}
         </div>
       </div>
+      {{/each}}
     </div>
   </div>
 </div>

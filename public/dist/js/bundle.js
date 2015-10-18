@@ -16888,7 +16888,7 @@
 	
 	    $.each($('.selected'), function () {
 	      var user = $(this).parent().data('user');
-	      var debt = $(this).text();
+	      var debt = $(this).text().replace('$', '');
 	      var payee = { user: user, debt: debt };
 	      payees.push(payee);
 	    });
