@@ -1,20 +1,25 @@
-let $profileDetails = $('.mod-profile__details-el');
-let $clock = $('.mod-clocks-el');
-let $weather = $('.mod-weather-el');
 let Handlebars = require('handlebars');
 let data = null;
-let component = {
+let components = {
   clock: {
     url: 'mod-clock.hbs',
-    el: $clock
+    el: '.mod-clocks-el'
   },
   weather: {
     url: 'mod-weather.hbs',
-    el: $weather
+    el: '.mod-weather-el'
   },
   profileDetails: {
     url: 'mod-profile-location.hbs',
-    el: $profileDetails
+    el: '.mod-profile__details-el'
+  },
+  expRecord: {
+    url: 'component-exp-record.hbs',
+    el: '.records'
+  },
+  expTransaction: {
+    url: 'mod-exp-transaction.hbs',
+    el: '.transaction'
   }
 };
 
@@ -38,9 +43,9 @@ let geoposition = {
       dataType: 'json',
       success(response) {
         data = response;
-        geoposition.loadTemplate(component.clock);
-        geoposition.loadTemplate(component.weather);
-        geoposition.loadTemplate(component.profileDetails);
+        geoposition.loadTemplate(components.clock);
+        geoposition.loadTemplate(components.weather);
+        geoposition.loadTemplate(components.profileDetails);
       },
       error(err) {
         console.log(err);
@@ -60,7 +65,7 @@ let geoposition = {
   },
   updateBrowser(component, template) {
     let page = document.querySelector('body').className;
-    let $el = component.el;
+    let $el = $(component.el);
 
     switch (page) {
       case 'page-now':

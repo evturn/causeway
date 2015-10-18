@@ -16765,23 +16765,28 @@
 
 	/* WEBPACK VAR INJECTION */(function($) {'use strict';
 	
-	var $profileDetails = $('.mod-profile__details-el');
-	var $clock = $('.mod-clocks-el');
-	var $weather = $('.mod-weather-el');
 	var Handlebars = __webpack_require__(4);
 	var data = null;
-	var component = {
+	var components = {
 	  clock: {
 	    url: 'mod-clock.hbs',
-	    el: $clock
+	    el: '.mod-clocks-el'
 	  },
 	  weather: {
 	    url: 'mod-weather.hbs',
-	    el: $weather
+	    el: '.mod-weather-el'
 	  },
 	  profileDetails: {
 	    url: 'mod-profile-location.hbs',
-	    el: $profileDetails
+	    el: '.mod-profile__details-el'
+	  },
+	  expRecord: {
+	    url: 'component-exp-record.hbs',
+	    el: '.records'
+	  },
+	  expTransaction: {
+	    url: 'mod-exp-transaction.hbs',
+	    el: '.transaction'
 	  }
 	};
 	
@@ -16807,9 +16812,9 @@
 	      dataType: 'json',
 	      success: function success(response) {
 	        data = response;
-	        geoposition.loadTemplate(component.clock);
-	        geoposition.loadTemplate(component.weather);
-	        geoposition.loadTemplate(component.profileDetails);
+	        geoposition.loadTemplate(components.clock);
+	        geoposition.loadTemplate(components.weather);
+	        geoposition.loadTemplate(components.profileDetails);
 	      },
 	      error: function error(err) {
 	        console.log(err);
@@ -16831,7 +16836,7 @@
 	  },
 	  updateBrowser: function updateBrowser(component, template) {
 	    var page = document.querySelector('body').className;
-	    var $el = component.el;
+	    var $el = $(component.el);
 	
 	    switch (page) {
 	      case 'page-now':
