@@ -5,8 +5,8 @@ let passportLocalMongoose = require('passport-local-mongoose');
 const transactionSchema = new mongoose.Schema({
   total       : {type: String, sparse: true},
   description : {type: String, sparse: true},
-  payer       : {type: String, sparse: true},
-  payees: [
+  payee       : {type: String, sparse: true},
+  debtors: [
     {
       user: {type: String, sparse: true},
       debt: {type: String, sparse: true}

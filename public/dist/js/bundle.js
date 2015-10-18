@@ -16882,21 +16882,21 @@
 	    });
 	  },
 	  saveTransaction: function saveTransaction() {
-	    var payees = [];
+	    var debtors = [];
 	    var description = $('.transaction__field-description').val();
 	    var total = $('.transaction__field-amount').val();
 	
 	    $.each($('.selected'), function () {
 	      var user = $(this).parent().data('user');
 	      var debt = $(this).text().replace('$', '');
-	      var payee = { user: user, debt: debt };
-	      payees.push(payee);
+	      var debtor = { user: user, debt: debt };
+	      debtors.push(debtor);
 	    });
 	
 	    var transaction = {
 	      total: total,
 	      description: description,
-	      payees: payees
+	      debtors: debtors
 	    };
 	    $.ajax({
 	      url: '/expenses/new',
@@ -16904,7 +16904,7 @@
 	      data: JSON.stringify(transaction),
 	      contentType: 'application/json; charset=utf-8',
 	      success: function success(data) {
-	        console.log(JSON.stringify(data));
+	        console.log(data);
 	      },
 	      error: function error(err) {
 	        console.log(err);
@@ -16912,11 +16912,11 @@
 	    });
 	  },
 	  submitTransaction: function submitTransaction() {
-	    var hasPayees = $('.selected').length > 0;
+	    var hasDebtors = $('.selected').length > 0;
 	    var description = $('.transaction__field-description').val();
 	    var hasDescription = description !== '';
 	
-	    if (hasPayees && hasValidAmount && hasDescription) {
+	    if (hasDebtors && hasValidAmount && hasDescription) {
 	      exp.saveTransaction();
 	    } else {
 	      return;
@@ -16939,13 +16939,13 @@
 	    var value = $('.transaction__field-amount').val();
 	    var amount = parseInt(value);
 	    var $selected = $('.selected');
-	    var payees = $selected.length;
+	    var debtors = $selected.length;
 	    var debt = amount / payees;
 	
-	    if (payees > 1) {
-	      $notification.html('Split ' + payees + ' ways');
+	    if (debtors > 1) {
+	      $notification.html('Split ' + debtors + ' ways');
 	      splitBill = true;
-	    } else if (payees <= 1) {
+	    } else if (debtors <= 1) {
 	      $notification.empty();
 	      splitBill = false;
 	    }

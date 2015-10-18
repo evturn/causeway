@@ -2,50 +2,50 @@
   {
     "total":"243",
     "description":"One cup of coffee",
-    "payees":[{
+    "debtors":[{
         "user":"Eric",
         "debt":"121.5"
       }, {
         "user":"Jiaming",
         "debt":"121.5"
     }],
-    "payer":"Evan",
+    "payee":"Evan",
     "timestamp":1445127862495,
     "complete": false
   },
   {
     "total":"45",
     "description":"Airport rubdown",
-    "payees":[{
+    "debtors":[{
         "user":"Eric",
         "debt":"45"
     }],
-    "payer":"Evan",
+    "payee":"Evan",
     "timestamp":1445127812495,
     "complete": true
   },
   {
     "total":"100",
     "description":"Chocolate covered chocolate",
-    "payees":[{
+    "debtors":[{
         "user":"Evan",
         "debt":"100"
     }],
-    "payer":"Jiaming",
+    "payee":"Jiaming",
     "timestamp":1445127812495,
     "complete": false
   },
   {
     "total":"200",
     "description":"Boneface Hotel & Shampoo",
-    "payees":[{
+    "debtors":[{
         "user":"Evan",
         "debt":"100"
     }, {
         "user":"Jiaming",
         "debt":"100"
     }],
-    "payer":"Eric",
+    "payee":"Eric",
     "timestamp":1445125812495,
     "complete": false
   }

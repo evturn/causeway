@@ -28,21 +28,21 @@ const exp = {
     });
   },
   saveTransaction() {
-    let payees = [];
+    let debtors = [];
     let description = $('.transaction__field-description').val();
     let total = $('.transaction__field-amount').val();
 
     $.each($('.selected'), function() {
       let user = $(this).parent().data('user');
       let debt = $(this).text().replace('$', '');
-      let payee = {user, debt};
-      payees.push(payee);
+      let debtor = {user, debt};
+      debtors.push(debtor);
     });
 
     let transaction = {
       total: total,
       description: description,
-      payees: payees
+      debtors: debtors
     };
     $.ajax({
       url: '/expenses/new',
@@ -50,7 +50,7 @@ const exp = {
       data: JSON.stringify(transaction),
       contentType: 'application/json; charset=utf-8',
       success(data) {
-        console.log(JSON.stringify(data));
+        console.log(data);
       },
       error(err) {
         console.log(err);
@@ -58,11 +58,11 @@ const exp = {
     });
   },
   submitTransaction() {
-    let hasPayees = $('.selected').length > 0;
+    let hasDebtors = $('.selected').length > 0;
     let description = $('.transaction__field-description').val();
     let hasDescription = description !== '';
 
-    if (hasPayees && hasValidAmount && hasDescription) {
+    if (hasDebtors && hasValidAmount && hasDescription) {
       exp.saveTransaction();
     }
     else {
@@ -87,14 +87,14 @@ const exp = {
     let value = $('.transaction__field-amount').val();
     let amount = parseInt(value);
     let $selected = $('.selected');
-    let payees = $selected.length;
+    let debtors = $selected.length;
     let debt = (amount / payees);
 
-    if (payees > 1) {
-      $notification.html(`Split ${payees} ways`);
+    if (debtors > 1) {
+      $notification.html(`Split ${debtors} ways`);
       splitBill = true;
     }
-    else if (payees <= 1) {
+    else if (debtors <= 1) {
       $notification.empty();
       splitBill = false;
     }

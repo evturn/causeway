@@ -1,5 +1,6 @@
 <div class="container exp">
   <div class="inner">
+
     <div class="transaction">
       {{#each users}}
         <div class="transaction__user" data-user="{{this.name.first}}">
@@ -19,23 +20,24 @@
       <input class="transaction__field-amount" name="transaction-amount" type="text" placeholder="Amount">
       <input class="transaction__field-description" name="transaction-description" type="text" placeholder="Description">
       <button class="transaction__submit">Ok</button>
+    </div>
     <div class="records">
       {{#each transactions}}
-      <div class="records__item{{#if this.complete}}--complete{{/if}}">
-        <div class="records__item-date">{{this.timestamp}}</div>
-        <div class="records__item-description">{{this.description}}</div>
-        <div class="records__item-total">{{this.total}}</div>
-        <div class="records__item-paid">
-          <div class="records__item-paid-user">{{this.payer}}</div>
-          <div class="records__item-paid-amount">{{this.total}}</div>
+        <div class="records__item{{#if this.complete}}--complete{{/if}}">
+          <div class="records__item-payee">
+            <div class="records__item-payee-user">{{this.payee}}</div>
+            <div class="records__item-payee-amount">{{this.total}}</div>
+          </div>
+          <div class="records__item-debtors">
+            {{#each debtors}}
+            <div class="records__item-debtor-user">{{this.user}}</div>
+            <div class="records__item-debtor-amount">{{this.debt}}</div>
+            {{/each}}
+          </div>
+          <div class="records__item-description">{{this.description}}</div>
+          <div class="records__item-total">{{this.total}}</div>
+          <div class="records__item-date">{{this.timestamp}}</div>
         </div>
-        <div class="records__item-debt">
-          {{#each payees}}
-          <div class="records__item-debt-user">{{this.user}}</div>
-          <div class="records__item-debt-amount">{{this.debt}}</div>
-          {{/each}}
-        </div>
-      </div>
       {{/each}}
     </div>
   </div>
