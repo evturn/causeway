@@ -1,7 +1,55 @@
-.records__item-payee-user,
-.records__item-debtor-user {
+.records {
+  .clearfix();
+}
+.records__item {
+  .clearfix();
   font-size: 1.6rem;
+  .padding-y(20px);
 }
-.records__item--complete {
-  color: @tx-grey;
+.records__item-info {
+  display: block;
 }
+.records__item-payee {
+  float: left;
+  width: 50%;
+}
+.records__item-info--timestamp,
+.records__item-info--description {
+  display: inline-block;
+}
+.records__item-info--timestamp {
+  float: right;
+  font-size: 1.2rem;
+}
+.records__item-payee--user {
+  display: inline-block;
+  width: 50%;
+}
+.records__item-payee--amount {
+  display: inline-block;
+  text-align: left;
+}
+.records__item-debtors {
+  float: right;
+  width: 50%;
+}
+.records__item-debtor {
+  position: relative;
+}
+.records__item-debtor--amount {
+  display: inline-block;
+  position: absolute;
+  right: 0;
+  color: @tx-primary;
+}
+.records__item-debtor--user {
+  display: inline-block;
+  width: 50%;
+  text-align: right;
+}
+
+
+
+
+
+

@@ -14,7 +14,7 @@ auth.get('/google/callback',  oauth.authenticate, middleware.google);
 app.get('/',         oauth.getAuth, middleware.now);
 app.get('/now',      oauth.getAuth, middleware.now);
 app.get('/expenses', oauth.getAuth, middleware.expenses);
-app.post('/expenses/new', middleware.transaction);
+app.post('/expenses/new', oauth.getAuth, middleware.transaction);
 app.get('/travel',   oauth.getAuth, middleware.travel);
 app.get('/planner',  oauth.getAuth, middleware.planner);
 app.get('/notes',    oauth.getAuth, middleware.notes);

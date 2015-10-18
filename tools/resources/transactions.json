@@ -10,7 +10,7 @@
         "debt":"121.5"
     }],
     "payee":"Evan",
-    "timestamp":1445127862495,
+    "timestamp": "12/18",
     "complete": false
   },
   {
@@ -21,7 +21,7 @@
         "debt":"45"
     }],
     "payee":"Evan",
-    "timestamp":1445127812495,
+    "timestamp": "12/20",
     "complete": true
   },
   {
@@ -32,7 +32,7 @@
         "debt":"100"
     }],
     "payee":"Jiaming",
-    "timestamp":1445127812495,
+    "timestamp": "12/22",
     "complete": false
   },
   {
@@ -46,7 +46,7 @@
         "debt":"100"
     }],
     "payee":"Eric",
-    "timestamp":1445125812495,
+    "timestamp": "12/26",
     "complete": false
   }
 ]
