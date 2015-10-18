@@ -1,11 +1,7 @@
 'use strict';
+let hbs = require('express-handlebars');
 
-module.exports.init = (exphbs) => {
-  return exphbs;
-};
-
-module.exports.exposeTemplates = (req, res, next) => {
-  let hbs = init();
+module.exports = (req, res, next) => {
   hbs.getTemplates('views/partials/', {
     cache      : app.enabled('view cache'),
     precompiled: true

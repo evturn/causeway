@@ -1,7 +1,6 @@
 'use strict';
 let express = require('express');
 let handlebars = require('express-handlebars');
-let templates = require('./templates');
 let helpers = require('../../shared/hbs-helpers');
 let session = require('express-session');
 let logger = require('morgan');
@@ -26,9 +25,6 @@ module.exports = {
     partialsDir: 'views/partials',
     layoutsDir: 'views/layouts'
   }),
-  sharedhbs: {
-    templates: templates.init(handlebars)
-  },
   static: {
     dist: express.static('public/dist'),
     hbs: express.static('views/partials')

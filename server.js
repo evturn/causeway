@@ -4,8 +4,7 @@ let mongoose = require('mongoose');
 let passport = require('passport');
 let config = require('./routes/lib/base');
 let routes = require('./routes/routes');
-let app = express();
-let seed = require('./tools/seed');
+let app = module.exports = express();
 
 config.mongo(mongoose);
 app.engine('hbs', config.hbs.engine);

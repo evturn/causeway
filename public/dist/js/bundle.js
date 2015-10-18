@@ -56,11 +56,18 @@
 	var $ = __webpack_require__(2);
 	var _ = __webpack_require__(3);
 	var Handlebars = __webpack_require__(4);
+	var helpers = __webpack_require__(33);
 	var utils = __webpack_require__(123);
 	var livestamp = __webpack_require__(127);
 	var geoposition = __webpack_require__(128);
 	var cloq = __webpack_require__(125);
 	var transaction = __webpack_require__(131);
+	
+	(function () {
+	  for (var fn in helpers) {
+	    Handlebars.registerHelper(fn, helpers[fn]);
+	  }
+	})();
 	
 	transaction.init();
 	// geoposition.init();
@@ -7662,7 +7669,113 @@
 
 /***/ },
 /* 32 */,
-/* 33 */,
+/* 33 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var moment = __webpack_require__(34);
+	var _ = __webpack_require__(3);
+	var utils = __webpack_require__(123);
+	var jstz = __webpack_require__(124);
+	var cloq = __webpack_require__(125);
+	var thermo = __webpack_require__(126);
+	
+	exports.digitalClock = function (time) {
+	  return cloq.digital(time);
+	};
+	
+	exports.kelvinToFarenheit = function (kelvin) {
+	  return thermo.farenheit(kelvin);
+	};
+	
+	exports.tz = function () {
+	  var tz = jstz.jstz;
+	  return tz.determine().name();
+	};
+	
+	exports.ts = function (milliseconds) {
+	  var ms = parseInt(milliseconds);
+	  var humanReadable = moment(ms).unix();
+	  return humanReadable;
+	};
+	
+	exports.eq = function (first, second, options) {
+	  if (options.hash.firstKey) {
+	    first = first[options.hash.firstKey];
+	  }
+	  if (options.hash.secondKey) {
+	    second = second[options.hash.secondKey];
+	  }
+	  if (options.hash.firstAppend) {
+	    first += '' + options.hash.firstAppend;
+	  }
+	  if (options.hash.secondAppend) {
+	    second += '' + options.hash.secondAppend;
+	  }
+	  if (first === second) {
+	    return options.fn(this);
+	  } else {
+	    return options.inverse(this);
+	  }
+	};
+	
+	exports.gt = function (first, second, options) {
+	  if (first > second) {
+	    return options.fn(this);
+	  } else {
+	    return options.inverse(this);
+	  }
+	};
+	
+	exports.lt = function (first, second, options) {
+	  if (first < second) {
+	    return options.fn(this);
+	  } else {
+	    return options.inverse(this);
+	  }
+	};
+	
+	exports.set = function () {
+	  var args = Array.prototype.slice.call(arguments, 0);
+	  args.pop();
+	  var key = args.shift();
+	  while (!this[key] && args.length) {
+	    this[key] = args.shift();
+	  }
+	  return '';
+	};
+	
+	exports.log = function () {
+	  var args = Array.prototype.slice.call(arguments, 0);
+	  args.pop();
+	  args.unshift('handlebars log:');
+	  console.log.apply(console, args);
+	  return '';
+	};
+	
+	exports.eachUpTo = function (ary, max, options) {
+	  if (!ary || ary.length === 0) {
+	    return options.inverse(this);
+	  }
+	
+	  var result = [];
+	  var data = null;
+	  for (var i = 0; i < max && i < ary.length; ++i) {
+	    data = Handlebars.createFrame(options.data || {});
+	    data.upto_index = i;
+	    data.upto_index_from_1 = i + 1;
+	
+	    if (options.hash) {
+	      _.extend(data, options.hash);
+	    }
+	
+	    result.push(options.fn(ary[i], { data: data }));
+	  }
+	
+	  return result.join('');
+	};
+
+/***/ },
 /* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -16513,7 +16626,22 @@
 	module.exports = Cloq;
 
 /***/ },
-/* 126 */,
+/* 126 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	module.exports = {
+	
+	  farenheit: function farenheit(kelvin) {
+	    var degrees = (kelvin - 273.15) * 1.8000 + 32.00;
+	    var number = degrees.toFixed();
+	    var temp = number + '&#8457;';
+	    return temp;
+	  }
+	};
+
+/***/ },
 /* 127 */
 /***/ function(module, exports, __webpack_require__) {
 
