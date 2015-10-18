@@ -4,7 +4,6 @@ let googleapi = require('./lib/google-api');
 let weatherapi = require('./lib/weather');
 let User = require('./lib/user').User;
 
-
 exports.now = function(req, res, next) {
   data.activePage = 'now';
   data.user = req.user;

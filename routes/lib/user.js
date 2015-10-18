@@ -2,16 +2,21 @@
 let mongoose = require('mongoose');
 let passportLocalMongoose = require('passport-local-mongoose');
 
+const groupSchema = new mongoose.Schema({
+  users       : [userSchema],
+  transactions: [transactionSchema],
+  name        : {type: String},
+  userCount   : {type: Number}
+});
+
 const transactionSchema = new mongoose.Schema({
   total       : {type: String, sparse: true},
   description : {type: String, sparse: true},
   payee       : {type: String, sparse: true},
-  debtors: [
-    {
-      user: {type: String, sparse: true},
-      debt: {type: String, sparse: true}
-    }
-  ],
+  debtors: [{
+    user: {type: String, sparse: true},
+    debt: {type: String, sparse: true}
+  }],
   timestamp   : {type: Date, default: Date.now()},
 });
 
