@@ -10,14 +10,14 @@
 </head>
 <body class="page-{{activePage}}">
 
-  {{#eq activePage 'profile'}}
-  {{else}}
-    {{>header}}
-  {{/eq}}
-  <div class="site-content">
-  {{{body}}}
+  <div class="site-container">
+    {{>site-header}}
+    <div class="site-content">
+      {{{body}}}
+    </div>
+    {{>site-nav}}
   </div>
-  {{>site-nav}}
+
   <script src="js/bundle.js"></script>
 </body>
 </html>

@@ -1,18 +1,16 @@
-<div class="container cover-photo" {{#if user.coverPhoto}}style="background-image: url('{{user.coverPhoto}}')"{{/if}}></div>
-<div class="container profile-container">
-  <div class="inner">
-    <div class="profile">
-      <div class="profile__image">
-        <img class="img-scale" src="{{user.avatar}}">
-      </div>
-      <div class="profile__details">
-        <div class="profile__details-name">{{user.fullname}}</div>
-        <div class="mod-profile__details-el">
-          <div class="profile__details-geoposition"><i class="fa fa-location-arrow"></i> {{user.climate.vicinity}}, {{user.climate.country}}</div>
-          <div class="profile__details-last-seen">Last seen <span data-livestamp="{{ts user.geo.lastSeen}}"></span></div>
-        </div>
+<div class="mod-profile">
+  <div class="cover-photo" {{#if user.coverPhoto}}style="background-image: url('{{user.coverPhoto}}')"{{/if}}></div>
+  <div class="profile wrapper">
+    <div class="profile__image">
+      <img class="img-scale" src="{{user.avatar}}">
+    </div>
+    <div class="profile__details">
+      <div class="profile__details-name">{{user.fullname}}</div>
+      <div class="mod-profile__details-el">
+        <div class="profile__details-geoposition"><i class="fa fa-location-arrow"></i> {{user.climate.vicinity}}, {{user.climate.country}}</div>
+        <div class="profile__details-last-seen">Last seen <span data-livestamp="{{ts user.geo.lastSeen}}"></span></div>
       </div>
     </div>
   </div>
-</div>
 {{>mod-groups}}
+</div>

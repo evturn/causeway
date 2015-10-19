@@ -1,45 +1,45 @@
-<div class="container exp">
-  <div class="inner">
-    <div class="transaction">
-      {{#each group.users}}
-        <div class="transaction__user" data-user="{{this.name.first}}">
-          <div class="transaction__user-details">
-            <img class="transaction__user-avatar" src="{{this.avatar}}">
-            <div class="transaction__user-name">{{this.name.first}}</div>
-          </div>
-          <div class="transaction__user-select">
-            <span class="fa fa-check"></span>
-            <input class="transaction__user-checkbox" type="checkbox">
-            <div class="transaction__user--checked"></div>
-          </div>
-          <div class="transaction__user-debt"></div>
+<div class="mod-transaction">
+  <div class="wrapper">
+    {{#each group.users}}
+      <div class="transaction__user" data-user="{{this.name.first}}">
+        <div class="transaction__user-details">
+          <img class="transaction__user-avatar" src="{{this.avatar}}">
+          <div class="transaction__user-name">{{this.name.first}}</div>
         </div>
-      {{/each}}
-      <div class="transaction__info"></div>
-      <input class="transaction__field-amount" name="transaction-amount" type="text" placeholder="Amount">
-      <input class="transaction__field-description" name="transaction-description" type="text" placeholder="Description">
-      <button class="transaction__submit">Ok</button>
-    </div>
+        <div class="transaction__user-select">
+          <span class="fa fa-check"></span>
+          <input class="transaction__user-checkbox" type="checkbox">
+          <div class="transaction__user--checked"></div>
+        </div>
+        <div class="transaction__user-debt"></div>
+      </div>
+    {{/each}}
+    <div class="transaction__info"></div>
+    <input class="transaction__field-amount" name="transaction-amount" type="text" placeholder="Amount">
+    <input class="transaction__field-description" name="transaction-description" type="text" placeholder="Description">
+    <button class="transaction__submit">Ok</button>
   </div>
 </div>
-<div class="records">
+<div class="mod-records">
   {{#each group.transactions}}
-    <div class="container records__item">
-      <div class="records__item-info">
-        <div class="records__item-info--description">{{this.description}}</div>
-        <div class="records__item-info--timestamp">{{this.timestamp}}</div>
-      </div>
-      <div class="records__item-payee">
-        <div class="records__item-payee--user">{{this.payee}}</div>
-        <div class="records__item-payee--amount">${{this.total}}</div>
-      </div>
-      <div class="records__item-debtors">
-        {{#each debtors}}
-          <div class="records__item-debtor">
-            <div class="records__item-debtor--user">{{this.user}}</div>
-            <div class="records__item-debtor--amount">-${{this.debt}}</div>
-          </div>
-        {{/each}}
+    <div class="records__item">
+      <div class="wrapper">
+        <div class="records__item-info">
+          <div class="records__item-info--description">{{this.description}}</div>
+          <div class="records__item-info--timestamp">{{this.timestamp}}</div>
+        </div>
+        <div class="records__item-payee">
+          <div class="records__item-payee--user">{{this.payee}}</div>
+          <div class="records__item-payee--amount">${{this.total}}</div>
+        </div>
+        <div class="records__item-debtors">
+          {{#each debtors}}
+            <div class="records__item-debtor">
+              <div class="records__item-debtor--user">{{this.user}}</div>
+              <div class="records__item-debtor--amount">-${{this.debt}}</div>
+            </div>
+          {{/each}}
+        </div>
       </div>
     </div>
   {{/each}}

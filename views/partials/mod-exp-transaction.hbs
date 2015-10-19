@@ -1,18 +1,20 @@
-{{#each users}}
-  <div class="transaction__user" data-user="{{this.name.first}}">
-    <div class="transaction__user-details">
-      <img class="transaction__user-avatar" src="{{this.avatar}}">
-      <div class="transaction__user-name">{{this.name.first}}</div>
+<div class="mod-transaction wrapper">
+  {{#each group.users}}
+    <div class="transaction__user" data-user="{{this.name.first}}">
+      <div class="transaction__user-details">
+        <img class="transaction__user-avatar" src="{{this.avatar}}">
+        <div class="transaction__user-name">{{this.name.first}}</div>
+      </div>
+      <div class="transaction__user-select">
+        <span class="fa fa-check"></span>
+        <input class="transaction__user-checkbox" type="checkbox">
+        <div class="transaction__user--checked"></div>
+      </div>
+      <div class="transaction__user-debt"></div>
     </div>
-    <div class="transaction__user-select">
-      <span class="fa fa-check"></span>
-      <input class="transaction__user-checkbox" type="checkbox">
-      <div class="transaction__user--checked"></div>
-    </div>
-    <div class="transaction__user-debt"></div>
-  </div>
-{{/each}}
-<div class="transaction__info"></div>
-<input class="transaction__field-amount" name="transaction-amount" type="text" placeholder="Amount">
-<input class="transaction__field-description" name="transaction-description" type="text" placeholder="Description">
-<button class="transaction__submit">Ok</button>
+  {{/each}}
+  <div class="transaction__info"></div>
+  <input class="transaction__field-amount" name="transaction-amount" type="text" placeholder="Amount">
+  <input class="transaction__field-description" name="transaction-description" type="text" placeholder="Description">
+  <button class="transaction__submit">Ok</button>
+</div>
