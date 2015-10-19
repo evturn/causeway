@@ -16888,6 +16888,7 @@
 	      data: JSON.stringify(transaction),
 	      contentType: 'application/json; charset=utf-8',
 	      success: function success(data) {
+	        console.log(data);
 	        data.timestamp = '10/17';
 	        render(components.record, data);
 	      },

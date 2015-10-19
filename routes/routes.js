@@ -12,10 +12,10 @@ let sendTemplates = require('../shared/templates');
 auth.get('/google',           oauth.init);
 auth.get('/google/callback',  oauth.authenticate, middleware.google);
 
-app.get('/',         oauth.getAuth, middleware.now);
+app.get('/',         sendTemplates, oauth.getAuth, middleware.now);
 app.get('/now',      sendTemplates, oauth.getAuth, middleware.now);
-app.get('/expenses', oauth.getAuth, middleware.expenses);
-app.post('/expenses/new', oauth.getAuth, middleware.transaction);
+app.get('/expenses', sendTemplates, oauth.getAuth, middleware.expenses);
+app.post('/expenses/new', sendTemplates, oauth.getAuth, middleware.transaction);
 app.get('/travel',   oauth.getAuth, middleware.travel);
 app.get('/planner',  oauth.getAuth, middleware.planner);
 app.get('/notes',    oauth.getAuth, middleware.notes);

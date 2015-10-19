@@ -7,14 +7,14 @@ let User = require('./lib/user').User;
 exports.now = function(req, res, next) {
   data.activePage = 'now';
   data.user = req.user;
-  console.log(req);
-  console.log(res);
+  data.templates = res.locals.templates;
   res.render('now', data);
 };
 
 exports.expenses = function(req, res, next) {
   data.activePage = 'expenses';
   data.user = req.user;
+  data.templates = res.locals.templates;
   res.render('expenses', data);
 };
 
@@ -22,8 +22,7 @@ exports.transaction = function(req, res, next) {
   let transaction = req.body;
   transaction.payee = req.user.name.first;
   transaction.timestamp = Date.now();
-
-  console.log(transaction);
+  transaction.templates = res.locals.templates;
   res.json(transaction);
 };
 
