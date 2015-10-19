@@ -22,7 +22,11 @@ module.exports = {
     defaultLayout: 'layout',
     extname: '.hbs',
     helpers: helpers,
-    partialsDir: 'views/partials',
+    partialsDir: [
+      'views/partials',
+      'views/partials/modules',
+      'views/partials/components'
+    ],
     layoutsDir: 'views/layouts'
   }),
   static: {
