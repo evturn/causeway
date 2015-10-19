@@ -1,5 +1,5 @@
 'use strict';
-let data = require('./lib/assembler');
+let data = require('./lib/assembler').site;
 let googleapi = require('./lib/google-api');
 let weatherapi = require('./lib/weather');
 let User = require('./lib/user').User;
@@ -7,6 +7,8 @@ let User = require('./lib/user').User;
 exports.now = function(req, res, next) {
   data.activePage = 'now';
   data.user = req.user;
+  console.log(req);
+  console.log(res);
   res.render('now', data);
 };
 

@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = {
   clock: {
     url: 'component-clock.hbs',

@@ -7,12 +7,13 @@ let app = express.Router();
 let auth = express.Router();
 let geo = express.Router();
 let users = express.Router();
+let sendTemplates = require('../shared/templates');
 
 auth.get('/google',           oauth.init);
 auth.get('/google/callback',  oauth.authenticate, middleware.google);
 
 app.get('/',         oauth.getAuth, middleware.now);
-app.get('/now',      oauth.getAuth, middleware.now);
+app.get('/now',      sendTemplates, oauth.getAuth, middleware.now);
 app.get('/expenses', oauth.getAuth, middleware.expenses);
 app.post('/expenses/new', oauth.getAuth, middleware.transaction);
 app.get('/travel',   oauth.getAuth, middleware.travel);
@@ -24,7 +25,6 @@ users.get('/',       oauth.getAuth, middleware.users);
 users.get('/:id',    oauth.getAuth, middleware.user);
 
 geo.post('/', oauth.getAuth, urlencoded, middleware.geoposition);
-
 
 exports.app = app;
 exports.auth = auth;

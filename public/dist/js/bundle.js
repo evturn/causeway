@@ -55,22 +55,14 @@
 	
 	var $ = __webpack_require__(2);
 	var _ = __webpack_require__(3);
-	var Handlebars = __webpack_require__(4);
-	var helpers = __webpack_require__(33);
+	var templates = __webpack_require__(132);
 	var utils = __webpack_require__(123);
 	var livestamp = __webpack_require__(127);
-	var geoposition = __webpack_require__(128);
+	// let geoposition = require('./geoposition');
 	var cloq = __webpack_require__(125);
 	var transaction = __webpack_require__(131);
 	
-	(function () {
-	  for (var fn in helpers) {
-	    Handlebars.registerHelper(fn, helpers[fn]);
-	  }
-	})();
-	
 	transaction.init();
-	// geoposition.init();
 
 /***/ },
 /* 2 */
@@ -16765,51 +16757,7 @@
 	})();
 
 /***/ },
-/* 128 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function($) {'use strict';
-	
-	var Handlebars = __webpack_require__(4);
-	var components = __webpack_require__(129);
-	var render = __webpack_require__(130);
-	
-	var geoposition = {
-	  cachedTemplates: [],
-	  init: function init() {
-	    this.getCoordinates();
-	  },
-	  getCoordinates: function getCoordinates() {
-	    var _this = this;
-	
-	    if (navigator.geolocation) {
-	      navigator.geolocation.getCurrentPosition(function (position) {
-	        _this.saveCoordinates(position);
-	      });
-	    }
-	  },
-	  saveCoordinates: function saveCoordinates(position) {
-	    $.ajax({
-	      type: 'POST',
-	      url: '/geoposition',
-	      data: position,
-	      dataType: 'json',
-	      success: function success(data) {
-	        render(components.clock, data);
-	        render(components.weather, data);
-	        render(components.profileDetails, data);
-	      },
-	      error: function error(err) {
-	        console.log(err);
-	      }
-	    });
-	  }
-	};
-	
-	module.exports = geoposition;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
-
-/***/ },
+/* 128 */,
 /* 129 */
 /***/ function(module, exports) {
 
@@ -16892,7 +16840,6 @@
 	var hasValidAmount = null;
 	var render = __webpack_require__(130);
 	var components = __webpack_require__(129);
-	console.log(components);
 	var exp = {
 	  init: function init() {
 	    var $user = $('.transaction__user');
@@ -17003,6 +16950,23 @@
 	
 	module.exports = exp;
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
+
+/***/ },
+/* 132 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var Handlebars = __webpack_require__(4);
+	var helpers = __webpack_require__(33);
+	
+	module.exports = (function () {
+	  for (var fn in helpers) {
+	    Handlebars.registerHelper(fn, helpers[fn]);
+	  }
+	
+	  return Handlebars;
+	})();
 
 /***/ }
 /******/ ]);

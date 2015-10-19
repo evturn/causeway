@@ -2,7 +2,6 @@
 let users = require('../../tools/resources/users.json');
 let transactions = require('../../tools/resources/transactions.json');
 let components = require('../../shared/components');
-
 let nav = [
     {name: 'Now',      icon: 'fa fa-flash',       path: 'now'},
     {name: 'Expenses', icon: 'fa fa-money',       path: 'expenses'},
@@ -11,6 +10,7 @@ let nav = [
     {name: 'Notes',    icon: 'fa fa-sticky-note', path: 'notes'},
     {name: 'Me',       icon: 'fa fa-user',        path: 'profile'}
 ];
+
 
 let site = {
   nav: nav,
@@ -49,4 +49,4 @@ let site = {
   activePage: ''
 };
 
-module.exports = site;
+module.exports.site = site;

@@ -2,7 +2,6 @@ let splitBill = null;
 let hasValidAmount = null;
 let render = require('./render');
 let components = require('components');
-console.log(components);
 const exp = {
   init() {
     let $user = $('.transaction__user');

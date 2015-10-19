@@ -24,6 +24,7 @@ app.use('/', routes.app);
 app.use('/auth', routes.auth);
 app.use('/users', routes.users);
 app.use('/geoposition', routes.geo);
+
 app.listen(config.port, () => {
   console.log('Express listening on 3000');
 });
