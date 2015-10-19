@@ -1,22 +1,22 @@
 module.exports = {
   clock: {
-    url: 'mod-clock.hbs',
-    el: '.mod-clocks-el'
+    url: 'component-clock.hbs',
+    el: '.mod-clocks'
   },
   weather: {
-    url: 'mod-weather.hbs',
-    el: '.mod-weather-el'
+    url: 'component-weather.hbs',
+    el: '.mod-weather'
   },
-  profileDetails: {
-    url: 'mod-profile-location.hbs',
-    el: '.mod-profile__details-el'
+  profileLocation: {
+    url: 'component-profile-location.hbs',
+    el: '.profile__details-location'
   },
-  expRecord: {
-    url: 'component-exp-record.hbs',
-    el: '.records'
+  record: {
+    url: 'component-record.hbs',
+    el: '.mod-records'
   },
-  expTransaction: {
-    url: 'mod-exp-transaction.hbs',
-    el: '.transaction'
+  transaction: {
+    url: 'component-transaction.hbs',
+    el: '.mod-transaction'
   }
 };

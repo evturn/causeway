@@ -16817,24 +16817,24 @@
 	
 	module.exports = {
 	  clock: {
-	    url: 'mod-clock.hbs',
-	    el: '.mod-clocks-el'
+	    url: 'component-clock.hbs',
+	    el: '.mod-clocks'
 	  },
 	  weather: {
-	    url: 'mod-weather.hbs',
-	    el: '.mod-weather-el'
+	    url: 'component-weather.hbs',
+	    el: '.mod-weather'
 	  },
-	  profileDetails: {
-	    url: 'mod-profile-location.hbs',
-	    el: '.mod-profile__details-el'
+	  profileLocation: {
+	    url: 'component-profile-location.hbs',
+	    el: '.profile__details-location'
 	  },
-	  expRecord: {
-	    url: 'component-exp-record.hbs',
-	    el: '.records'
+	  record: {
+	    url: 'component-record.hbs',
+	    el: '.mod-records'
 	  },
-	  expTransaction: {
-	    url: 'mod-exp-transaction.hbs',
-	    el: '.transaction'
+	  transaction: {
+	    url: 'component-transaction.hbs',
+	    el: '.mod-transaction'
 	  }
 	};
 
@@ -16892,7 +16892,7 @@
 	var hasValidAmount = null;
 	var render = __webpack_require__(130);
 	var components = __webpack_require__(129);
-	
+	console.log(components);
 	var exp = {
 	  init: function init() {
 	    var $user = $('.transaction__user');
@@ -16942,7 +16942,7 @@
 	      contentType: 'application/json; charset=utf-8',
 	      success: function success(data) {
 	        data.timestamp = '10/17';
-	        render(components.expRecord, data);
+	        render(components.record, data);
 	      },
 	      error: function error(err) {
 	        console.log(err);

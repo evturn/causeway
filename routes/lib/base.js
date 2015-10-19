@@ -31,7 +31,7 @@ module.exports = {
   }),
   static: {
     dist: express.static('public/dist'),
-    hbs: express.static('views/partials')
+    hbs: express.static('views/partials/components')
   },
   session: session({
     secret: 'crankshaft',
