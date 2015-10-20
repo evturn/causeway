@@ -1,4 +1,6 @@
 'use strict';
+let Handlebars = require('handlebars');
+let helpers = require('./hbs-helpers');
 
 module.exports = {
   clock: {
@@ -24,5 +26,11 @@ module.exports = {
   group: {
     url: 'component-group.hbs',
     el: '.mod-groups'
-  }
+  },
+  helpers: (() => {
+    for (let fn in helpers) {
+      Handlebars.registerHelper(fn, helpers[fn]);
+    }
+    return Handlebars;
+  }())
 };

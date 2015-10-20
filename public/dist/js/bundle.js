@@ -55,10 +55,8 @@
 	
 	var $ = __webpack_require__(2);
 	var _ = __webpack_require__(3);
-	var templates = __webpack_require__(4);
-	var utils = __webpack_require__(123);
 	var livestamp = __webpack_require__(127);
-	// let geoposition = require('./geoposition');
+	var geoposition = __webpack_require__(144);
 	var cloq = __webpack_require__(125);
 	var transaction = __webpack_require__(128);
 	
@@ -3094,23 +3092,7 @@
 	}).call(undefined);
 
 /***/ },
-/* 4 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var Handlebars = __webpack_require__(5);
-	var helpers = __webpack_require__(33);
-	
-	module.exports = (function () {
-	  for (var fn in helpers) {
-	    Handlebars.registerHelper(fn, helpers[fn]);
-	  }
-	
-	  return Handlebars;
-	})();
-
-/***/ },
+/* 4 */,
 /* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -16940,9 +16922,11 @@
 
 /***/ },
 /* 130 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
+	var Handlebars = __webpack_require__(5);
+	var helpers = __webpack_require__(33);
 	
 	module.exports = {
 	  clock: {
@@ -16968,8 +16952,72 @@
 	  group: {
 	    url: 'component-group.hbs',
 	    el: '.mod-groups'
+	  },
+	  helpers: (function () {
+	    for (var fn in helpers) {
+	      Handlebars.registerHelper(fn, helpers[fn]);
+	    }
+	    return Handlebars;
+	  })()
+	};
+
+/***/ },
+/* 131 */,
+/* 132 */,
+/* 133 */,
+/* 134 */,
+/* 135 */,
+/* 136 */,
+/* 137 */,
+/* 138 */,
+/* 139 */,
+/* 140 */,
+/* 141 */,
+/* 142 */,
+/* 143 */,
+/* 144 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function($) {'use strict';
+	
+	var Handlebars = __webpack_require__(5);
+	var components = __webpack_require__(130);
+	var render = __webpack_require__(129);
+	
+	var geoposition = {
+	  cachedTemplates: [],
+	  init: function init() {
+	    this.getCoordinates();
+	  },
+	  getCoordinates: function getCoordinates() {
+	    var _this = this;
+	
+	    if (navigator.geolocation) {
+	      navigator.geolocation.getCurrentPosition(function (position) {
+	        _this.saveCoordinates(position);
+	      });
+	    }
+	  },
+	  saveCoordinates: function saveCoordinates(position) {
+	    $.ajax({
+	      type: 'POST',
+	      url: '/geoposition',
+	      data: position,
+	      dataType: 'json',
+	      success: function success(data) {
+	        render(components.clock, data);
+	        render(components.weather, data);
+	        render(components.profileDetails, data);
+	      },
+	      error: function error(err) {
+	        console.log(err);
+	      }
+	    });
 	  }
 	};
+	
+	module.exports = geoposition;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }
 /******/ ]);
