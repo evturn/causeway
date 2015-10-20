@@ -1,23 +1,21 @@
 'use strict';
 let express = require('express');
 let passport = require('passport');
-let config = require('./server/config');
+let o_O = require('./server/config');
 let app = module.exports = express();
 
-app.engine('hbs', config.hbs.engine);
+app.engine('hbs', o_O.hbs.engine);
 app.set('view engine', 'hbs');
 app.set('views', 'views');
-app.set('port', config.port);
-app.use('/', config.static.dist);
-app.use('/', config.static.hbs);
-app.use(config.urlencoded);
-app.use(config.cookieParser);
-app.use(config.bodyParser);
-app.use(config.logger);
-app.use(config.session);
+app.set('port', o_O.port);
+app.use('/', o_O.static.dist);
+app.use('/', o_O.static.hbs);
+app.use(o_O.urlencoded);
+app.use(o_O.cookieParser);
+app.use(o_O.bodyParser);
+app.use(o_O.logger);
+app.use(o_O.session);
 app.use(passport.initialize());
 app.use(passport.session());
-require('./server/routes')(app);
-app.listen(config.port, () => {
-  console.log('Express listening on 3000');
-});
+o_O.router(app);
+app.listen(o_O.port, o_O.isListening());

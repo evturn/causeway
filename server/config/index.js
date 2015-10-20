@@ -44,5 +44,11 @@ module.exports = {
   logger: logger('dev'),
   cookieParser: cookieParser(),
   bodyParser: bodyParser.json(),
-  urlencoded: bodyParser.urlencoded({extended: false})
+  urlencoded: bodyParser.urlencoded({extended: false}),
+  router: (app) => {
+    require('../routes')(app);
+  },
+  isListening: () => {
+    console.log('Express listening on 3000');
+  }
 };
