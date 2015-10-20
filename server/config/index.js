@@ -32,7 +32,7 @@ module.exports = {
   }),
   static: {
     root: express.static('/'),
-    dist: express.static('public/dist'),
+    dist: express.static('client/dist'),
     hbs: express.static('shared/templates')
   },
   session: session({

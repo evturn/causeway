@@ -6,12 +6,12 @@ let webpack = require('webpack'),
 module.exports = {
   context: __dirname,
   entry: [
-    './public/build/js/app.js'
+    './client/build/js/app.js'
   ],
   output: {
-      path: __dirname + '/public/dist/js',
+      path: __dirname + '/client/dist/js',
       filename: 'bundle.js',
-      publicPath: '/public/dist/js/'
+      clientPath: '/client/dist/js/'
   },
   module: {
     loaders: [

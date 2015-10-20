@@ -6,20 +6,20 @@ let gulp = require('gulp'),
 
 let paths = {
   dest: {
-    css: 'public/dist/css',
-    js: 'public/dist/js',
-    img: 'public/dist/img'
+    css: 'client/dist/css',
+    js: 'client/dist/js',
+    img: 'client/dist/img'
   },
   less: {
-    src: 'public/build/less/*.less',
-    watch: 'public/build/less/**/*.less',
+    src: 'client/build/less/*.less',
+    watch: 'client/build/less/**/*.less',
     filename: 'style.css',
     min: 'style.min.css'
   },
   eslint: {
     src: [
-      'public/build/js/**/*.js',
-      '!public/build/js/web_modules/**/*.js',
+      'client/build/js/**/*.js',
+      '!client/build/js/web_modules/**/*.js',
       'routes/**/*.js',
       'shared/**/*.js',
       'gulpfile.js',
@@ -28,10 +28,10 @@ let paths = {
     ]
   },
   js: {
-    watch: 'public/dist/js/bundle.js'
+    watch: 'client/dist/js/bundle.js'
   },
   img: {
-    src: 'public/build/img/*'
+    src: 'client/build/img/*'
   },
   views: {
     watch: 'views/**/*.hbs'
