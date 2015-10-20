@@ -4,9 +4,9 @@ let gutil = require('gulp-util');
 let browserSync = require('browser-sync').create();
 let $ = require('gulp-load-plugins')();
 let runSequence = require('run-sequence');
-let paths = require('./routes/lib/gulp.config').paths;
-let opts = require('./routes/lib/gulp.config').opts;
-let reload = require('./routes/lib/gulp.config').reload;
+let paths = require('./tools/gulp.config').paths;
+let opts = require('./tools/gulp.config').opts;
+let reload = require('./tools/gulp.config').reload;
 
 //////////////////////////////////////////////
 // Callback

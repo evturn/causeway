@@ -2,8 +2,7 @@
 let express = require('express');
 let mongoose = require('mongoose');
 let passport = require('passport');
-let config = require('./routes/lib/base');
-let routes = require('./routes/routes');
+let config = require('./server/config');
 let app = module.exports = express();
 
 config.mongo(mongoose);
@@ -20,10 +19,7 @@ app.use(config.logger);
 app.use(config.session);
 app.use(passport.initialize());
 app.use(passport.session());
-app.use('/', routes.app);
-app.use('/auth', routes.auth);
-app.use('/users', routes.users);
-app.use('/geoposition', routes.geo);
+require('./server/routes')(app);
 
 app.listen(config.port, () => {
   console.log('Express listening on 3000');

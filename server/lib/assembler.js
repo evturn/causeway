@@ -49,4 +49,4 @@ let site = {
   activePage: ''
 };
 
-module.exports.site = site;
+module.exports = site;

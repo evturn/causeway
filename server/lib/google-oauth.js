@@ -1,7 +1,7 @@
 'use strict';
 let passport = require('passport');
 let GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
-let User = require('./user').User;
+let User = require('../models/user').User;
 
 let google = {
   params: {
