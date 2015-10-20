@@ -2,6 +2,7 @@
 let users = require('../../tools/resources/users.json');
 let transactions = require('../../tools/resources/transactions.json');
 let components = require('../../shared/components');
+
 let nav = [
     {name: 'Now',      icon: 'fa fa-flash',       path: 'now'},
     {name: 'Expenses', icon: 'fa fa-money',       path: 'expenses'},

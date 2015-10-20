@@ -25,13 +25,13 @@ module.exports = {
     partialsDir: [
       'views/partials',
       'views/partials/modules',
-      'views/partials/components'
+      'shared/templates'
     ],
     layoutsDir: 'views/layouts'
   }),
   static: {
     dist: express.static('public/dist'),
-    hbs: express.static('views/partials/components')
+    hbs: express.static('shared/templates')
   },
   session: session({
     secret: 'crankshaft',

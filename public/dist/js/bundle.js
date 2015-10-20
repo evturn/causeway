@@ -16964,6 +16964,10 @@
 	  transaction: {
 	    url: 'component-transaction.hbs',
 	    el: '.mod-transaction'
+	  },
+	  group: {
+	    url: 'component-group.hbs',
+	    el: '.mod-groups'
 	  }
 	};
 
