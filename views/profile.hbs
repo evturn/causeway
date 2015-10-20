@@ -16,5 +16,19 @@
       <button class="profile-nav__button"><i class="fa fa-gears"></i></button>
     </div>
   </div>
-{{>mod-groups}}
+  <div class="mod-groups">
+  {{#each groups}}
+    <div class="groups__item wrapper">
+      <div class="groups__item-name">{{name}}</div>
+      <div class="groups__item-user-count">{{userCount}} members</div>
+      {{#eq ../activePage 'profile'}}
+        {{#ne ../../group name}}
+          <div class="profile__groups">
+            <button class="profile__groups-switch-to"><a href="/groups/{{../name}}"><span class="fa fa-random"></span></a></button>
+          </div>
+        {{/ne}}
+      {{/eq}}
+    </div>
+  {{/each}}
+</div>
 </div>

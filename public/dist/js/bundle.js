@@ -7668,14 +7668,16 @@
 	var utils = __webpack_require__(123);
 	var jstz = __webpack_require__(124);
 	var cloq = __webpack_require__(125);
-	var thermo = __webpack_require__(126);
 	
 	exports.digitalClock = function (time) {
 	  return cloq.digital(time);
 	};
 	
 	exports.kelvinToFarenheit = function (kelvin) {
-	  return thermo.farenheit(kelvin);
+	  var degrees = (kelvin - 273.15) * 1.8000 + 32.00;
+	  var number = degrees.toFixed();
+	  var temp = number + '&#8457;';
+	  return temp;
 	};
 	
 	exports.tz = function () {
@@ -7709,6 +7711,24 @@
 	  }
 	};
 	
+	exports.ne = function (first, second, options) {
+	  if (options.hash.roundDate) {
+	    options.hash.round = options.hash.roundDate;
+	    first = new Date(first).getTime();
+	    second = new Date(second).getTime();
+	  }
+	
+	  if (options.hash.round) {
+	    first = Math.round(first / options.hash.round);
+	    second = Math.round(second / options.hash.round);
+	  }
+	  if (first !== second) {
+	    return options.fn(undefined);
+	  } else {
+	    return options.inverse(undefined);
+	  }
+	};
+	
 	exports.gt = function (first, second, options) {
 	  if (first > second) {
 	    return options.fn(this);
@@ -7738,8 +7758,8 @@
 	exports.log = function () {
 	  var args = Array.prototype.slice.call(arguments, 0);
 	  args.pop();
-	  args.unshift('handlebars log:');
 	  console.log.apply(console, args);
+	  args.unshift('========HANDLEB0RS=========');
 	  return '';
 	};
 	
@@ -16616,22 +16636,7 @@
 	module.exports = Cloq;
 
 /***/ },
-/* 126 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	module.exports = {
-	
-	  farenheit: function farenheit(kelvin) {
-	    var degrees = (kelvin - 273.15) * 1.8000 + 32.00;
-	    var number = degrees.toFixed();
-	    var temp = number + '&#8457;';
-	    return temp;
-	  }
-	};
-
-/***/ },
+/* 126 */,
 /* 127 */
 /***/ function(module, exports, __webpack_require__) {
 

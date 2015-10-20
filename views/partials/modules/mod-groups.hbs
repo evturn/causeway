@@ -4,9 +4,12 @@
       <div class="groups__item-name">{{name}}</div>
       <div class="groups__item-user-count">{{userCount}} members</div>
       {{#eq ../activePage 'profile'}}
-        <div class="profile__groups">
-          <button class="profile__groups-switch-to"><span class="fa fa-random"></span></button>
-        </div>
+        {{#ne ../group name}}
+        {{log this}}
+          <div class="profile__groups">
+            <button class="profile__groups-switch-to"><span class="fa fa-random"></span></button>
+          </div>
+        {{/ne}}
       {{/eq}}
     </div>
   {{/each}}

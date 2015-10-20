@@ -47,7 +47,8 @@ let site = {
     'notes',
     'profile'
   ],
-  activePage: ''
+  activePage: '',
+  group: 'Thug Nation',
 };
 
 module.exports = site;
