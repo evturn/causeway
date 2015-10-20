@@ -1,7 +1,7 @@
 {{>mod-clock}}
 {{>mod-weather}}
 <div class="mod-groups">
-  {{#eachUpTo groups 2}}
+  {{#eachUpTo groups 1}}
     <div class="groups__item wrapper">
       <div class="groups__item-name">{{name}}</div>
       <div class="groups__item-user-count">{{userCount}} members</div>
@@ -17,7 +17,25 @@
   {{/eachUpTo}}
 </div>
 <div class="mod-recent-activity">
-  <div class="recent-activity__item">
-
+  {{#eachUpTo group.transactions 10}}
+  <div class="recent-activity__item-divider"></div>
+  <div class="recent-activity__item wrapper">
+    <div class="records__item-info">
+          <div class="records__item-info--description">{{this.description}}</div>
+          <div class="records__item-info--timestamp">{{this.timestamp}}</div>
+        </div>
+        <div class="records__item-payee">
+          <div class="records__item-payee--user">{{this.payee}}</div>
+          <div class="records__item-payee--amount">${{this.total}}</div>
+        </div>
+        <div class="records__item-debtors">
+          {{#each debtors}}
+            <div class="records__item-debtor">
+              <div class="records__item-debtor--user">{{this.user}}</div>
+              <div class="records__item-debtor--amount">-${{this.debt}}</div>
+            </div>
+          {{/each}}
+        </div>
   </div>
+  {{/eachUpTo}}
 </div>
