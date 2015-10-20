@@ -1,6 +1,6 @@
 'use strict';
 
-exports.create = function(req, res, next) {
+exports.create = (req, res, next) => {
   let transaction = req.body;
   transaction.payee = req.user.name.first;
   transaction.timestamp = Date.now();

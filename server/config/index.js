@@ -2,13 +2,14 @@
 let express = require('express');
 let handlebars = require('express-handlebars');
 let helpers = require('../../shared/hbs-helpers');
+let mongoose = require('mongoose');
 let session = require('express-session');
 let logger = require('morgan');
 let bodyParser = require('body-parser');
 let cookieParser = require('cookie-parser');
 
 module.exports = {
-  mongo: function(mongoose) {
+  mongo: () => {
     mongoose.connect('mongodb://localhost/causeway');
     mongoose.connection.on('error',
       console.error.bind(console,
@@ -17,7 +18,7 @@ module.exports = {
       function callback() {
         console.log('DB connected');
     });
-  },
+  }(),
   hbs: handlebars.create({
     defaultLayout: 'layout',
     extname: '.hbs',
