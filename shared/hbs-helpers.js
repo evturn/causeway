@@ -1,6 +1,7 @@
 'use strict';
 let moment = require('./moment.isoduration');
 let _ = require('underscore');
+let Handlebars = require('handlebars');
 let utils = require('./utils');
 let jstz = require('jstimezonedetect');
 let cloq = require('./cloq');

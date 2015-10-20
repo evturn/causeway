@@ -7669,6 +7669,7 @@
 	'use strict';
 	var moment = __webpack_require__(34);
 	var _ = __webpack_require__(3);
+	var Handlebars = __webpack_require__(5);
 	var utils = __webpack_require__(123);
 	var jstz = __webpack_require__(124);
 	var cloq = __webpack_require__(125);
