@@ -22,4 +22,6 @@ module.exports = (app) => {
   app.get('/users/',                oauth.getAuth, controllers.users.users);
   app.get('/users/:id',             oauth.getAuth, controllers.users.user);
 
+  app.get('/groups/:name', oauth.getAuth, urlencoded, controllers.groups.change);
+
 };

@@ -30,6 +30,7 @@ module.exports = {
     layoutsDir: 'views/layouts'
   }),
   static: {
+    root: express.static('/'),
     dist: express.static('public/dist'),
     hbs: express.static('shared/templates')
   },

@@ -24,6 +24,13 @@ let site = {
       userCount: 3
     },
     {
+      _id: '4222ce4ce4cfcd16f55cfa3d',
+      name: 'Quest On My Chest',
+      users: users,
+      transactions: transactions,
+      userCount: 2
+    },
+    {
       _id: '4254ce4ce4cfcd16f55cfa3d',
       name: 'Montreal',
       users: users,
@@ -31,13 +38,6 @@ let site = {
       userCount: 3
     }
   ],
-  group: {
-    _id: '4252ce4ce4cfcd16f55cfa3d',
-    name: 'Thug Nation',
-    users: users,
-    transactions: transactions,
-    userCount: 3
-  },
   components: components,
   pages: [
     'now',
@@ -48,7 +48,13 @@ let site = {
     'profile'
   ],
   activePage: '',
-  group: 'Thug Nation',
+  group: {
+    _id: '4252ce4ce4cfcd16f55cfa3d',
+    name: 'Thug Nation',
+    users: users,
+    transactions: transactions,
+    userCount: 3
+  }
 };
 
 module.exports = site;

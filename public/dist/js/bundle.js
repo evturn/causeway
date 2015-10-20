@@ -56,11 +56,15 @@
 	var $ = __webpack_require__(2);
 	var _ = __webpack_require__(3);
 	var livestamp = __webpack_require__(127);
+	var groups = __webpack_require__(145);
 	var geoposition = __webpack_require__(144);
 	var cloq = __webpack_require__(125);
 	var transaction = __webpack_require__(128);
 	
-	transaction.init();
+	$(document).on('ready', function () {
+	  transaction.init();
+	  groups.init();
+	});
 
 /***/ },
 /* 2 */
@@ -17022,6 +17026,68 @@
 	};
 	
 	module.exports = geoposition;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
+
+/***/ },
+/* 145 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function($) {'use strict';
+	
+	var xhr = __webpack_require__(146);
+	
+	var groups = {
+	  init: function init() {
+	    var $switchTrigger = $('.profile__groups-switch-to');
+	
+	    $switchTrigger.on('click', function (e) {
+	      // e.preventDefault();
+	      // groups.switchTo($(this));
+	    });
+	  },
+	  switchTo: function switchTo($this) {
+	    var url = $this.data('url');
+	    var name = $this.data('name');
+	    var callback = function callback(data) {
+	      console.log(data);
+	    };
+	
+	    xhr.post({
+	      url: url,
+	      callback: callback,
+	      data: { name: name },
+	      dataType: 'json'
+	    });
+	  }
+	};
+	
+	module.exports = groups;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
+
+/***/ },
+/* 146 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function($) {'use strict';
+	
+	module.exports = {
+	  post: function post() {
+	    var options = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+	
+	    $.ajax({
+	      url: options.url,
+	      type: 'POST',
+	      data: options.data,
+	      dataType: options.dataType,
+	      success: function success(data) {
+	        options.callback(data);
+	      },
+	      error: function error(err) {
+	        console.log(err);
+	      }
+	    });
+	  }
+	};
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }

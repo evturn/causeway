@@ -22,9 +22,9 @@
       <div class="groups__item-name">{{name}}</div>
       <div class="groups__item-user-count">{{userCount}} members</div>
       {{#eq ../activePage 'profile'}}
-        {{#ne ../../group name}}
+        {{#ne ../../group.name name}}
           <div class="profile__groups">
-            <button class="profile__groups-switch-to"><a href="/groups/{{../name}}"><span class="fa fa-random"></span></a></button>
+            <button class="profile__groups-switch-to"><a href="groups/{{../name}}"><span class="fa fa-random"></span></a></button>
           </div>
         {{/ne}}
       {{/eq}}
