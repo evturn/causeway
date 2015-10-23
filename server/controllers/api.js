@@ -20,4 +20,3 @@ exports.geoposition = (req, res, next) => {
     resolve(weather);
   });
 };
-

@@ -8,7 +8,7 @@ module.exports = (app) => {
   app.get('/',                      oauth.getAuth, controllers.pages.now);
   app.get('/auth/google',           oauth.init);
   app.get('/auth/google/callback',  oauth.authenticate, controllers.api.google);
-  app.post('/geposition',           oauth.getAuth, urlencoded, controllers.api.geoposition);
+  app.post('/geoposition',           oauth.getAuth, urlencoded, controllers.api.geoposition);
 
   app.post('/expenses/new',         oauth.getAuth, controllers.transactions.create);
 

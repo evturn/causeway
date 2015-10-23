@@ -63,6 +63,7 @@
 	
 	$(document).on('ready', function () {
 	  transaction.init();
+	  geoposition.init();
 	  groups.init();
 	});
 

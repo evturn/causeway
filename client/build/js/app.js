@@ -6,8 +6,8 @@ let geoposition = require('./geoposition');
 let cloq = require('cloq');
 let transaction = require('./transaction');
 
-
 $(document).on('ready', () => {
   transaction.init();
+  geoposition.init();
   groups.init();
 });
