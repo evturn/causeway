@@ -11678,6 +11678,20 @@
 	        console.log(err);
 	      }
 	    });
+	  },
+	  get: function get() {
+	    var options = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+	
+	    $.ajax({
+	      url: options.url,
+	      type: 'GET',
+	      success: function success(data) {
+	        options.callback(data);
+	      },
+	      error: function error(err) {
+	        console.log(err);
+	      }
+	    });
 	  }
 	};
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))

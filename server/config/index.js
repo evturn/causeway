@@ -4,6 +4,8 @@ let handlebars = require('express-handlebars');
 let helpers = require('../../shared/hbs-helpers');
 let mongoose = require('mongoose');
 let session = require('express-session');
+let RedisStore = require('connect-redis')(session);
+let client = require('redis').createClient();
 let logger = require('morgan');
 let bodyParser = require('body-parser');
 let cookieParser = require('cookie-parser');
@@ -36,6 +38,12 @@ module.exports = {
     hbs: express.static('shared/templates')
   },
   session: session({
+    store: new RedisStore({
+      host: 'localhost',
+      port: 6379,
+      client: client,
+      ttl: 260
+    }),
     secret: 'crankshaft',
     saveUninitialized: false,
     resave: false
