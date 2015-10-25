@@ -2,7 +2,7 @@
 let googleapi = require('../lib/google-api');
 let weatherapi = require('../lib/weather');
 
-exports.google = (req, res, next) => {
+exports.auth = (req, res, next) => {
   res.redirect('/now');
 };
 

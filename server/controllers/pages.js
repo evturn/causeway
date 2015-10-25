@@ -4,6 +4,7 @@ let data = require('../lib/assembler');
 exports.now = (req, res, next) => {
   data.activePage = 'now';
   data.user = req.user;
+  req.session.key = req.user._id;
   res.render('now', data);
 };
 

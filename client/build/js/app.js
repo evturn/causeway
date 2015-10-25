@@ -8,6 +8,6 @@ let transaction = require('./transaction');
 
 $(document).on('ready', () => {
   transaction.init();
-  geoposition.init();
+  // geoposition.init();
   groups.init();
 });
