@@ -40,7 +40,7 @@ module.exports = {
   session: session({
     store: new RedisStore({
       host: 'localhost',
-      port: 4000,
+      port: 6379,
       client: client,
       ttl: 260
     }),

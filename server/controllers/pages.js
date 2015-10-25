@@ -1,39 +1,25 @@
 'use strict';
-let data = require('../lib/assembler');
 
 exports.now = (req, res, next) => {
-  data.activePage = 'now';
-  data.user = req.user;
-  req.session.key = req.user._id;
-  res.render('now', data);
+  res.render('now');
 };
 
 exports.expenses = (req, res, next) => {
-  data.activePage = 'expenses';
-  data.user = req.user;
-  res.render('expenses', data);
+  res.render('expenses');
 };
 
 exports.travel = (req, res, next) => {
-  data.activePage = 'travel';
-  data.user = req.user;
-  res.render('travel', data);
+  res.render('travel');
 };
 
 exports.planner = (req, res, next) => {
-  data.activePage = 'planner';
-  data.user = req.user;
-  res.render('planner', data);
+  res.render('planner');
 };
 
 exports.notes = (req, res, next) => {
-  data.activePage = 'notes';
-  data.user = req.user;
-  res.render('notes', data);
+  res.render('notes');
 };
 
 exports.profile = (req, res, next) => {
-  data.activePage = 'profile';
-  data.user = req.user;
-  res.render('profile', data);
+  res.render('profile');
 };

@@ -2,6 +2,7 @@
 let express = require('express');
 let passport = require('passport');
 let o_O = require('./server/config');
+let assemble = require('./server/lib/assembler').assemble;
 let app = module.exports = express();
 
 app.engine('hbs', o_O.hbs.engine);
@@ -17,5 +18,6 @@ app.use(o_O.bodyParser);
 app.use(o_O.logger);
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(assemble);
 o_O.router(app);
 app.listen(o_O.port, o_O.isListening());

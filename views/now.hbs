@@ -7,7 +7,7 @@
       <div class="groups__item-user-count">{{userCount}} members</div>
       {{#eq ../activePage 'profile'}}
         {{#ne ../group name}}
-        {{log this}}
+        {{log site}}
           <div class="profile__groups">
             <button class="profile__groups-switch-to"><span class="fa fa-random"></span></button>
           </div>
@@ -16,6 +16,7 @@
     </div>
   {{/eachUpTo}}
 </div>
+{{log this}}
 <div class="mod-recent-activity">
   {{#eachUpTo group.transactions 10}}
   <div class="recent-activity__item-divider"></div>
