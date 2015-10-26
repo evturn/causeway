@@ -19,9 +19,9 @@ let paths = {
   eslint: {
     src: [
       'client/build/js/**/*.js',
-      '!client/build/js/web_modules/**/*.js',
       'routes/**/*.js',
       'shared/**/*.js',
+      '!shared/web_modules/**/*.js',
       'gulpfile.js',
       'server.js',
       'webpack.config.js'

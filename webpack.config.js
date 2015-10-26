@@ -23,12 +23,12 @@ module.exports = {
   },
   resolve: {
     root: [
-      'web_modules',
+      'shared/web_modules',
       'node_modules',
       'shared'
     ],
     moduleDirectories: [
-      'web_modules',
+      'shared/web_modules',
       'node_modules',
       'shared'
     ],
