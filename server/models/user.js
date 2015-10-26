@@ -1,20 +1,10 @@
 'use strict';
 let mongoose = require('mongoose');
+let Schema = mongoose.Schema;
 let passportLocalMongoose = require('passport-local-mongoose');
 
-const transactionSchema = new mongoose.Schema({
-  total       : {type: String, sparse: true},
-  description : {type: String, sparse: true},
-  payee       : {type: String, sparse: true},
-  debtors: [{
-    user: {type: String, sparse: true},
-    debt: {type: String, sparse: true}
-  }],
-  timestamp   : {type: Date, default: Date.now()},
-});
-
 const userSchema = new mongoose.Schema({
-  gid        : {type: String, sparse: true},
+  googleId        : {type: String, sparse: true},
   avatar     : {type: String, sparse: true},
   coverPhoto : {type: String, sparse: true},
   gender     : {type: String, sparse: true},
@@ -43,17 +33,10 @@ const userSchema = new mongoose.Schema({
     country     : {type: String, sparse: true},
     wind        : {type: String, sparse: true}
   },
-  transactions  : [transactionSchema]
-});
-
-const groupSchema = new mongoose.Schema({
-  users       : [userSchema],
-  transactions: [transactionSchema],
-  name        : {type: String},
-  userCount   : {type: Number}
+  groups  : [{
+    type: Schema.Types.ObjectId, ref: 'Group'
+  }]
 });
 
 userSchema.plugin(passportLocalMongoose);
-
-module.exports.User = mongoose.model('User', userSchema);
-module.exports.Transaction = mongoose.model('Transaction', transactionSchema);
+module.exports = mongoose.model('User', userSchema);

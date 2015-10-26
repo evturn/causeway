@@ -1,10 +1,39 @@
 'use strict';
-let data = require('../lib/assembler').site;
+let Group = require('../models/group');
 
 exports.change = (req, res, next) => {
-  let name = req.params.name;
-  data.group = 'name';
-  data.activePage = 'profile';
-  data.user = req.user;
   res.redirect('/profile');
+};
+
+exports.create = (req, res, next) => {
+  let user = req.user;
+  let name = req.body.groupName;
+
+  user.save((err, user) => {
+    if (err) {
+      console.log(err);
+      return err;
+    }
+    else {
+      let group = new Group({
+        name: name,
+        members: [user._id]
+      });
+
+      group.save((err, group) => {
+        if (err) {
+          console.log(err);
+          return err;
+        }
+        else {
+          user.groups.push(group);
+          user.save();
+          console.log('========SUCCESS=======');
+          console.log(group);
+          console.log('========SUCCESS=======');
+        }
+      });
+    }
+  });
+  res.redirect('/notes');
 };

@@ -21,7 +21,9 @@ module.exports = (app) => {
 
   app.get('/users/',                oauth.getAuth, controllers.users.users);
   app.get('/users/:id',             oauth.getAuth, controllers.users.user);
+  app.get('/logout',                oauth.getAuth, controllers.users.logout);
 
-  app.get('/groups/:name', oauth.getAuth, urlencoded, controllers.groups.change);
+  app.post('/groups',               oauth.getAuth, urlencoded, controllers.groups.create);
+  app.get('/groups/:name',          oauth.getAuth, urlencoded, controllers.groups.change);
 
 };

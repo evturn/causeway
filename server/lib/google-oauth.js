@@ -1,7 +1,7 @@
 'use strict';
 let passport = require('passport');
 let GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
-let User = require('../models/user').User;
+let User = require('../models/user');
 
 let google = {
   params: {
@@ -38,6 +38,9 @@ let google = {
         return err;
       }
       else {
+          console.log('===========CREATE=================');
+          console.log(user);
+          console.log('===========CREATE=================');
         return done(null, user);
       }
     });
@@ -67,12 +70,21 @@ passport.use(new GoogleStrategy(google.credentials,
     process.nextTick(function() {
       User.findOne({googleId: profile.gid}, function(err, user) {
         if (err) {
+          console.log('===========ERROR=================');
+          console.log(err);
+          console.log('===========ERROR=================');
           return done(err);
         }
         if (user) {
+          console.log('===========USER=================');
+          console.log(user);
+          console.log('===========USER=================');
           return done(null, user);
         }
         else {
+          console.log('===========PROFILE=================');
+          console.log(profile);
+          console.log('===========PROFILE=================');
           let data = JSON.parse(profile._raw);
           data.token = accessToken;
           google.createUser(data, done);

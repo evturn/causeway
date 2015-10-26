@@ -56,6 +56,9 @@ module.exports = {
   router: (app) => {
     require('../routes')(app);
   },
+  builder: (app) => {
+    require('../lib/builder')(app);
+  },
   isListening: () => {
     console.log('Express listening on 3000');
   }

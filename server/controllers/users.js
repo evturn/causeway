@@ -1,15 +1,20 @@
 'use strict';
-let User = require('../models/user').User;
+let User = require('../models/user');
 
-exports.user = (res, req, next) => {
+exports.user = (req, res, next) => {
   res.render('profile');
 };
 
-exports.users = (res, req, next) => {
+exports.users = (req, res, next) => {
   User.find((err, users) => {
     if (err) {
       console.log(err);
     }
     res.json({users: users});
   });
+};
+
+exports.logout = (req, res, next) => {
+  req.logout();
+  res.redirect('/');
 };

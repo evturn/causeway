@@ -7,28 +7,14 @@
     <div class="profile__details">
       <div class="profile__details-name">{{user.fullname}}</div>
       <div class="profile__details-location">
-        <div class="profile__details-geoposition"><i class="fa fa-location-arrow"></i> {{user.climate.vicinity}}, {{user.climate.country}}</div>
-        <div class="profile__details-last-seen">Last seen <span data-livestamp="{{ts user.geo.lastSeen}}"></span></div>
+        {{>component-profile-location}}
       </div>
     </div>
-
     <div class="profile-nav">
-      <button class="profile-nav__button"><i class="fa fa-gears"></i></button>
+      <a href="/logout">
+        <button class="profile-nav__button"><i class="fa fa-gears"></i></button>
+      </a>
     </div>
   </div>
-  <div class="mod-groups">
-  {{#each groups}}
-    <div class="groups__item wrapper">
-      <div class="groups__item-name">{{name}}</div>
-      <div class="groups__item-user-count">{{userCount}} members</div>
-      {{#eq ../activePage 'profile'}}
-        {{#ne ../../group.name name}}
-          <div class="profile__groups">
-            <button class="profile__groups-switch-to"><a href="groups/{{../name}}"><span class="fa fa-random"></span></a></button>
-          </div>
-        {{/ne}}
-      {{/eq}}
-    </div>
-  {{/each}}
-</div>
+  {{> mod-groups}}
 </div>

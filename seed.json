@@ -1,0 +1,6 @@
+{
+	"undefined": "localhost/causeway",
+	"dev": "localhost/causeway",
+  "development": "localhost/causeway",
+	"prod": "localhost/causeway"
+}

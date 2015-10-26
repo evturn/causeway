@@ -1,6 +1,6 @@
 [
   {
-    "_id": "5252ce4ce4cfcd16f55cfa3d",
+    "googleId": "null",
     "fullname":"Eric Turner",
     "location":"Brooklyn, NY 11238",
     "gender":"male",
@@ -28,7 +28,7 @@
       "first":"Eric"
     }
   }, {
-    "_id": "5252ce4ce4cfcd16f55cfade",
+    "googleId": "null",
     "fullname":"Jiaming Ju",
     "location":"Brooklyn, NY 11238",
     "gender":"female",
