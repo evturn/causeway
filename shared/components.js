@@ -3,6 +3,10 @@ let Handlebars = require('handlebars');
 let helpers = require('./hbs-helpers');
 
 module.exports = {
+  searchUsers: {
+    url: 'search-users-result.hbs',
+    el: '.mod-search-users___results'
+  },
   clock: {
     url: 'component-clock.hbs',
     el: '.mod-clocks'

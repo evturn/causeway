@@ -16319,6 +16319,10 @@
 	var helpers = __webpack_require__(126);
 	
 	module.exports = {
+	  searchUsers: {
+	    url: 'search-users-result.hbs',
+	    el: '.mod-search-users___results'
+	  },
 	  clock: {
 	    url: 'component-clock.hbs',
 	    el: '.mod-clocks'
@@ -16952,6 +16956,9 @@
 	      case 'page-expenses':
 	        $el.prepend(template(data));
 	        break;
+	      case 'page-notes':
+	        $el.append(template(data));
+	        break;
 	    }
 	  };
 	
@@ -17100,12 +17107,14 @@
 
 	/* WEBPACK VAR INJECTION */(function($) {'use strict';
 	
+	var components = __webpack_require__(125);
+	var render = __webpack_require__(130);
 	var xhr = __webpack_require__(95);
 	
-	var init = function init() {
-	  var $searchButton = $('#search-users-button');
-	  var $searchInput = $('#search-users-input');
+	var $searchButton = $('#search-users-button');
+	var $searchInput = $('#search-users-input');
 	
+	var init = function init() {
 	  $searchInput.on('keypress', function (e) {
 	    if (e.keyCode === 13) {
 	      var params = $searchInput.val();
@@ -17121,8 +17130,36 @@
 	};
 	
 	var performSearch = function performSearch(params) {
+	
 	  var callback = function callback(data) {
-	    console.log(data);
+	    var component = components.searchUsers;
+	    $searchInput.val('');
+	    $(component.el).empty();
+	    var users = data.users;
+	    var _iteratorNormalCompletion = true;
+	    var _didIteratorError = false;
+	    var _iteratorError = undefined;
+	
+	    try {
+	      for (var _iterator = users[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	        var user = _step.value;
+	
+	        render(component, user);
+	      }
+	    } catch (err) {
+	      _didIteratorError = true;
+	      _iteratorError = err;
+	    } finally {
+	      try {
+	        if (!_iteratorNormalCompletion && _iterator['return']) {
+	          _iterator['return']();
+	        }
+	      } finally {
+	        if (_didIteratorError) {
+	          throw _iteratorError;
+	        }
+	      }
+	    }
 	  };
 	
 	  xhr.get({

@@ -1,9 +1,12 @@
+const components = require('components');
+const render = require('./render');
 const xhr = require('./xhr');
 
-const init = () => {
-  let $searchButton = $('#search-users-button');
-  let $searchInput = $('#search-users-input');
 
+const $searchButton = $('#search-users-button');
+const $searchInput = $('#search-users-input');
+
+const init = () => {
   $searchInput.on('keypress', (e) => {
     if (e.keyCode === 13) {
       let params = $searchInput.val();
@@ -19,8 +22,15 @@ const init = () => {
 };
 
 const performSearch = (params) => {
+
   let callback = (data) => {
-    console.log(data);
+    let component = components.searchUsers;
+    $searchInput.val('');
+    $(component.el).empty();
+    let users = data.users;
+    for (let user of users) {
+      render(component, user);
+    }
   };
 
   xhr.get({

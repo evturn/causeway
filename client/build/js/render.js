@@ -18,6 +18,9 @@ module.exports = (component, data) => {
       case 'page-expenses':
         $el.prepend(template(data));
         break;
+      case 'page-notes':
+        $el.append(template(data));
+        break;
     }
   };
 
