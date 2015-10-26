@@ -1,11 +1,4 @@
 <div class="groups__item wrapper">
   <div class="groups__item-name">{{name}}</div>
-  <div class="groups__item-user-count">{{members.length}} members</div>
-  {{#eq activePage 'profile'}}
-    <div class="profile__groups">
-      <a href="/groups/{{_id}}">
-        <button class="profile__groups-switch-to"><span class="fa fa-random"></span></button>
-      </a>
-    </div>
-  {{/eq}}
+  <div class="groups__item-user-count">{{members.length}}</div>
 </div>

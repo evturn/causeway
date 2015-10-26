@@ -65,6 +65,7 @@ module.exports.group = (req, res, next) => {
       }
       else {
         res.locals.user = user[0];
+        res.locals.group = user[0].group[0];
         next();
       }
     });

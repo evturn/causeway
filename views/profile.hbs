@@ -18,6 +18,11 @@
   </div>
   <div class="mod-groups">
     {{#each groups}}
+      <div class="profile__groups">
+        <a href="/groups/{{_id}}">
+          <button class="profile__groups-switch-to"><span class="fa fa-random"></span></button>
+        </a>
+      </div>
       {{>component-group}}
     {{/each}}
   </div>
