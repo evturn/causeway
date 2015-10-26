@@ -8,11 +8,38 @@
     width: 100%;
     border: none;
     font-size: 2rem;
+    outline: none;
   }
   button {
     float: right;
   }
   .group__name {
     font-size: 2rem;
+  }
+  .search-users__search-field {
+    display: block;
+    .clearfix();
+  }
+  .search-users__results-item {
+    display: block;
+    .clearfix();
+    .margin-y(10px);
+  }
+  .search-users__results-item-avatar {
+    float: left;
+    width: 50px;
+  }
+  .search-users__results-item-name {
+    float: right;
+    font-size: 1.8rem;
+    line-height: 5rem;
+    .fa {
+      width: 45px;
+      height: 45px;
+      line-height: 4.5rem;
+      text-align: center;
+      color: @tx-white;
+      background-color: @bg-primary;
+    }
   }
 }
