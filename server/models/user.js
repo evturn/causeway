@@ -35,7 +35,8 @@ const userSchema = new mongoose.Schema({
   },
   groups  : [{
     type: Schema.Types.ObjectId, ref: 'Group'
-  }]
+  }],
+  group: [{type: Schema.Types.ObjectId, ref: 'Group'}]
 });
 
 userSchema.plugin(passportLocalMongoose);

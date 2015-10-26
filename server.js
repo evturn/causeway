@@ -20,6 +20,5 @@ app.use(passport.initialize());
 app.use(passport.session());
 o_O.builder(app);
 app.use(locals.activePage);
-app.use(locals.groups);
 o_O.router(app);
 app.listen(o_O.port, o_O.isListening());

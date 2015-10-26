@@ -1,9 +1,10 @@
 {{>mod-clock}}
 {{>mod-weather}}
 <div class="mod-groups">
-  {{#eachUpTo user.groups 1}}
+  {{#each user.groups}}
+    <div><a href="/groups/{{this._id}}"><i class="fa fa-random"></i></a></div>
     {{>component-group}}
-  {{/eachUpTo}}
+  {{/each}}
 </div>
 <div class="mod-recent-activity">
   {{#eachUpTo group.transactions 10}}
