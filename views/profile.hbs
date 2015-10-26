@@ -16,5 +16,9 @@
       </a>
     </div>
   </div>
-  {{> mod-groups}}
+  <div class="mod-groups">
+    {{#each groups}}
+      {{>component-group}}
+    {{/each}}
+  </div>
 </div>

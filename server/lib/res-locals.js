@@ -23,18 +23,18 @@ module.exports.groups = (req, res, next) => {
         console.log(err);
       }
       else {
-        res.locals.user = user[0];
+        res.locals.groups = user[0].groups;
         next();
       }
     });
 };
 
-module.exports.group = (req, res, next) => {
+module.exports.setGroup = (req, res, next) => {
   let user = req.user;
 
   Group
     .find({_id: req.params.id})
-    .populate('members, transactions')
+    .populate('members')
     .exec((err, group) => {
       if (err) {
         console.log(err);
@@ -47,10 +47,25 @@ module.exports.group = (req, res, next) => {
             return next(err);
           }
           else {
-            console.log(user);
+            res.locals.group = group[0];
             next();
           }
         })
+      }
+    });
+};
+
+module.exports.group = (req, res, next) => {
+  User
+    .find({_id: req.user._id})
+    .populate('group')
+    .exec((err, user) => {
+      if (err) {
+        console.log(err);
+      }
+      else {
+        res.locals.user = user[0];
+        next();
       }
     });
 };

@@ -1,6 +1,7 @@
 'use strict';
 
 exports.now = (req, res, next) => {
+  console.log(res.locals);
   res.render('now');
 };
 
@@ -17,9 +18,11 @@ exports.planner = (req, res, next) => {
 };
 
 exports.notes = (req, res, next) => {
+  console.log(res.locals);
   res.render('notes');
 };
 
 exports.profile = (req, res, next) => {
+  console.log(res.locals);
   res.render('profile');
 };
