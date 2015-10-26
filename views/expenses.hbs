@@ -1,9 +1,9 @@
-<div class="mod-transaction wrapper">
-  {{#each group.users}}
-    <div class="transaction__user" data-user="{{this.name.first}}">
+<div data-group-id="{{group._id}}" class="mod-transaction wrapper">
+  {{#each group.members}}
+    <div class="transaction__user" data-id="{{_id}}">
       <div class="transaction__user-details">
-        <img class="transaction__user-avatar" src="{{this.avatar}}">
-        <div class="transaction__user-name">{{this.name.first}}</div>
+        <img class="transaction__user-avatar" src="{{avatar}}">
+        <div class="transaction__user-name">{{name.first}}</div>
       </div>
       <div class="transaction__user-select">
         <span class="fa fa-check"></span>
@@ -19,7 +19,8 @@
   <button class="transaction__submit">Ok</button>
 </div>
 <div class="mod-records">
-  {{#each group.transactions}}
+  {{#each transactions}}
+  {{log this}}
     {{>component-record}}
   {{/each}}
 </div>

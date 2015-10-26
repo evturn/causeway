@@ -31,9 +31,10 @@ const exp = {
     let debtors = [];
     let description = $('.transaction__field-description').val();
     let total = $('.transaction__field-amount').val();
+    let groupId = $('.mod-transaction').data('group-id');
 
     $.each($('.selected'), function() {
-      let user = $(this).parent().data('user');
+      let user = $(this).parent().data('id');
       let debt = $(this).text().replace('$', '');
       let debtor = {user, debt};
       debtors.push(debtor);
@@ -42,7 +43,8 @@ const exp = {
     let transaction = {
       total: total,
       description: description,
-      debtors: debtors
+      debtors: debtors,
+      groupId: groupId
     };
     $.ajax({
       url: '/expenses/new',
@@ -51,7 +53,6 @@ const exp = {
       contentType: 'application/json; charset=utf-8',
       success(data) {
         console.log(data);
-        data.timestamp = '10/17';
         render(components.record, data);
       },
       error(err) {
@@ -66,8 +67,7 @@ const exp = {
 
     if (hasDebtors && hasValidAmount && hasDescription) {
       exp.saveTransaction();
-    }
-    else {
+    } else {
       return;
     }
   },
@@ -78,8 +78,7 @@ const exp = {
     $userDebt.toggleClass('selected');
     if ($userDebt.hasClass('selected')) {
       $userCheckbox.prop('checked', true);
-    }
-    else {
+    } else {
       $userCheckbox.prop('checked', false);
       $userDebt.empty();
     }
@@ -95,8 +94,7 @@ const exp = {
     if (debtors > 1) {
       $notification.html(`Split ${debtors} ways`);
       splitBill = true;
-    }
-    else if (debtors <= 1) {
+    } else if (debtors <= 1) {
       $notification.empty();
       splitBill = false;
     }
@@ -104,12 +102,10 @@ const exp = {
     if (amount > 9) {
       $selected.html(`$${debt}`);
       hasValidAmount = true;
-    }
-    else if (amount <= 9) {
+    } else if (amount <= 9) {
       $selected.html(`$${debt / 2}`);
       hasValidAmount = true;
-    }
-    else {
+    } else {
       $selected.empty();
       hasValidAmount = false;
     }

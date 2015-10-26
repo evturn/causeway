@@ -1,17 +1,17 @@
 <div class="records__item wrapper">
   <div class="records__item-info">
-    <div class="records__item-info--description">{{this.description}}</div>
-    <div class="records__item-info--timestamp">{{this.timestamp}}</div>
+    <div class="records__item-info--description">{{description}}</div>
+    <div class="records__item-info--timestamp">{{timestamp}}</div>
   </div>
   <div class="records__item-payee">
-    <div class="records__item-payee--user">{{this.payee}}</div>
-    <div class="records__item-payee--amount">${{this.total}}</div>
+    <div class="records__item-payee--user">{{payee.name.first}}</div>
+    <div class="records__item-payee--amount">${{total}}</div>
   </div>
   <div class="records__item-debtors">
     {{#each debtors}}
       <div class="records__item-debtor">
-        <div class="records__item-debtor--user">{{this.user}}</div>
-        <div class="records__item-debtor--amount">-${{this.debt}}</div>
+        <div class="records__item-debtor--user">{{user.name.first}}</div>
+        <div class="records__item-debtor--amount">-${{debt}}</div>
       </div>
     {{/each}}
   </div>

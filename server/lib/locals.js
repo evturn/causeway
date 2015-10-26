@@ -4,6 +4,7 @@ let async = require('async');
 let _ = require('underscore');
 let User = require('../models/user');
 let Group = require('../models/group');
+let Transaction = require('../models/transaction');
 let app = require('../../server');
 
 module.exports.activePage = (req, res, next) => {
@@ -33,20 +34,38 @@ module.exports.groups = (req, res, next) => {
 
 module.exports.setGroup = (req, res, next) => {
   let id = req.params.id;
-  Group.findById(id).deepPopulate('members').exec((err, group) => {
-    if (err) {return err;}
-    res.locals.group = group;
-    req.user.set({group: group._id});
-    req.user.save();
-    next();
-  });
+  Group
+    .findById(id)
+    .deepPopulate('members')
+    .exec((err, group) => {
+      if (err) {return err;}
+      res.locals.group = group;
+      req.user.set({group: group._id});
+      req.user.save();
+      next();
+    });
 };
 
 module.exports.group = (req, res, next) => {
   let id = req.user.group
-  Group.findById(id).deepPopulate('members').exec((err, group) => {
-    if (err) {return err;}
-    res.locals.group = group;
-    next();
-  });
+  Group
+    .findById(id)
+    .deepPopulate('members')
+    .exec((err, group) => {
+      if (err) {return err;}
+      res.locals.group = group;
+      next();
+    });
+};
+
+exports.transactions = (req, res, next) => {
+  let groupId = req.user.group;
+  Group
+    .findById(groupId)
+    .deepPopulate(['transactions', 'transactions.payee.name', 'transactions.debtors.user'])
+    .exec((err, group) => {
+      if (err) {return err;}
+      res.locals.transactions = group.transactions;
+      next();
+    });
 };

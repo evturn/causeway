@@ -13,8 +13,8 @@ module.exports = (app) => {
 
   app.post('/expenses/new',         oauth.getAuth, locals.user, locals.group, controllers.transactions.create);
 
-  app.get('/now',                   oauth.getAuth, locals.user, locals.groups, locals.group, controllers.pages.now);
-  app.get('/expenses',              oauth.getAuth, locals.user, locals.groups, locals.group, controllers.pages.expenses);
+  app.get('/now',                   oauth.getAuth, locals.user, locals.groups, locals.group, locals.transactions, controllers.pages.now);
+  app.get('/expenses',              oauth.getAuth, locals.user, locals.groups, locals.group, locals.transactions, controllers.pages.expenses);
   app.get('/travel',                oauth.getAuth, locals.user, locals.groups, locals.group, controllers.pages.travel);
   app.get('/planner',               oauth.getAuth, locals.user, locals.groups, locals.group, controllers.pages.planner);
   app.get('/notes',                 oauth.getAuth, locals.user, locals.groups, locals.group, controllers.pages.notes);
@@ -26,5 +26,5 @@ module.exports = (app) => {
 
   app.post('/groups',               oauth.getAuth, urlencoded, locals.user, locals.groups, locals.group, controllers.groups.create);
   app.get('/groups/:id',            oauth.getAuth, locals.user, locals.groups, locals.setGroup, locals.group, urlencoded, controllers.groups.change);
-  app.post('/groups/:id/users', oauth.getAuth, locals.user, locals.groups, locals.group, urlencoded, controllers.groups.addUser);
+  app.post('/groups/:id/users',     oauth.getAuth, locals.user, locals.groups, locals.group, urlencoded, controllers.groups.addUser);
 };

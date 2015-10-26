@@ -12,6 +12,7 @@ const transactionSchema = new mongoose.Schema({
     debt: {type: Number, sparse: true}
   }],
   timestamp   : {type: Date, default: Date.now()},
+  group       : {type: Schema.Types.ObjectId, ref: 'Group'},
 });
 
 transactionSchema.plugin(deepPopulate);

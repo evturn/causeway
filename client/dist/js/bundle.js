@@ -17018,9 +17018,10 @@
 	    var debtors = [];
 	    var description = $('.transaction__field-description').val();
 	    var total = $('.transaction__field-amount').val();
+	    var groupId = $('.mod-transaction').data('group-id');
 	
 	    $.each($('.selected'), function () {
-	      var user = $(this).parent().data('user');
+	      var user = $(this).parent().data('id');
 	      var debt = $(this).text().replace('$', '');
 	      var debtor = { user: user, debt: debt };
 	      debtors.push(debtor);
@@ -17029,7 +17030,8 @@
 	    var transaction = {
 	      total: total,
 	      description: description,
-	      debtors: debtors
+	      debtors: debtors,
+	      groupId: groupId
 	    };
 	    $.ajax({
 	      url: '/expenses/new',
@@ -17038,7 +17040,6 @@
 	      contentType: 'application/json; charset=utf-8',
 	      success: function success(data) {
 	        console.log(data);
-	        data.timestamp = '10/17';
 	        render(components.record, data);
 	      },
 	      error: function error(err) {
