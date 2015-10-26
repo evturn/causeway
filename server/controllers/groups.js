@@ -1,5 +1,6 @@
 'use strict';
 let Group = require('../models/group');
+let User = require('../models/user');
 
 exports.change = (req, res, next) => {
   res.redirect('/profile');
@@ -41,5 +42,19 @@ exports.create = (req, res, next) => {
 exports.addUser = (req, res, next) => {
   let groupId = req.body.groupId;
   let userId = req.body.userId;
-  res.json({yes: 'hi'});
+  User.findById(userId, (err, user) => {
+    if (err) {return err;}
+    user.groups.push(groupId);
+    user.save((err, user) => {
+      if (err) {return err;}
+      Group.findById(groupId, (err, group) => {
+        if (err) {return err;}
+        group.members.push(userId);
+        group.save((err, group) => {
+          if (err) {return err;}
+          res.json(group);
+        });
+      });
+    });
+  });
 };
