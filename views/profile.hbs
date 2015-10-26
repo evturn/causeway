@@ -16,16 +16,17 @@
       </a>
     </div>
   </div>
-  <div class="mod-groups">
+  <div class="profile__current-group wrapper">
+    <div class="profile__current-group-item">{{group.name}}</div>
+    <div class="profile__groups-title">Current group</div>
+  </div>
+  <div class="profile__groups wrapper">
+    <div class="profile__groups-title">Groups</div>
+    <div class="profile__group-border"></div>
     {{#each groups}}
-      <div class="groups__item wrapper">
-        <div class="profile__switch-to">
-          <a href="/groups/{{_id}}">
-            <i class="fa fa-random"></i>
-          </a>
-        </div>
-        <div class="groups__item-name">{{name}}</div>
-        <div class="groups__item-user-count">{{members.length}}</div>
+      <div class="profile__groups-item">
+        <div class="profile__groups-item-name"><a href="/groups/{{_id}}">{{name}}</a></div>
+        <div class="profile__groups-item-user-count">{{members.length}}</div>
       </div>
     {{/each}}
   </div>

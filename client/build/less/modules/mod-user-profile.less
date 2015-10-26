@@ -28,17 +28,40 @@
     margin-top: 10px;
     float: right;
   }
-}
-.profile__switch-to {
-  display: inline-block;
-  float: left;
-  margin-right: 10px;
-  height: 30px;
-  width: 30px;
-  .fa {
-    font-size: 1.5rem;
-    height: 15px;
-    width: 15px;
-    line-height: 1.5rem;
+  .profile__current-group {
+    display: block;
+    margin-top: 15px;
+    .profile__current-group-item {
+      font-size: 2.3rem;
+      text-transform: uppercase;
+    }
+  }
+  .profile__groups {
+    .profile__groups-title {
+      font-size: 1.5rem;
+      color: @tx-black;
+      margin-top: 10px;
+    }
+    .profile__group-border {
+      background-color: @tx-grey;
+      height: 1px;
+    }
+    .profile__groups-item {
+      .clearfix();
+      .padding-y(10px);
+      font-size: 2rem;
+      .profile__groups-item-name {
+        float: left;
+        text-transform: uppercase;
+        a {
+          text-decoration: none;
+          color: @tx-primary - 100;
+        }
+      }
+      .profile__groups-item-user-count {
+        float: right;
+        font-size: 1.4rem;
+      }
+    }
   }
 }
