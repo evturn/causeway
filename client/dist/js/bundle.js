@@ -16367,6 +16367,41 @@
 	var jstz = __webpack_require__(128);
 	var cloq = __webpack_require__(129);
 	
+	exports.currency = function (number) {
+	  if (number === false) {
+	    return '';
+	  }
+	
+	  number = ('' + number).replace(/[^0-9+\-Ee.]/g, '');
+	  var n = !isFinite(+number) ? 0 : +number;
+	  var prec = 0;
+	  var sep = ' ';
+	  var dec = '.';
+	  var s = '';
+	  var toFixedFix = function toFixedFix(n, prec) {
+	    var k = Math.pow(10, prec);
+	    return '' + Math.round(n * k) / k;
+	  };
+	
+	  if (prec) {
+	    s = toFixedFix(n, prec);
+	  } else {
+	    s = '' + Math.round(n);
+	  }
+	  s = s.split('.');
+	
+	  if (s[0].length > 3) {
+	    s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
+	  }
+	
+	  if ((s[1] || '').length < prec) {
+	    s[1] = s[1] || '';
+	    s[1] = s[1] + new Array(prec - s[1].length + 1).join('0');
+	  }
+	
+	  return s.join(dec);
+	};
+	
 	exports.monthAndDay = function (date) {
 	  return cloq.monthAndDay(date);
 	};

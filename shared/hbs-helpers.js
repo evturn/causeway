@@ -6,6 +6,41 @@ let utils = require('./utils');
 let jstz = require('jstimezonedetect');
 let cloq = require('./cloq');
 
+exports.currency = (number) => {
+  if (number === false) {
+    return '';
+  }
+
+  number = ('' + number).replace(/[^0-9+\-Ee.]/g, '');
+  let n = !isFinite(+number) ? 0 : +number;
+  let prec = 0;
+  let sep = ' ';
+  let dec = '.';
+  let s = '';
+  let toFixedFix = (n, prec) => {
+    let k = Math.pow(10, prec);
+    return '' + (Math.round(n * k)) / k;
+  };
+
+  if (prec) {
+    s = toFixedFix(n, prec);
+  } else {
+    s = '' + Math.round(n);
+  }
+  s = s.split('.');
+
+  if (s[0].length > 3) {
+    s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
+  }
+
+  if ((s[1] || '').length < prec) {
+    s[1] = s[1] || '';
+    s[1] = s[1] + new Array(prec - s[1].length + 1).join('0');
+  }
+
+  return s.join(dec);
+};
+
 exports.monthAndDay = (date) => {
   return cloq.monthAndDay(date);
 };

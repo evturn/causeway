@@ -5,13 +5,13 @@
   </div>
   <div class="records__item-payee">
     <div class="records__item-payee--user">{{payee.name.first}}</div>
-    <div class="records__item-payee--amount">${{total}}</div>
+    <div class="records__item-payee--amount">${{currency total}}</div>
   </div>
   <div class="records__item-debtors">
     {{#each debtors}}
       <div class="records__item-debtor">
         <div class="records__item-debtor--user">{{user.name.first}}</div>
-        <div class="records__item-debtor--amount">-${{debt}}</div>
+        <div class="records__item-debtor--amount">-${{currency debt}}</div>
       </div>
     {{/each}}
   </div>
