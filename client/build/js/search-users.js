@@ -1,8 +1,6 @@
 const components = require('components');
 const render = require('./render');
 const xhr = require('./xhr');
-
-
 const $searchButton = $('#search-users-button');
 const $searchInput = $('#search-users-input');
 const $resultsItem = $('.search-users__results-item');
@@ -34,7 +32,7 @@ const init = () => {
 const selectUser = (params) => {
   let url = `/groups/${params.groupId}/users`;
   let callback = (data) => {
-
+    console.log(data);
   };
 
   xhr.post({

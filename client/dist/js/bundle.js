@@ -17110,7 +17110,6 @@
 	var components = __webpack_require__(125);
 	var render = __webpack_require__(130);
 	var xhr = __webpack_require__(95);
-	
 	var $searchButton = $('#search-users-button');
 	var $searchInput = $('#search-users-input');
 	var $resultsItem = $('.search-users__results-item');
@@ -17141,7 +17140,9 @@
 	
 	var selectUser = function selectUser(params) {
 	  var url = '/groups/' + params.groupId + '/users';
-	  var callback = function callback(data) {};
+	  var callback = function callback(data) {
+	    console.log(data);
+	  };
 	
 	  xhr.post({
 	    url: url,

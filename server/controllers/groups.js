@@ -41,5 +41,5 @@ exports.create = (req, res, next) => {
 exports.addUser = (req, res, next) => {
   let groupId = req.body.groupId;
   let userId = req.body.userId;
-  res.send({yes: 'hi'});
+  res.json({yes: 'hi'});
 };
