@@ -5,9 +5,9 @@
 </div>
 
 <div class="mod-recent-activity">
-  {{#eachUpTo user.group.transactions 10}}
+  {{#eachUpTo transactions 5}}
   <div class="recent-activity__item-divider"></div>
-  <div class="recent-activity__item wrapper">
+  <div class="recent-activity__item">
     {{>component-record}}
   </div>
   {{/eachUpTo}}
