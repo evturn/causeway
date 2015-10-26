@@ -60,10 +60,12 @@
 	var geoposition = __webpack_require__(96);
 	var cloq = __webpack_require__(129);
 	var transaction = __webpack_require__(131);
+	var searchUsers = __webpack_require__(132);
 	
 	$(document).on('ready', function () {
 	  transaction.init();
 	  // geoposition.init();
+	  searchUsers();
 	  groups.init();
 	});
 
@@ -11685,6 +11687,7 @@
 	    $.ajax({
 	      url: options.url,
 	      type: 'GET',
+	      data: options.data,
 	      success: function success(data) {
 	        options.callback(data);
 	      },
@@ -17089,6 +17092,48 @@
 	};
 	
 	module.exports = exp;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
+
+/***/ },
+/* 132 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function($) {'use strict';
+	
+	var xhr = __webpack_require__(95);
+	
+	var init = function init() {
+	  var $searchButton = $('#search-users-button');
+	  var $searchInput = $('#search-users-input');
+	
+	  $searchInput.on('keypress', function (e) {
+	    if (e.keyCode === 13) {
+	      var params = $searchInput.val();
+	      performSearch(params);
+	    }
+	  });
+	
+	  $searchButton.on('click', function (e) {
+	    e.preventDefault();
+	    var params = $searchInput.val();
+	    performSearch(params);
+	  });
+	};
+	
+	var performSearch = function performSearch(params) {
+	  var callback = function callback(data) {
+	    console.log(data);
+	  };
+	
+	  xhr.get({
+	    url: '/users',
+	    callback: callback,
+	    data: { name: params },
+	    dataType: 'json'
+	  });
+	};
+	
+	module.exports = init;
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }

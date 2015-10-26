@@ -6,7 +6,8 @@ exports.user = (req, res, next) => {
 };
 
 exports.users = (req, res, next) => {
-  User.find((err, users) => {
+  let name = req.query.name;
+  User.find({'name.first': name}, (err, users) => {
     if (err) {
       console.log(err);
     }

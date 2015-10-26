@@ -1,6 +1,13 @@
-<div class="mod-create-group">
-  <form action="/groups" method="POST">
-    <input type="text" name="groupName">
-    <button type="submit">Ok</button>
-  </form>
+<div class="group wrapper">
+  <div class="group__create">
+    <form action="/groups" method="POST">
+      <input type="text" name="groupName" placeholder="Group name">
+      <button type="submit">Ok</button>
+    </form>
+  </div>
+  <div class="group__name">{{group.name}}</div>
+  <div class="group__add-users">
+    <input id="search-users-input" type="text" name="searchUsers" placeholder="Search users">
+    <button id="search-users-button" type="submit">Ok</button>
+  </div>
 </div>

@@ -28,14 +28,14 @@ module.exports = {
     partialsDir: [
       'views/partials',
       'views/partials/modules',
-      'shared/templates'
+      'views/partials/templates'
     ],
     layoutsDir: 'views/layouts'
   }),
   static: {
     root: express.static('/'),
     dist: express.static('client/dist'),
-    hbs: express.static('shared/templates')
+    hbs: express.static('views/partials/templates')
   },
   session: session({
     store: new RedisStore({

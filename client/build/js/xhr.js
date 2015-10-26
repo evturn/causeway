@@ -17,6 +17,7 @@ module.exports = {
     $.ajax({
       url: options.url,
       type: 'GET',
+      data: options.data,
       success(data) {
         options.callback(data);
       },

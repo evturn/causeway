@@ -2,7 +2,7 @@
 let express = require('express');
 let passport = require('passport');
 let o_O = require('./server/config');
-let locals = require('./server/lib/res-locals');
+let locals = require('./server/lib/locals');
 let app = module.exports = express();
 
 app.engine('hbs', o_O.hbs.engine);

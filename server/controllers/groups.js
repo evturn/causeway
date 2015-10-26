@@ -2,7 +2,7 @@
 let Group = require('../models/group');
 
 exports.change = (req, res, next) => {
-  res.redirect('/now');
+  res.redirect('/profile');
 };
 
 exports.create = (req, res, next) => {
