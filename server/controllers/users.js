@@ -7,11 +7,12 @@ exports.user = (req, res, next) => {
 
 exports.users = (req, res, next) => {
   let name = req.query.name;
+  let group = req.user.group;
   User.find({'name.first': name}, (err, users) => {
     if (err) {
       console.log(err);
     }
-    res.json({users: users});
+    res.json({users: users, group: group});
   });
 };
 

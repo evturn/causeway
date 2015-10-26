@@ -17113,6 +17113,8 @@
 	
 	var $searchButton = $('#search-users-button');
 	var $searchInput = $('#search-users-input');
+	var $resultsItem = $('.search-users__results-item');
+	var $resultsContainer = $('.mod-search-users___results');
 	
 	var init = function init() {
 	  $searchInput.on('keypress', function (e) {
@@ -17127,10 +17129,29 @@
 	    var params = $searchInput.val();
 	    performSearch(params);
 	  });
+	
+	  $resultsContainer.on('click', '.search-users__results-item', function (e) {
+	    e.preventDefault();
+	    var userId = $(this).data('id');
+	    var groupId = $resultsContainer.data('group-id');
+	    var params = { groupId: groupId, userId: userId };
+	    selectUser(params);
+	  });
+	};
+	
+	var selectUser = function selectUser(params) {
+	  var url = '/groups/' + params.groupId + '/users';
+	  var callback = function callback(data) {};
+	
+	  xhr.post({
+	    url: url,
+	    callback: callback,
+	    data: params,
+	    dataType: 'json'
+	  });
 	};
 	
 	var performSearch = function performSearch(params) {
-	
 	  var callback = function callback(data) {
 	    var component = components.searchUsers;
 	    $searchInput.val('');

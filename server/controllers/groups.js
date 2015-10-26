@@ -37,3 +37,9 @@ exports.create = (req, res, next) => {
   });
   res.redirect('/notes');
 };
+
+exports.addUser = (req, res, next) => {
+  let groupId = req.body.groupId;
+  let userId = req.body.userId;
+  res.send({yes: 'hi'});
+};

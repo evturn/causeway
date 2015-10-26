@@ -20,11 +20,11 @@ module.exports = (app) => {
   app.get('/notes',                 oauth.getAuth, locals.user, locals.groups, locals.group, controllers.pages.notes);
   app.get('/profile',               oauth.getAuth, locals.user, locals.groups, locals.group, controllers.pages.profile);
 
-  app.get('/users/',                oauth.getAuth, urlencoded, locals.user, controllers.users.users);
+  app.get('/users/',                oauth.getAuth, urlencoded, locals.user, locals.group, controllers.users.users);
   app.get('/users/:id',             oauth.getAuth, locals.user, controllers.users.user);
   app.get('/logout',                oauth.getAuth, locals.user, controllers.users.logout);
 
   app.post('/groups',               oauth.getAuth, urlencoded, locals.user, locals.groups, locals.group, controllers.groups.create);
   app.get('/groups/:id',            oauth.getAuth, locals.user, locals.groups, locals.setGroup, locals.group, urlencoded, controllers.groups.change);
-
+  app.post('/groups/:id/users', oauth.getAuth, locals.user, locals.groups, locals.group, urlencoded, controllers.groups.addUser);
 };
