@@ -13,12 +13,12 @@ module.exports = (app) => {
 
   app.post('/expenses/new',         oauth.getAuth, locals.user, locals.group, controllers.transactions.create);
 
-  app.get('/now',                   oauth.getAuth, locals.user, locals.groups, locals.group, locals.transactions, controllers.pages.now);
-  app.get('/expenses',              oauth.getAuth, locals.user, locals.groups, locals.group, locals.transactions, controllers.pages.expenses);
-  app.get('/travel',                oauth.getAuth, locals.user, locals.groups, locals.group, controllers.pages.travel);
-  app.get('/planner',               oauth.getAuth, locals.user, locals.groups, locals.group, controllers.pages.planner);
-  app.get('/notes',                 oauth.getAuth, locals.user, locals.groups, locals.group, controllers.pages.notes);
-  app.get('/profile',               oauth.getAuth, locals.user, locals.groups, locals.group, controllers.pages.profile);
+  app.get('/now',                   oauth.getAuth, locals.user, locals.groups, locals.group, locals.transactions, locals.getHeaders, controllers.pages.now);
+  app.get('/expenses',              oauth.getAuth, locals.user, locals.groups, locals.group, locals.transactions, locals.getHeaders, controllers.pages.expenses);
+  app.get('/travel',                oauth.getAuth, locals.user, locals.groups, locals.group, locals.getHeaders, controllers.pages.travel);
+  app.get('/planner',               oauth.getAuth, locals.user, locals.groups, locals.group, locals.getHeaders, controllers.pages.planner);
+  app.get('/notes',                 oauth.getAuth, locals.user, locals.groups, locals.group, locals.getHeaders, controllers.pages.notes);
+  app.get('/profile',               oauth.getAuth, locals.user, locals.groups, locals.group, locals.getHeaders, controllers.pages.profile);
 
   app.get('/users/',                oauth.getAuth, urlencoded, locals.user, locals.group, controllers.users.users);
   app.get('/users/:id',             oauth.getAuth, locals.user, controllers.users.user);

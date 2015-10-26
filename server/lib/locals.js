@@ -69,3 +69,11 @@ exports.transactions = (req, res, next) => {
       next();
     });
 };
+
+exports.getHeaders = (req, res, next) => {
+  if (req.query.json) {
+    res.jsonp(res.locals);
+  } else {
+    next();
+  }
+};
