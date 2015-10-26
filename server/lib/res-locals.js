@@ -14,6 +14,11 @@ module.exports.activePage = (req, res, next) => {
   next();
 };
 
+module.exports.user = (req, res, next) => {
+  res.locals.user = req.user;
+  next();
+};
+
 module.exports.groups = (req, res, next) => {
   let id = req.user._id;
   let locals = [];
