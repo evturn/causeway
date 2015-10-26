@@ -2,8 +2,9 @@
 let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 let passportLocalMongoose = require('passport-local-mongoose');
+let deepPopulate = require('mongoose-deep-populate')(mongoose);
 
-const userSchema = new mongoose.Schema({
+const userSchema = new Schema({
   googleId        : {type: String, sparse: true},
   avatar     : {type: String, sparse: true},
   coverPhoto : {type: String, sparse: true},
@@ -36,8 +37,8 @@ const userSchema = new mongoose.Schema({
   groups  : [{
     type: Schema.Types.ObjectId, ref: 'Group'
   }],
-  group: [{type: Schema.Types.ObjectId, ref: 'Group'}]
+  group: {type: Schema.Types.ObjectId, ref: 'Group'}
 });
 
-userSchema.plugin(passportLocalMongoose);
+userSchema.plugin(deepPopulate);
 module.exports = mongoose.model('User', userSchema);

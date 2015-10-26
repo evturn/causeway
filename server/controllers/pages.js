@@ -6,6 +6,7 @@ exports.now = (req, res, next) => {
 };
 
 exports.expenses = (req, res, next) => {
+  console.log(res.locals);
   res.render('expenses');
 };
 

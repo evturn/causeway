@@ -1,10 +1,10 @@
 'use strict';
 let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
+let deepPopulate = require('mongoose-deep-populate')(mongoose);
 
 const groupSchema = new mongoose.Schema({
   name          : {type: String},
-  userCount     : {type: Number},
   members       : [{
     type: Schema.Types.ObjectId, ref: 'User'
   }],
@@ -13,4 +13,5 @@ const groupSchema = new mongoose.Schema({
   }]
 });
 
+groupSchema.plugin(deepPopulate);
 module.exports = mongoose.model('Group', groupSchema);

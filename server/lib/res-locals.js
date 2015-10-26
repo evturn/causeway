@@ -15,58 +15,33 @@ module.exports.activePage = (req, res, next) => {
 };
 
 module.exports.groups = (req, res, next) => {
+  let id = req.user._id;
+  let locals = [];
   User
-    .find({_id: req.user._id})
-    .populate('groups')
+    .findById(id)
+    .deepPopulate('groups')
     .exec((err, user) => {
-      if (err) {
-        console.log(err);
-      }
-      else {
-        res.locals.groups = user[0].groups;
-        next();
-      }
+      res.locals.groups = user.groups
+      next();
     });
 };
 
 module.exports.setGroup = (req, res, next) => {
-  let user = req.user;
-
-  Group
-    .find({_id: req.params.id})
-    .populate('members')
-    .exec((err, group) => {
-      if (err) {
-        console.log(err);
-      }
-      else {
-        user.set({group: group});
-        user.save((err, user) => {
-          if (err) {
-            console.log(err);
-            return next(err);
-          }
-          else {
-            res.locals.group = group[0];
-            next();
-          }
-        })
-      }
-    });
+  let id = req.params.id;
+  Group.findById(id).deepPopulate('members').exec((err, group) => {
+    if (err) {return err;}
+    res.locals.group = group;
+    req.user.set({group: group._id});
+    req.user.save();
+    next();
+  });
 };
 
 module.exports.group = (req, res, next) => {
-  User
-    .find({_id: req.user._id})
-    .populate('group')
-    .exec((err, user) => {
-      if (err) {
-        console.log(err);
-      }
-      else {
-        res.locals.user = user[0];
-        res.locals.group = user[0].group[0];
-        next();
-      }
-    });
+  let id = req.user.group
+  Group.findById(id).deepPopulate('members').exec((err, group) => {
+    if (err) {return err;}
+    res.locals.group = group;
+    next();
+  });
 };
