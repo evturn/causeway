@@ -43,6 +43,11 @@ const Cloq = {
     }
     let clock = `${Cloq.hours(date)}:${Cloq.minutes(date)} ${Cloq.meridian(date)}`;
     return clock;
+  },
+  monthAndDay: (date) => {
+    let month = moment(date).format('MM');
+    let day = moment(date).format('DD');
+    return `${month}/${day}`;
   }
 };
 

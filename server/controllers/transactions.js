@@ -7,7 +7,6 @@ exports.create = (req, res, next) => {
   let groupId = req.body.groupId;
   transaction.payee = req.user._id;
   transaction.group = groupId;
-  transaction.timestamp = Date.now();
 
   Group.findById(groupId, (err, group) => {
     if (err) {return err;}

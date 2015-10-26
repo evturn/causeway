@@ -6,6 +6,10 @@ let utils = require('./utils');
 let jstz = require('jstimezonedetect');
 let cloq = require('./cloq');
 
+exports.monthAndDay = (date) => {
+  return cloq.monthAndDay(date);
+};
+
 exports.digitalClock = (time) => {
   return cloq.digital(time);
 };

@@ -16367,6 +16367,10 @@
 	var jstz = __webpack_require__(128);
 	var cloq = __webpack_require__(129);
 	
+	exports.monthAndDay = function (date) {
+	  return cloq.monthAndDay(date);
+	};
+	
 	exports.digitalClock = function (time) {
 	  return cloq.digital(time);
 	};
@@ -16927,6 +16931,11 @@
 	    }
 	    var clock = Cloq.hours(date) + ':' + Cloq.minutes(date) + ' ' + Cloq.meridian(date);
 	    return clock;
+	  },
+	  monthAndDay: function monthAndDay(date) {
+	    var month = moment(date).format('MM');
+	    var day = moment(date).format('DD');
+	    return month + '/' + day;
 	  }
 	};
 	
