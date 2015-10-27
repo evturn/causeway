@@ -23,7 +23,6 @@
     "googleapis": "^2.1.5",
     "googlemaps": "^1.0.2",
     "handlebars": "^4.0.3",
-    "install": "^0.1.8",
     "jquery": "^2.1.4",
     "jstimezonedetect": "^1.0.5",
     "lodash": "^3.10.1",

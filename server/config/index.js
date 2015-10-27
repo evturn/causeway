@@ -6,7 +6,7 @@ let mongoose = require('mongoose');
 let session = require('express-session');
 let RedisStore = require('connect-redis')(session);
 let client = require('redis').createClient();
-let logger = require('morgan');
+let morgan = require('morgan');
 let bodyParser = require('body-parser');
 let cookieParser = require('cookie-parser');
 
@@ -49,7 +49,7 @@ module.exports = {
     resave: false
   }),
   port: process.env.PORT || 3000,
-  logger: logger('dev'),
+  logger: morgan('dev'),
   cookieParser: cookieParser(),
   bodyParser: bodyParser.json(),
   urlencoded: bodyParser.urlencoded({extended: false}),
