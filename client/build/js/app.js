@@ -1,15 +1,15 @@
 'use strict';
-let $ = require('jquery');
-let _ = require('underscore');
-let livestamp = require('livestamp');
-let groups = require('./groups');
-let geoposition = require('./geoposition');
-let cloq = require('cloq');
-let transaction = require('./transaction');
+const $ = require('jquery');
+const _ = require('underscore');
+const livestamp = require('livestamp');
+const groups = require('./groups');
+const geoposition = require('./geoposition');
+const cloq = require('cloq');
+const transaction = require('./transaction');
 const searchUsers = require('./search-users');
 
 $(document).on('ready', () => {
-  transaction.init();
+  transaction();
   geoposition();
   searchUsers();
   groups.init();

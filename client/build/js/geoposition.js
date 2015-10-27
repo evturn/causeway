@@ -29,6 +29,4 @@ const saveCoordinates = (position) => {
   });
 };
 
-module.exports = () => {
-  getCoordinates();
-};
+module.exports = getCoordinates;

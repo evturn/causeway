@@ -62,7 +62,7 @@
 	var searchUsers = __webpack_require__(132);
 	
 	$(document).on('ready', function () {
-	  transaction.init();
+	  transaction();
 	  geoposition();
 	  searchUsers();
 	  groups.init();
@@ -11733,9 +11733,7 @@
 	  });
 	};
 	
-	module.exports = function () {
-	  getCoordinates();
-	};
+	module.exports = getCoordinates;
 
 /***/ },
 /* 97 */
@@ -17021,121 +17019,123 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function($) {'use strict';
-	var splitBill = null;
-	var hasValidAmount = null;
 	var render = __webpack_require__(130);
 	var components = __webpack_require__(125);
-	var exp = {
-	  init: function init() {
-	    var $user = $('.transaction__user');
-	    var $inputField = $('.transaction__field-amount');
-	    var $submitButton = $('.transaction__submit');
-	    var render = this.render;
-	    var reconcileSelected = this.reconcileSelected;
-	    var submitTransaction = this.submitTransaction;
-	    splitBill = false;
-	    hasValidAmount = false;
 	
-	    $inputField.on('keyup', function (e) {
-	      render();
-	    });
+	var splitBill = null;
+	var hasValidAmount = null;
 	
-	    $user.on('click', function (e) {
-	      reconcileSelected($(this));
-	      render();
-	    });
+	var init = function init() {
+	  var $user = $('.transaction__user');
+	  var $inputField = $('.transaction__field-amount');
+	  var $submitButton = $('.transaction__submit');
 	
-	    $submitButton.on('click', function (e) {
-	      e.preventDefault();
-	      submitTransaction();
-	    });
-	  },
-	  saveTransaction: function saveTransaction() {
-	    var debtors = [];
-	    var description = $('.transaction__field-description').val();
-	    var total = $('.transaction__field-amount').val();
-	    var groupId = $('.mod-transaction').data('group-id');
+	  splitBill = false;
+	  hasValidAmount = false;
 	
-	    $.each($('.selected'), function () {
-	      var user = $(this).parent().data('id');
-	      var debt = $(this).text().replace('$', '');
-	      var debtor = { user: user, debt: debt };
-	      debtors.push(debtor);
-	    });
+	  $inputField.on('keyup', function (e) {
+	    renderTransaction();
+	  });
 	
-	    var transaction = {
-	      total: total,
-	      description: description,
-	      debtors: debtors,
-	      groupId: groupId
-	    };
-	    $.ajax({
-	      url: '/expenses/new',
-	      type: 'POST',
-	      data: JSON.stringify(transaction),
-	      contentType: 'application/json; charset=utf-8',
-	      success: function success(data) {
-	        console.log(data);
-	        render(components.record, data);
-	      },
-	      error: function error(err) {
-	        console.log(err);
-	      }
-	    });
-	  },
-	  submitTransaction: function submitTransaction() {
-	    var hasDebtors = $('.selected').length > 0;
-	    var description = $('.transaction__field-description').val();
-	    var hasDescription = description !== '';
+	  $user.on('click', function (e) {
+	    reconcileSelected($(this));
+	    renderTransaction();
+	  });
 	
-	    if (hasDebtors && hasValidAmount && hasDescription) {
-	      exp.saveTransaction();
-	    } else {
-	      return;
+	  $submitButton.on('click', function (e) {
+	    e.preventDefault();
+	    submitTransaction();
+	  });
+	};
+	
+	var saveTransaction = function saveTransaction() {
+	  var debtors = [];
+	  var description = $('.transaction__field-description').val();
+	  var total = $('.transaction__field-amount').val();
+	  var groupId = $('.mod-transaction').data('group-id');
+	
+	  $.each($('.selected'), function () {
+	    var user = $(this).parent().data('id');
+	    var debt = $(this).text().replace('$', '');
+	    var debtor = { user: user, debt: debt };
+	    debtors.push(debtor);
+	  });
+	
+	  var transaction = {
+	    total: total,
+	    description: description,
+	    debtors: debtors,
+	    groupId: groupId
+	  };
+	
+	  $.ajax({
+	    url: '/expenses/new',
+	    type: 'POST',
+	    data: JSON.stringify(transaction),
+	    contentType: 'application/json; charset=utf-8',
+	    success: function success(data) {
+	      render(components.record, data);
+	    },
+	    error: function error(err) {
+	      console.log(err);
 	    }
-	  },
-	  reconcileSelected: function reconcileSelected($this) {
-	    var $userCheckbox = $this.find('.transaction__user-checkbox');
-	    var $userDebt = $this.find('.transaction__user-debt');
+	  });
+	};
 	
-	    $userDebt.toggleClass('selected');
-	    if ($userDebt.hasClass('selected')) {
-	      $userCheckbox.prop('checked', true);
-	    } else {
-	      $userCheckbox.prop('checked', false);
-	      $userDebt.empty();
-	    }
-	  },
-	  render: function render() {
-	    var $notification = $('.transaction__info');
-	    var value = $('.transaction__field-amount').val();
-	    var amount = parseInt(value);
-	    var $selected = $('.selected');
-	    var debtors = $selected.length;
-	    var debt = amount / debtors;
+	var submitTransaction = function submitTransaction() {
+	  var hasDebtors = $('.selected').length > 0;
+	  var description = $('.transaction__field-description').val();
+	  var hasDescription = description !== '';
 	
-	    if (debtors > 1) {
-	      $notification.html('Split ' + debtors + ' ways');
-	      splitBill = true;
-	    } else if (debtors <= 1) {
-	      $notification.empty();
-	      splitBill = false;
-	    }
-	
-	    if (amount > 9) {
-	      $selected.html('$' + debt);
-	      hasValidAmount = true;
-	    } else if (amount <= 9) {
-	      $selected.html('$' + debt / 2);
-	      hasValidAmount = true;
-	    } else {
-	      $selected.empty();
-	      hasValidAmount = false;
-	    }
+	  if (hasDebtors && hasValidAmount && hasDescription) {
+	    saveTransaction();
+	  } else {
+	    return;
 	  }
 	};
 	
-	module.exports = exp;
+	var reconcileSelected = function reconcileSelected($this) {
+	  var $userCheckbox = $this.find('.transaction__user-checkbox');
+	  var $userDebt = $this.find('.transaction__user-debt');
+	
+	  $userDebt.toggleClass('selected');
+	  if ($userDebt.hasClass('selected')) {
+	    $userCheckbox.prop('checked', true);
+	  } else {
+	    $userCheckbox.prop('checked', false);
+	    $userDebt.empty();
+	  }
+	};
+	
+	var renderTransaction = function renderTransaction() {
+	  var $notification = $('.transaction__info');
+	  var value = $('.transaction__field-amount').val();
+	  var amount = parseInt(value);
+	  var $selected = $('.selected');
+	  var debtors = $selected.length;
+	  var debt = amount / debtors;
+	
+	  if (debtors > 1) {
+	    $notification.html('Split ' + debtors + ' ways');
+	    splitBill = true;
+	  } else if (debtors <= 1) {
+	    $notification.empty();
+	    splitBill = false;
+	  }
+	
+	  if (amount > 9) {
+	    $selected.html('$' + debt);
+	    hasValidAmount = true;
+	  } else if (amount <= 9) {
+	    $selected.html('$' + debt / 2);
+	    hasValidAmount = true;
+	  } else {
+	    $selected.empty();
+	    hasValidAmount = false;
+	  }
+	};
+	
+	module.exports = init;
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
@@ -17191,9 +17191,9 @@
 	var performSearch = function performSearch(params) {
 	  var callback = function callback(data) {
 	    var component = components.searchUsers;
+	    var users = data.users;
 	    $searchInput.val('');
 	    $(component.el).empty();
-	    var users = data.users;
 	    var _iteratorNormalCompletion = true;
 	    var _didIteratorError = false;
 	    var _iteratorError = undefined;

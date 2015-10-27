@@ -2,10 +2,10 @@
 const components = require('components');
 const render = require('./render');
 const xhr = require('./xhr');
-const $searchButton = $('#search-users-button');
-const $searchInput = $('#search-users-input');
-const $resultsItem = $('.search-users__results-item');
-const $resultsContainer = $('.mod-search-users___results');
+let $searchButton = $('#search-users-button');
+let $searchInput = $('#search-users-input');
+let $resultsItem = $('.search-users__results-item');
+let $resultsContainer = $('.mod-search-users___results');
 
 const init = () => {
   $searchInput.on('keypress', (e) => {
@@ -47,9 +47,9 @@ const selectUser = (params) => {
 const performSearch = (params) => {
   let callback = (data) => {
     let component = components.searchUsers;
+    let users = data.users;
     $searchInput.val('');
     $(component.el).empty();
-    let users = data.users;
     for (let user of users) {
       render(component, user);
     }
