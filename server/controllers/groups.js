@@ -44,12 +44,12 @@ exports.addUser = (req, res, next) => {
   let userId = req.body.userId;
   User.findById(userId, (err, user) => {
     if (err) {return err;}
-    user.groups.push(groupId);
+    user.groups.addToSet(groupId);
     user.save((err, user) => {
       if (err) {return err;}
       Group.findById(groupId, (err, group) => {
         if (err) {return err;}
-        group.members.push(userId);
+        group.members.addToSet(userId);
         group.save((err, group) => {
           if (err) {return err;}
           res.json(group);

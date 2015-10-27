@@ -13,7 +13,7 @@ exports.create = (req, res, next) => {
     let record = new Transaction(transaction);
     record.save((err, record) => {
       if (err) {return err;}
-      group.transactions.push(record._id);
+      group.transactions.addToSet(record._id);
       group.save((err, group) => {
         if (err) {return err;}
         record.deepPopulate(['payee.name', 'debtors.user'], (err, record) => {
