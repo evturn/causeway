@@ -55,9 +55,8 @@
 	var $ = __webpack_require__(2);
 	var _ = __webpack_require__(3);
 	var livestamp = __webpack_require__(4);
-	var groups = __webpack_require__(94);
-	var geoposition = __webpack_require__(96);
 	var cloq = __webpack_require__(129);
+	var geoposition = __webpack_require__(96);
 	var transaction = __webpack_require__(131);
 	var searchUsers = __webpack_require__(132);
 	
@@ -65,7 +64,6 @@
 	  transaction();
 	  geoposition();
 	  searchUsers();
-	  groups.init();
 	});
 
 /***/ },
@@ -11622,42 +11620,7 @@
 	//! author : Ben : https://github.com/ben-lin
 
 /***/ },
-/* 94 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function($) {'use strict';
-	
-	var xhr = __webpack_require__(95);
-	
-	var groups = {
-	  init: function init() {
-	    var $switchTrigger = $('.profile__groups-switch-to');
-	
-	    $switchTrigger.on('click', function (e) {
-	      // e.preventDefault();
-	      // groups.switchTo($(this));
-	    });
-	  },
-	  switchTo: function switchTo($this) {
-	    var url = $this.data('url');
-	    var name = $this.data('name');
-	    var callback = function callback(data) {
-	      console.log(data);
-	    };
-	
-	    xhr.post({
-	      url: url,
-	      callback: callback,
-	      data: { name: name },
-	      dataType: 'json'
-	    });
-	  }
-	};
-	
-	module.exports = groups;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
-
-/***/ },
+/* 94 */,
 /* 95 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -17021,7 +16984,6 @@
 	/* WEBPACK VAR INJECTION */(function($) {'use strict';
 	var render = __webpack_require__(130);
 	var components = __webpack_require__(125);
-	
 	var splitBill = null;
 	var hasValidAmount = null;
 	

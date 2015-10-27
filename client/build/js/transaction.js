@@ -1,7 +1,6 @@
 'use strict';
 const render = require('./render');
 const components = require('components');
-
 let splitBill = null;
 let hasValidAmount = null;
 
