@@ -4,7 +4,21 @@ let Handlebars = require('handlebars');
 module.exports = (component, data) => {
   let cachedTemplates = [];
 
-  let updateBrowser = (component, template) => {
+  const loadTemplate = (component) => {
+    let file = component.url;
+
+    if (cachedTemplates[file]) {
+      return updateBrowser(cachedTemplates[file]);
+    }
+
+    $.get(file, (contents) => {
+      cachedTemplates[file] = Handlebars.compile(contents);
+      let template = cachedTemplates[file];
+      updateBrowser(component, template);
+    });
+  };
+
+  const updateBrowser = (component, template) => {
     let page = document.querySelector('body').className;
     let $el = $(component.el);
 
@@ -22,19 +36,6 @@ module.exports = (component, data) => {
         $el.append(template(data));
         break;
     }
-  };
-
-  let loadTemplate = (component) => {
-    let file = component.url;
-    if (cachedTemplates[file]) {
-      return updateBrowser(cachedTemplates[file]);
-    }
-
-    $.get(file, (contents) => {
-      cachedTemplates[file] = Handlebars.compile(contents);
-      let template = cachedTemplates[file];
-      updateBrowser(component, template);
-    });
   };
 
   return loadTemplate(component);

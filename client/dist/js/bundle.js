@@ -16940,6 +16940,20 @@
 	module.exports = function (component, data) {
 	  var cachedTemplates = [];
 	
+	  var loadTemplate = function loadTemplate(component) {
+	    var file = component.url;
+	
+	    if (cachedTemplates[file]) {
+	      return updateBrowser(cachedTemplates[file]);
+	    }
+	
+	    $.get(file, function (contents) {
+	      cachedTemplates[file] = Handlebars.compile(contents);
+	      var template = cachedTemplates[file];
+	      updateBrowser(component, template);
+	    });
+	  };
+	
 	  var updateBrowser = function updateBrowser(component, template) {
 	    var page = document.querySelector('body').className;
 	    var $el = $(component.el);
@@ -16958,19 +16972,6 @@
 	        $el.append(template(data));
 	        break;
 	    }
-	  };
-	
-	  var loadTemplate = function loadTemplate(component) {
-	    var file = component.url;
-	    if (cachedTemplates[file]) {
-	      return updateBrowser(cachedTemplates[file]);
-	    }
-	
-	    $.get(file, function (contents) {
-	      cachedTemplates[file] = Handlebars.compile(contents);
-	      var template = cachedTemplates[file];
-	      updateBrowser(component, template);
-	    });
 	  };
 	
 	  return loadTemplate(component);
