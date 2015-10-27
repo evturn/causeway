@@ -1,14 +1,14 @@
 'use strict';
-let express = require('express');
-let handlebars = require('express-handlebars');
-let helpers = require('../../shared/hbs-helpers');
-let mongoose = require('mongoose');
-let session = require('express-session');
-let RedisStore = require('connect-redis')(session);
-let client = require('redis').createClient();
-let morgan = require('morgan');
-let bodyParser = require('body-parser');
-let cookieParser = require('cookie-parser');
+const express = require('express');
+const handlebars = require('express-handlebars');
+const helpers = require('../../shared/hbs-helpers');
+const mongoose = require('mongoose');
+const session = require('express-session');
+const RedisStore = require('connect-redis')(session);
+const client = require('redis').createClient();
+const morgan = require('morgan');
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 
 module.exports = {
   mongo: () => {

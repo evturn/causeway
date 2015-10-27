@@ -1,3 +1,4 @@
+'use strict';
 const components = require('components');
 const render = require('./render');
 const xhr = require('./xhr');

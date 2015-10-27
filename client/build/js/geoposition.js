@@ -1,35 +1,34 @@
-let Handlebars = require('handlebars');
-let components = require('components');
-let render = require('./render');
+'use strict';
+const Handlebars = require('handlebars');
+const components = require('components');
+const render = require('./render');
+const xhr = require('./xhr');
 
-let geoposition = {
-  cachedTemplates: [],
-  init() {
-    this.getCoordinates();
-  },
-  getCoordinates() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        this.saveCoordinates(position);
-      });
-    }
-  },
-  saveCoordinates(position) {
-    $.ajax({
-      type: 'POST',
-      url: '/geoposition',
-      data: position,
-      dataType: 'json',
-      success(data) {
-        render(components.clock, data);
-        render(components.weather, data);
-        render(components.profileDetails, data);
-      },
-      error(err) {
-        console.log(err);
-      }
+let cachedTemplates: [];
+
+const getCoordinates = () => {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition((position) => {
+      saveCoordinates(position);
     });
   }
 };
 
-module.exports = geoposition;
+const saveCoordinates = (position) => {
+  let callback = (data) => {
+    render(components.clock, data);
+    render(components.weather, data);
+    render(components.profileLocation, data);
+  };
+
+  xhr.post({
+    url: '/geoposition',
+    data: position,
+    dataType: 'json',
+    callback: callback
+  });
+};
+
+module.exports = () => {
+  getCoordinates();
+};

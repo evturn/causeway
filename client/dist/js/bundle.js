@@ -52,7 +52,6 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
 	var $ = __webpack_require__(2);
 	var _ = __webpack_require__(3);
 	var livestamp = __webpack_require__(4);
@@ -64,7 +63,7 @@
 	
 	$(document).on('ready', function () {
 	  transaction.init();
-	  geoposition.init();
+	  geoposition();
 	  searchUsers();
 	  groups.init();
 	});
@@ -11663,86 +11662,80 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function($) {'use strict';
+	var get = function get() {
+	  var options = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
 	
-	module.exports = {
-	  post: function post() {
-	    var options = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
-	
-	    $.ajax({
-	      url: options.url,
-	      type: 'POST',
-	      data: options.data,
-	      dataType: options.dataType,
-	      success: function success(data) {
-	        options.callback(data);
-	      },
-	      error: function error(err) {
-	        console.log(err);
-	      }
-	    });
-	  },
-	  get: function get() {
-	    var options = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
-	
-	    $.ajax({
-	      url: options.url,
-	      type: 'GET',
-	      data: options.data,
-	      success: function success(data) {
-	        options.callback(data);
-	      },
-	      error: function error(err) {
-	        console.log(err);
-	      }
-	    });
-	  }
+	  $.ajax({
+	    url: options.url,
+	    type: 'GET',
+	    data: options.data,
+	    success: function success(data) {
+	      options.callback(data);
+	    },
+	    error: function error(err) {
+	      console.log(err);
+	    }
+	  });
 	};
+	
+	var post = function post() {
+	  var options = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+	
+	  $.ajax({
+	    url: options.url,
+	    type: 'POST',
+	    data: options.data,
+	    dataType: options.dataType,
+	    success: function success(data) {
+	      options.callback(data);
+	    },
+	    error: function error(err) {
+	      console.log(err);
+	    }
+	  });
+	};
+	
+	module.exports = { get: get, post: post };
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
 /* 96 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function($) {'use strict';
-	
+	'use strict';
 	var Handlebars = __webpack_require__(97);
 	var components = __webpack_require__(125);
 	var render = __webpack_require__(130);
+	var xhr = __webpack_require__(95);
 	
-	var geoposition = {
-	  cachedTemplates: [],
-	  init: function init() {
-	    this.getCoordinates();
-	  },
-	  getCoordinates: function getCoordinates() {
-	    var _this = this;
+	var cachedTemplates = undefined;
 	
-	    if (navigator.geolocation) {
-	      navigator.geolocation.getCurrentPosition(function (position) {
-	        _this.saveCoordinates(position);
-	      });
-	    }
-	  },
-	  saveCoordinates: function saveCoordinates(position) {
-	    $.ajax({
-	      type: 'POST',
-	      url: '/geoposition',
-	      data: position,
-	      dataType: 'json',
-	      success: function success(data) {
-	        render(components.clock, data);
-	        render(components.weather, data);
-	        render(components.profileDetails, data);
-	      },
-	      error: function error(err) {
-	        console.log(err);
-	      }
+	var getCoordinates = function getCoordinates() {
+	  if (navigator.geolocation) {
+	    navigator.geolocation.getCurrentPosition(function (position) {
+	      saveCoordinates(position);
 	    });
 	  }
 	};
 	
-	module.exports = geoposition;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
+	var saveCoordinates = function saveCoordinates(position) {
+	  var callback = function callback(data) {
+	    render(components.clock, data);
+	    render(components.weather, data);
+	    render(components.profileLocation, data);
+	  };
+	
+	  xhr.post({
+	    url: '/geoposition',
+	    data: position,
+	    dataType: 'json',
+	    callback: callback
+	  });
+	};
+	
+	module.exports = function () {
+	  getCoordinates();
+	};
 
 /***/ },
 /* 97 */
@@ -17028,7 +17021,6 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function($) {'use strict';
-	
 	var splitBill = null;
 	var hasValidAmount = null;
 	var render = __webpack_require__(130);
@@ -17151,7 +17143,6 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function($) {'use strict';
-	
 	var components = __webpack_require__(125);
 	var render = __webpack_require__(130);
 	var xhr = __webpack_require__(95);

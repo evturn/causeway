@@ -1,3 +1,4 @@
+'use strict';
 let splitBill = null;
 let hasValidAmount = null;
 let render = require('./render');

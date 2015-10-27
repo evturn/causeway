@@ -1,3 +1,4 @@
+'use strict';
 let $ = require('jquery');
 let _ = require('underscore');
 let livestamp = require('livestamp');
@@ -9,7 +10,7 @@ const searchUsers = require('./search-users');
 
 $(document).on('ready', () => {
   transaction.init();
-  geoposition.init();
+  geoposition();
   searchUsers();
   groups.init();
 });
