@@ -64,7 +64,7 @@
 	
 	$(document).on('ready', function () {
 	  transaction.init();
-	  // geoposition.init();
+	  geoposition.init();
 	  searchUsers();
 	  groups.init();
 	});

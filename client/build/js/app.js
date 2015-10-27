@@ -9,7 +9,7 @@ const searchUsers = require('./search-users');
 
 $(document).on('ready', () => {
   transaction.init();
-  // geoposition.init();
+  geoposition.init();
   searchUsers();
   groups.init();
 });
