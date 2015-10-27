@@ -42,7 +42,7 @@ module.exports = {
       host: 'localhost',
       port: 6379,
       client: client,
-      ttl: 260
+      ttl: 24 * 60 * 60 * 1000
     }),
     secret: 'crankshaft',
     saveUninitialized: false,

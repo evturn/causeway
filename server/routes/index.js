@@ -1,8 +1,8 @@
 'use strict';
-let controllers = require('../controllers');
-let oauth = require('../lib/google-oauth');
-let urlencoded = require('body-parser').urlencoded({extended: false});
-let locals = require('../lib/locals');
+const controllers = require('../controllers');
+const oauth = require('../lib/google-oauth');
+const urlencoded = require('body-parser').urlencoded({extended: false});
+const locals = require('../lib/locals');
 
 module.exports = (app) => {
 

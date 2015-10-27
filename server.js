@@ -1,9 +1,9 @@
 'use strict';
-let express = require('express');
-let passport = require('passport');
-let o_O = require('./server/config');
-let locals = require('./server/lib/locals');
-let app = module.exports = express();
+const express = require('express');
+const passport = require('passport');
+const o_O = require('./server/config');
+const locals = require('./server/lib/locals');
+const app = module.exports = express();
 
 app.engine('hbs', o_O.hbs.engine);
 app.set('view engine', 'hbs');
